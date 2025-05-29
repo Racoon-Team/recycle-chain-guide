@@ -1,6 +1,3 @@
-
 export const GuidePage = () => {
-  return (
-    <div>GuidePage</div>
-  )
-}
+  return <div>GuidePage</div>;
+};
