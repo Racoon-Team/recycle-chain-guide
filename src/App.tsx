@@ -1,14 +1,18 @@
-import './App.css'
-import { AppRouter } from './routes/AppRouter';
+
+
+import ResponsiveAppBar from './components/NavBar';
+import AppRouter from './routes/AppRouter';
 
 function App() {
-
   return (
-    <>
-    <AppRouter/>
-
-    </>
-  )
+   <>
+   <ResponsiveAppBar />
+   <AppRouter />
+   
+   </>
+   
+  );
 }
 
-export default App
+export default App;
+
