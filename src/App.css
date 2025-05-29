@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.box-shadow{
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
