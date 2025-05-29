@@ -3,7 +3,7 @@
 import ResponsiveAppBar from './components/NavBar';
 import AppRouter from './routes/AppRouter';
 
-function App() {
+function RecycleApp() {
   return (
    <>
    <ResponsiveAppBar />
@@ -14,5 +14,5 @@ function App() {
   );
 }
 
-export default App;
+export default RecycleApp;
 
