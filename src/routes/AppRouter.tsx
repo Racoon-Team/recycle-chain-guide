@@ -5,6 +5,7 @@ import { ExperiencesPage } from "../pages/ExperiencesPage"
 import { RecycleMapPage } from "../pages/RecycleMapPage"
 
 
+
 export const AppRouter = () => {
   return (
     <Routes>
