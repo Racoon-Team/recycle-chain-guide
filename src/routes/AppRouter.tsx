@@ -1,9 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage';
-import { GuidePage } from '../pages/GuidePage';
-import { ExperiencesPage } from '../pages/ExperiencesPage';
-import { RecycleMapPage } from '../pages/RecycleMapPage';
-
+import { Routes, Route } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
+import { GuidePage } from "../pages/GuidePage";
+import { ExperiencesPage } from "../pages/ExperiencesPage";
+import { RecycleMapPage } from "../pages/RecycleMapPage";
 
 export default function AppRouter() {
   return (

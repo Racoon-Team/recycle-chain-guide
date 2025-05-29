@@ -21,7 +21,6 @@ const pages = [
   { name: "Recycle Map", path: "/recycle-map" },
 ];
 
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null

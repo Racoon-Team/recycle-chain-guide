@@ -1,6 +1,3 @@
-
 export const RecycleMapPage = () => {
-  return (
-    <div>RecycleMapPage</div>
-  )
-}
+  return <div>RecycleMapPage</div>;
+};
