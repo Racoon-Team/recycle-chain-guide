@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import RecycleApp from "./RecycleApp.tsx";
+import App from "./RecycleApp.tsx";
 import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <StrictMode>
-      <RecycleApp />
+      <App />
     </StrictMode>
   </BrowserRouter>
 );
