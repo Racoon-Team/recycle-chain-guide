@@ -1,8 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-
-
 export const RecycleMapPage = () => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
@@ -20,4 +18,3 @@ export const RecycleMapPage = () => {
     </div>
   )
 }
-
