@@ -1,6 +1,6 @@
 
 import { Google } from "@mui/icons-material";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Button,  Grid,  Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 
 
@@ -11,7 +11,7 @@ export const LoginPage = () => {
       <form>
         <Grid container
 >
-          <Grid item size={{ xs: 12 }} sx={{ mt: 2 }}>
+          <Grid  size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
               label="Correo"
               type="email"
@@ -20,7 +20,7 @@ export const LoginPage = () => {
             />
           </Grid>
 
-          <Grid item size={{ xs: 12 }} sx={{ mt: 2 }}>
+          <Grid  size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
               label="Contraseña"
               type="password"
@@ -28,13 +28,13 @@ export const LoginPage = () => {
               fullWidth
             />
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-              <Grid item size={{ xs: 12, sm: 6 }}>
+              <Grid  size={{ xs: 12, sm: 6 }}>
                 <Button variant="contained" fullWidth>
                   Login
                 </Button>
               </Grid>
 
-              <Grid item size={{ xs: 12, sm: 6 }}>
+              <Grid  size={{ xs: 12, sm: 6 }}>
                 <Button variant="contained" fullWidth>
                   <Google />
                   <Typography sx={{ ml: 1 }}>Google</Typography>
