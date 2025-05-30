@@ -1,11 +1,11 @@
 import { Google } from "@mui/icons-material";
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const LoginPage = () => {
-  const [correo, setCorreo] = useState(" ");
-  const [password, setPassword] = useState(" ");
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState({ correo: "", password: "" });
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -47,7 +47,7 @@ export const LoginPage = () => {
             />
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid size={{ xs: 12, sm: 6 }}>
-                <Button variant="contained" fullWidth>
+                <Button type="submit" variant="contained" fullWidth>
                   Login
                 </Button>
               </Grid>
