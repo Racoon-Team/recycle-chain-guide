@@ -1,9 +1,9 @@
-import { ExperiencesPage } from "@pages/ExperiencesPage";
-import { GuidePage } from "@pages/GuidePage";
-import { HomePage } from "@pages/HomePage";
-import { RecycleMapPage } from "@pages/RecycleMapPage";
+import { ExperiencesPage } from '@pages/ExperiencesPage';
+import { GuidePage } from '@pages/GuidePage';
+import { HomePage } from '@pages/HomePage';
+import { RecycleMapPage } from '@pages/RecycleMapPage';
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
 export default function AppRouter() {
   return (

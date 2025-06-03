@@ -1,19 +1,18 @@
-import { Google } from "@mui/icons-material";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { AuthLayout } from "../layout/AuthLayout";
-import { useState } from "react";
+import { Google } from '@mui/icons-material';
+import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { AuthLayout } from '../layout/AuthLayout';
+import { useState } from 'react';
 
 export const LoginPage = () => {
-  const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState({ correo: "", password: "" });
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState({ correo: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setError({
-      correo: !correo.match(/^\S+@\S+\.\S+$/) ? "Correo inválido" : "",
-      password:
-        password.length <= 6 ? "tiene que tener minimo 6 caracterres" : "",
+      correo: !correo.match(/^\S+@\S+\.\S+$/) ? 'Correo inválido' : '',
+      password: password.length <= 6 ? 'tiene que tener minimo 6 caracterres' : '',
     });
   };
 
@@ -28,9 +27,9 @@ export const LoginPage = () => {
               placeholder="correo@google.com"
               fullWidth
               value={correo}
-              onChange={(event)=> setCorreo(event.target.value)}
+              onChange={(event) => setCorreo(event.target.value)}
               error={!!error.correo}
-              helperText={ error.correo}
+              helperText={error.correo}
             />
           </Grid>
 
@@ -41,8 +40,8 @@ export const LoginPage = () => {
               placeholder="contraseña"
               fullWidth
               value={password}
-              onChange={(event)=>setPassword(event.target.value)}
-              error= {!!error.password}
+              onChange={(event) => setPassword(event.target.value)}
+              error={!!error.password}
               helperText={error.password}
             />
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>

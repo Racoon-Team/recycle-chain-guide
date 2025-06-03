@@ -5,9 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "prettier": "prettier --write .",
+    "build": "tsc -b && vite build",
     "preview": "vite preview"
+  },
+  "pre-commit": [
+    "prettier",
+    "lint"
+  ],
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -19,6 +27,8 @@
     "i18next-browser-languagedetector": "^8.1.0",
     "i18next-http-backend": "^3.0.2",
     "leaflet": "^1.9.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",

@@ -1,16 +1,17 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import RecycleApp from "./RecycleApp.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import RecycleApp from './RecycleApp.tsx';
 
-import "./i18n/config.ts";
+import './i18n/config.ts';
 
 // import { LoginPage } from './auth/pages/LoginPage';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
       <RecycleApp />
+
       {/*       <LoginPage /> */}
     </StrictMode>
   </BrowserRouter>
