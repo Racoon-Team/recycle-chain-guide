@@ -8,8 +8,7 @@ export const AuthLayout = ({ children, title = '' }) => {
       // direction="colmn"
       alignItems={'center'}
       justifyContent="center"
-      sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
-    >
+      sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}>
       <Grid
         // className="box-shadow"
         size={{ xs: 3 }}
@@ -18,8 +17,7 @@ export const AuthLayout = ({ children, title = '' }) => {
           backgroundColor: 'white',
           padding: 3,
           borderRadius: 2,
-        }}
-      >
+        }}>
         <Typography variant="h5" sx={{ mb: 1 }}>
           {title}
         </Typography>
