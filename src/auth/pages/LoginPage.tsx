@@ -2,6 +2,7 @@ import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
@@ -10,6 +11,7 @@ import { startGoogleSingIn, startLoginWithEmailPassword } from '../../store/auth
 import { AuthLayout } from '../layout/AuthLayout';
 
 export const LoginPage = () => {
+  const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,8 +39,8 @@ useEffect(() => {
   const handleSubmit = (event: React.FormEvent) => {
   event.preventDefault();
 
-  const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? 'Correo inválido' : '';
-  const passwordError = password.length <= 6 ? 'Debe tener mínimo 6 caracteres' : '';
+  const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail'): '';
+  const passwordError = password.length <= 6 ? t('errors.shortPassword'): '';
 
   setError({ correo: correoError, password: passwordError });
 
@@ -81,20 +83,20 @@ useEffect(() => {
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Button type="submit" variant="contained" fullWidth>
-                  Login
+                  {t('login.login')}
                 </Button>
               </Grid>
 
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Button variant="contained" fullWidth onClick={onGoogleSignIn}>
                   <Google />
-                  <Typography sx={{ ml: 1 }}>Google</Typography>
+                  <Typography sx={{ ml: 1 }}>{t('login.google')}</Typography>
                 </Button>
               </Grid>
             </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="end" size={12}>
-            <Link>Crear una cuenta</Link>
+            <Link>{t('login.createAccount')}</Link>
           </Grid>
         </Grid>
       </form>
