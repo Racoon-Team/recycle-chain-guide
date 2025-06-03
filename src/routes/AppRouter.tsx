@@ -5,15 +5,18 @@ import { HomePage } from '@pages/HomePage';
 import { RecycleMapPage } from '@pages/RecycleMapPage';
 import { Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../auth/pages';
+import { PrivateRoute } from './PrivateRoute';
 
 export default function AppRouter() {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/guide" element={<GuidePage />} />
-        <Route path="/experiences" element={<ExperiencesPage />} />
-        <Route path="/recycle-map" element={<RecycleMapPage />} />
+      <Route element={<PrivateRoute />}>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/guide" element={<GuidePage />} />
+          <Route path="/experiences" element={<ExperiencesPage />} />
+          <Route path="/recycle-map" element={<RecycleMapPage />} />
+        </Route>
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
