@@ -1,13 +1,23 @@
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from 'store/store';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import type { AppDispatch, RootState } from 'store/store';
 import { startGoogleSingIn } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
 export const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const { status } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+useEffect(() => {
+  if (status === 'authenticated') {
+    navigate('/');
+  }
+}, [status, navigate]);
 
   const onGoogleSignIn = () => {
     dispatch(startGoogleSingIn());

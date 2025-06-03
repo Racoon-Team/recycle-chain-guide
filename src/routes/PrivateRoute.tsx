@@ -1,12 +1,13 @@
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-
-const useAuth = () => {
-  const user = localStorage.getItem('user');
-  return !!user;
-};
+import { type RootState } from '../store/store';
 
 export const PrivateRoute = () => {
-  const isAuth = useAuth();
+  const { status } = useSelector((state: RootState) => state.auth);
 
-  return isAuth ? <Outlet /> : <Navigate to="/login" />;
+  if (status === 'checking') {
+    return <h3>CARGANDO................</h3>;
+  }
+
+  return status === 'authenticated' ? <Outlet /> : <Navigate to="/login" />;
 };

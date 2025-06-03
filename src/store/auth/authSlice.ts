@@ -29,7 +29,10 @@ export const authSlice = createSlice({
       state.photoURL = null;
       state.errorMessage = payload || null;
     },
+    checkingCredentials: (state) => {
+      state.status = 'checking';
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, checkingCredentials } = authSlice.actions;
