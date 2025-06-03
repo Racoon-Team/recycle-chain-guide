@@ -1,15 +1,25 @@
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { AuthLayout } from '../layout/AuthLayout';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from 'store/store';
+import { startGoogleSingIn } from '../../store/auth/thunks';
+import { AuthLayout } from '../layout/AuthLayout';
 
 export const LoginPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onGoogleSignIn = () => {
+    dispatch(startGoogleSingIn());
+  };
+
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({ correo: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     setError({
       correo: !correo.match(/^\S+@\S+\.\S+$/) ? 'Correo inválido' : '',
       password: password.length <= 6 ? 'tiene que tener minimo 6 caracterres' : '',
@@ -52,7 +62,7 @@ export const LoginPage = () => {
               </Grid>
 
               <Grid size={{ xs: 12, sm: 6 }}>
-                <Button variant="contained" fullWidth>
+                <Button variant="contained" fullWidth onClick={onGoogleSignIn}>
                   <Google />
                   <Typography sx={{ ml: 1 }}>Google</Typography>
                 </Button>
