@@ -8,12 +8,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
+  apiKey: 'AIzaSyDkVbIqUq6bPmq085pWhsG0_XkYpvAPhI4',
+  authDomain: 'recycleapp-fdfff.firebaseapp.com',
+  projectId: 'recycleapp-fdfff',
+  storageBucket: 'recycleapp-fdfff.firebasestorage.app',
+  messagingSenderId: '987577833443',
+  appId: '1:987577833443:web:184a36a87f334e0c2632d6',
 };
 
 // Initialize Firebase
