@@ -1,13 +1,16 @@
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
-import { startGoogleSingIn } from '../../store/auth/thunks';
+import { useForm } from '../../hooks/useForm';
+import { startGoogleSingIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
 export const LoginPage = () => {
+
   const dispatch = useDispatch<AppDispatch>();
 
   const { status } = useSelector((state: RootState) => state.auth);
@@ -19,22 +22,31 @@ useEffect(() => {
   }
 }, [status, navigate]);
 
+
   const onGoogleSignIn = () => {
     dispatch(startGoogleSingIn());
   };
 
-  const [correo, setCorreo] = useState('');
-  const [password, setPassword] = useState('');
+  const { formState, correo, password, onInputChange } = useForm({
+    correo: 'noelia@gmail.com',
+    password: '1234567',
+  });
+
   const [error, setError] = useState({ correo: '', password: '' });
-
+  
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    setError({
-      correo: !correo.match(/^\S+@\S+\.\S+$/) ? 'Correo inválido' : '',
-      password: password.length <= 6 ? 'tiene que tener minimo 6 caracterres' : '',
-    });
-  };
+  const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? 'Correo inválido' : '';
+  const passwordError = password.length <= 6 ? 'Debe tener mínimo 6 caracteres' : '';
+
+  setError({ correo: correoError, password: passwordError });
+
+  if (correoError || passwordError) return;
+
+  
+  dispatch(startLoginWithEmailPassword({ correo, password }));
+};
 
   return (
     <AuthLayout title="Login">
@@ -44,10 +56,11 @@ useEffect(() => {
             <TextField
               label="Correo"
               type="email"
+              name="correo"
               placeholder="correo@google.com"
               fullWidth
               value={correo}
-              onChange={(event) => setCorreo(event.target.value)}
+              onChange={onInputChange}
               error={!!error.correo}
               helperText={error.correo}
             />
@@ -57,10 +70,11 @@ useEffect(() => {
             <TextField
               label="Contraseña"
               type="password"
+              name="password"
               placeholder="contraseña"
               fullWidth
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={onInputChange}
               error={!!error.password}
               helperText={error.password}
             />

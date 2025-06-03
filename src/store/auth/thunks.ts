@@ -1,6 +1,6 @@
 import type { AppDispatch } from "store/store";
-import { singInWithGoogle } from "../../firebase/providers";
-import { login, logout } from "./authSlice";
+import { signInWithEmailPassword, singInWithGoogle } from "../../firebase/providers";
+import { checkingCredentials, login, logout } from "./authSlice";
 
 export const startGoogleSingIn = () => {
 
@@ -11,5 +11,17 @@ export const startGoogleSingIn = () => {
 
     const { uid, displayName, email, photoURL } = result;
     dispatch(login({ uid, displayName, email, photoURL }));
+  };
+};
+
+export const startLoginWithEmailPassword = ({ correo, password }: { correo: string; password: string }) => {
+  return async (dispatch:AppDispatch) => {
+    dispatch(checkingCredentials());
+
+    const result = await signInWithEmailPassword({ correo, password });
+
+    if (!result.ok) return dispatch(logout(result.errorMessage));
+
+    dispatch(login(result));
   };
 };
