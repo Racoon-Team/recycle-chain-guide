@@ -1,6 +1,9 @@
+import NestedModal from "@components/NestedModal"
 
 export const RecyclingPlacePage = () => {
   return (
-    <div>RecyclingPlacePage</div>
+   
+      <NestedModal />
+   
   )
 }
