@@ -1,4 +1,4 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import React from "react";
 
 const style = {
@@ -14,6 +14,14 @@ const style = {
   px: 4,
   pb: 3,
 };
+
+const materiales = [
+  "Papel y Cartón",
+  "Plástico Duro",
+  "Plástico PET",
+  "Tetra Pak",
+  "Vidrio",
+];
 
 
 export default function NestedModal() {
@@ -57,6 +65,11 @@ export default function NestedModal() {
             onChange={(e) => setTipo(e.target.value)}
             sx={{ mb: 2 }}
           >
+            {materiales.map((material) => (
+              <MenuItem key={material} value={material}>
+                {material}
+              </MenuItem>
+            ))}
           </TextField>
 
           <Button fullWidth variant="contained">
