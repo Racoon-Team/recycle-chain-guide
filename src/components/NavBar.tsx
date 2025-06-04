@@ -23,6 +23,7 @@ const pages = [
   { name: 'Home', path: '/' },
   { name: 'Guide', path: '/guide' },
   { name: 'Experiences', path: '/experiences' },
+  { name: 'Recycling Place', path: '/recycling-place' },
   { name: 'Recycle Map', path: '/recycle-map' },
 ];
 
