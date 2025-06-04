@@ -1,5 +1,4 @@
-import { Google } from '@mui/icons-material';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
 import { useForm } from '../../hooks/useForm';
-import { startGoogleSingIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
+import { startLoginWithEmailPassword } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
-export const LoginPage = () => {
+export const Register = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
@@ -24,34 +23,46 @@ export const LoginPage = () => {
     }
   }, [status, navigate]);
 
-  const onGoogleSignIn = () => {
-    dispatch(startGoogleSingIn());
-  };
-
-  const { correo, password, onInputChange } = useForm({
-    correo: 'noelia@gmail.com',
-    password: '1234567',
+  const { nombre, correo, password, onInputChange } = useForm({
+    nombre: '',
+    correo: '',
+    password: '',
   });
 
-  const [error, setError] = useState({ correo: '', password: '' });
+  const [error, setError] = useState({ nombre: '', correo: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
+    const nombreError = nombre.trim() === '' ? 'Nombre requerido' : '';
     const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
     const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
-    setError({ correo: correoError, password: passwordError });
+    setError({ nombre: nombreError, correo: correoError, password: passwordError });
 
-    if (correoError || passwordError) return;
+    if (nombreError || correoError || passwordError) return;
 
-    dispatch(startLoginWithEmailPassword({ correo, password }));
+    dispatch(startLoginWithEmailPassword({ nombre, correo, password }));
   };
 
   return (
-    <AuthLayout title="Login">
+    <AuthLayout title="Crear cuenta">
       <form onSubmit={handleSubmit}>
         <Grid container>
+          <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
+            <TextField
+              label="Nombre completo"
+              type="text"
+              name="nombre"
+              placeholder="Nombre completo "
+              fullWidth
+              value={nombre}
+              onChange={onInputChange}
+              error={!!error.nombre}
+              helperText={error.nombre}
+            />
+          </Grid>
+
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
               label="Correo"
@@ -79,24 +90,19 @@ export const LoginPage = () => {
               helperText={error.password}
             />
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={{ xs: 12 }}>
                 <Button type="submit" variant="contained" fullWidth>
-                  {t('login.login')}
-                </Button>
-              </Grid>
-
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <Button variant="contained" fullWidth onClick={onGoogleSignIn}>
-                  <Google />
-                  <Typography sx={{ ml: 1 }}>{t('login.google')}</Typography>
+                  Crear cuenta
                 </Button>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid container direction="row" justifyContent="end" size={12}>
-            <Link>
-              {t('login.createAccount')} onClick={}
-            </Link>
+
+            <Grid container direction="row" justifyContent="end">
+              <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
+              {/* <Link component={RouterLink} color="inherit" to="/auth/login">
+                Ingresar
+              </Link> */}
+            </Grid>
           </Grid>
         </Grid>
       </form>
