@@ -1,12 +1,11 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
-
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
 import { useForm } from '../../hooks/useForm';
-import { startLoginWithEmailPassword } from '../../store/auth/thunks';
+import { startCreatingUserWithEmailPassword } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
 export const Register = () => {
@@ -42,7 +41,7 @@ export const Register = () => {
 
     if (nombreError || correoError || passwordError) return;
 
-    dispatch(startLoginWithEmailPassword({ nombre, correo, password }));
+    dispatch(startCreatingUserWithEmailPassword({ nombre, correo, password }));
   };
 
   return (
@@ -97,11 +96,11 @@ export const Register = () => {
               </Grid>
             </Grid>
 
-            <Grid container direction="row" justifyContent="end">
+            <Grid container direction="row" justifyContent="end" size={12}>
               <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
-              {/* <Link component={RouterLink} color="inherit" to="/auth/login">
-                Ingresar
-              </Link> */}
+              <Link component={RouterLink} to="/login">
+                ingresar
+              </Link>
             </Grid>
           </Grid>
         </Grid>
