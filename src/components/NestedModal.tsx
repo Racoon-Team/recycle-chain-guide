@@ -1,5 +1,8 @@
 import { Box, Button, MenuItem, Modal, TextField, Typography } from "@mui/material";
-import React from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
+import { FirebaseDB } from "../firebase/config";
+import { useForm } from "../hooks/useForm";
 
 const style = {
   position: "absolute" as const,
@@ -23,12 +26,45 @@ const materiales = [
   "Vidrio",
 ];
 
-
 export default function NestedModal() {
-  const [open, setOpen] = React.useState(false);
-  const [nombre, setNombre] = React.useState("");
-  const [url, setUrl] = React.useState("");
-  const [tipo, setTipo] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const { nombre, url, tipo, onInputChange, resetForm } = useForm({
+    nombre: "",
+    url: "",
+    tipo: "",
+  });
+
+  const handleSubmit = async () => {
+    setError("");
+    setSuccess("");
+
+    if (!nombre || !url || !tipo) {
+      setError("Por favor completa todos los campos.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(FirebaseDB, "lugaresReciclaje"), {
+        nombre,
+        url,
+        tipo,
+        createdAt: new Date(),
+      });
+
+      setSuccess("Lugar guardado correctamente");
+      resetForm();
+      setTimeout(() => {
+        setOpen(false);
+        setSuccess("");
+      }, 1500);
+    } catch (err) {
+      console.error(err);
+      setError("Hubo un error al guardar el lugar ");
+    }
+  };
 
   
   return (
@@ -46,23 +82,26 @@ export default function NestedModal() {
           <TextField
             fullWidth
             label="Nombre"
+            name="nombre"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={onInputChange}
             sx={{ mb: 2 }}
           />
           <TextField
             fullWidth
             label="URL"
+            name="url"
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={onInputChange}
             sx={{ mb: 2 }}
           />
           <TextField
             fullWidth
             select
             label="Tipo de material"
+            name="tipo"
             value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
+            onChange={onInputChange}
             sx={{ mb: 2 }}
           >
             {materiales.map((material) => (
@@ -72,7 +111,7 @@ export default function NestedModal() {
             ))}
           </TextField>
 
-          <Button fullWidth variant="contained">
+          <Button fullWidth variant="contained" onClick={handleSubmit}>
             Guardar
           </Button>
         </Box>
