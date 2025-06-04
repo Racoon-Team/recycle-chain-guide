@@ -1,10 +1,9 @@
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
 import { useForm } from '../../hooks/useForm';
 import { startGoogleSingIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
@@ -94,8 +93,8 @@ export const LoginPage = () => {
             </Grid>
           </Grid>
           <Grid container direction="row" justifyContent="end" size={12}>
-            <Link>
-              {t('login.createAccount')} onClick={}
+            <Link component={RouterLink} to="/register">
+              {t('login.createAccount')}
             </Link>
           </Grid>
         </Grid>
