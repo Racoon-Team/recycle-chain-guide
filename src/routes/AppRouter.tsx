@@ -5,6 +5,7 @@ import { HomePage } from '@pages/HomePage';
 import { RecycleMapPage } from '@pages/RecycleMapPage';
 import { Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../auth/pages';
+import { Register } from '../auth/pages/Register';
 import { PrivateRoute } from './PrivateRoute';
 
 export default function AppRouter() {
@@ -20,6 +21,7 @@ export default function AppRouter() {
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 }
