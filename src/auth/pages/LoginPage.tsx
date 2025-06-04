@@ -18,37 +18,35 @@ export const LoginPage = () => {
   const { status } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
-useEffect(() => {
-  if (status === 'authenticated') {
-    navigate('/');
-  }
-}, [status, navigate]);
-
+  useEffect(() => {
+    if (status === 'authenticated') {
+      navigate('/');
+    }
+  }, [status, navigate]);
 
   const onGoogleSignIn = () => {
     dispatch(startGoogleSingIn());
   };
 
-  const { formState, correo, password, onInputChange } = useForm({
+  const { correo, password, onInputChange } = useForm({
     correo: 'noelia@gmail.com',
     password: '1234567',
   });
 
   const [error, setError] = useState({ correo: '', password: '' });
-  
+
   const handleSubmit = (event: React.FormEvent) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail'): '';
-  const passwordError = password.length <= 6 ? t('errors.shortPassword'): '';
+    const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
+    const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
-  setError({ correo: correoError, password: passwordError });
+    setError({ correo: correoError, password: passwordError });
 
-  if (correoError || passwordError) return;
+    if (correoError || passwordError) return;
 
-  
-  dispatch(startLoginWithEmailPassword({ correo, password }));
-};
+    dispatch(startLoginWithEmailPassword({ correo, password }));
+  };
 
   return (
     <AuthLayout title="Login">
