@@ -7,14 +7,9 @@
     "google": "Google",
     "createAccount": "Crear una cuenta"
   },
-  "register":{
-
-    "title":"Crear cuenta"
-
+  "register": {
+    "title": "Crear cuenta"
   },
-
-
-
 
   "errors": {
     "requiredName": "Nombre requerido",
