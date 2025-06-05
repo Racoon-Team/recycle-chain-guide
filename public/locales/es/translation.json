@@ -5,7 +5,10 @@
     "password": "Contraseña",
     "login": "Entrar",
     "google": "Google",
-    "createAccount": "Crear una cuenta"
+    "createAccount": "Crear una cuenta",
+    "fullname": "Nombre completo",
+    "titleAccount":"¿Ya tienes una cuenta?",
+    "getInto":"Ingresar"
   },
   "register": {
     "title": "Crear cuenta"

@@ -35,9 +35,9 @@ export const singInWithGoogle = async () => {
   }
 };
 
-export const signInWithEmailPassword = async ({ correo, password }: { correo: string; password: string }) => {
+export const signInWithEmailPassword = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const resp = await signInWithEmailAndPassword(FirebaseAuth, correo, password);
+    const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
     const { uid, displayName, photoURL } = resp.user;
 
     return {
@@ -60,26 +60,26 @@ export const signInWithEmailPassword = async ({ correo, password }: { correo: st
   }
 };
 export const registerUserWithEmailPassword = async ({
-  correo,
+  email,
   password,
-  nombre,
+  name,
 }: {
-  correo: string;
+  email: string;
   password: string;
-  nombre: string;
+  name: string;
 }) => {
   try {
-    const resp = await createUserWithEmailAndPassword(FirebaseAuth, correo, password);
+    const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
     const { uid, photoURL } = resp.user;
 
-    await updateProfile(resp.user, { displayName: nombre });
+    await updateProfile(resp.user, { displayName: name });
 
     return {
       ok: true,
       uid,
       photoURL,
-      email: correo,
-      displayName: nombre,
+      email: email,
+      displayName: name,
     };
   } catch (error: unknown) {
     let message = 'Unknown error';

@@ -22,64 +22,64 @@ export const Register = () => {
     }
   }, [status, navigate]);
 
-  const { nombre, correo, password, onInputChange } = useForm({
-    nombre: '',
-    correo: '',
+  const { name, email, password, onInputChange } = useForm({
+    name: '',
+    email: '',
     password: '',
   });
 
-  const [error, setError] = useState({ nombre: '', correo: '', password: '' });
+  const [error, setError] = useState({ name: '', email: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const nombreError = nombre.trim() === '' ? t('errors.requiredName') : '';
+    const nameError = name.trim() === '' ? t('errors.requiredName') : '';
 
-    const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
+    const emailError = !email.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
     const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
-    setError({ nombre: nombreError, correo: correoError, password: passwordError });
+    setError({ name: nameError, email: emailError, password: passwordError });
 
-    if (nombreError || correoError || passwordError) return;
+    if (nameError || emailError || passwordError) return;
 
-    dispatch(startCreatingUserWithEmailPassword({ nombre, correo, password }));
+    dispatch(startCreatingUserWithEmailPassword({ name, email, password }));
   };
 
   return (
-    <AuthLayout title="Create account">
+    <AuthLayout title={t('login.createAccount')}>
       <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Full name"
+              label={t('login.fullname')}
               type="text"
-              name="nombre"
+              name="name"
               placeholder="Full name "
               fullWidth
-              value={nombre}
+              value={name}
               onChange={onInputChange}
-              error={!!error.nombre}
-              helperText={error.nombre}
+              error={!!error.name}
+              helperText={error.name}
             />
           </Grid>
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Email"
+              label={t('login.email')}
               type="email"
-              name="correo"
+              name="email"
               placeholder="email@google.com"
               fullWidth
-              value={correo}
+              value={email}
               onChange={onInputChange}
-              error={!!error.correo}
-              helperText={error.correo}
+              error={!!error.email}
+              helperText={error.email}
             />
           </Grid>
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Password"
+              label={t('login.password')}
               type="password"
               name="password"
               placeholder="password"
@@ -92,15 +92,15 @@ export const Register = () => {
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid size={{ xs: 12 }}>
                 <Button type="submit" variant="contained" fullWidth>
-                  Create account
+                  {t('login.createAccount')}
                 </Button>
               </Grid>
             </Grid>
 
             <Grid container direction="row" justifyContent="end" size={12}>
-              <Typography sx={{ mr: 1 }}>Already have an account?</Typography>
+              <Typography sx={{ mr: 1 }}>{t('login.titleAccount')}</Typography>
               <Link component={RouterLink} to="/login">
-                get into
+                {t('login.getInto')}
               </Link>
             </Grid>
           </Grid>

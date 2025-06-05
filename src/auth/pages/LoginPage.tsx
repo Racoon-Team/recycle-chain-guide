@@ -27,47 +27,47 @@ export const LoginPage = () => {
     dispatch(startGoogleSingIn());
   };
 
-  const { correo, password, onInputChange } = useForm({
-    correo: 'noelia@gmail.com',
-    password: '1234567',
+  const { email, password, onInputChange } = useForm({
+    email: '',
+    password: '',
   });
 
-  const [error, setError] = useState({ correo: '', password: '' });
+  const [error, setError] = useState({ email: '', password: '' });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
+    const emailError = !email.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
     const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
-    setError({ correo: correoError, password: passwordError });
+    setError({ email: emailError, password: passwordError });
 
-    if (correoError || passwordError) return;
+    if (emailError || passwordError) return;
 
-    dispatch(startLoginWithEmailPassword({ correo, password }));
+    dispatch(startLoginWithEmailPassword({ email, password }));
   };
 
   return (
-    <AuthLayout title="Login">
+    <AuthLayout title={t('login.title')}>
       <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Email"
+              label={t('login.email')}
               type="email"
-              name="correo"
+              name="email"
               placeholder="email@google.com"
               fullWidth
-              value={correo}
+              value={email}
               onChange={onInputChange}
-              error={!!error.correo}
-              helperText={error.correo}
+              error={!!error.email}
+              helperText={error.email}
             />
           </Grid>
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Password"
+              label={t('login.password')}
               type="password"
               name="password"
               placeholder="password"

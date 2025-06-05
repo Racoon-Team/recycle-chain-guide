@@ -15,11 +15,11 @@ export const startGoogleSingIn = () => {
   };
 };
 
-export const startLoginWithEmailPassword = ({ correo, password }: { correo: string; password: string }) => {
+export const startLoginWithEmailPassword = ({ email, password }: { email: string; password: string }) => {
   return async (dispatch: AppDispatch) => {
     dispatch(checkingCredentials());
 
-    const result = await signInWithEmailPassword({ correo, password });
+    const result = await signInWithEmailPassword({ email, password });
 
     if (!result.ok) return dispatch(logout(result.errorMessage));
 
@@ -27,25 +27,24 @@ export const startLoginWithEmailPassword = ({ correo, password }: { correo: stri
   };
 };
 export const startCreatingUserWithEmailPassword = ({
-  nombre,
-  correo,
+  name,
+  email,
   password,
 }: {
-  nombre: string;
-  correo: string;
+  name: string;
+  email: string;
   password: string;
 }) => {
   return async (dispatch: AppDispatch) => {
     dispatch(checkingCredentials());
 
     try {
-      const resp = await createUserWithEmailAndPassword(FirebaseAuth, correo, password);
+      const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
       const { uid } = resp.user;
 
-      // Actualizar nombre del usuario
-      await updateProfile(resp.user, { displayName: nombre });
+      await updateProfile(resp.user, { displayName: name });
 
-      dispatch(login({ uid, displayName: nombre, email: correo }));
+      dispatch(login({ uid, displayName: name, email: email }));
     } catch (error: unknown) {
       console.error(error);
       dispatch(logout(unknown.message));
