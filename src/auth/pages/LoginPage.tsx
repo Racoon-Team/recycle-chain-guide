@@ -20,7 +20,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      navigate('/');
+      navigate('/home');
     }
   }, [status, navigate]);
 

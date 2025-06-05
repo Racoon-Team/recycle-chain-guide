@@ -33,6 +33,7 @@ export const signInWithEmailPassword = async ({ correo, password }: { correo: st
   try {
     const resp = await signInWithEmailAndPassword(FirebaseAuth, correo, password);
     const { uid, displayName, photoURL } = resp.user;
+    console.log('displayName:', displayName);
 
     return {
       ok: true,
