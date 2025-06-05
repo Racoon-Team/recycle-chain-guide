@@ -13,6 +13,7 @@
 "createAccount": "Create an account"
 },
 "errors": {
+"requiredName": "Name is required",
 "invalidEmail": "Invalid email",
 "shortPassword": "Must be at least 6 characters"
 }

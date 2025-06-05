@@ -53,10 +53,10 @@ export const LoginPage = () => {
         <Grid container>
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Correo"
+              label="Email"
               type="email"
               name="correo"
-              placeholder="correo@google.com"
+              placeholder="email@google.com"
               fullWidth
               value={correo}
               onChange={onInputChange}
@@ -67,10 +67,10 @@ export const LoginPage = () => {
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Contraseña"
+              label="Password"
               type="password"
               name="password"
-              placeholder="contraseña"
+              placeholder="password"
               fullWidth
               value={password}
               onChange={onInputChange}

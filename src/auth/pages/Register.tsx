@@ -33,7 +33,7 @@ export const Register = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const nombreError = nombre.trim() === '' ? 'Nombre requerido' : '';
+    const nombreError = nombre.trim() === '' ? t('errors.requiredName') : '';
     const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
     const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
@@ -45,15 +45,15 @@ export const Register = () => {
   };
 
   return (
-    <AuthLayout title="Crear cuenta">
+    <AuthLayout title="Create account">
       <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Nombre completo"
+              label="Full name"
               type="text"
               name="nombre"
-              placeholder="Nombre completo "
+              placeholder="Full name "
               fullWidth
               value={nombre}
               onChange={onInputChange}
@@ -64,10 +64,10 @@ export const Register = () => {
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Correo"
+              label="Email"
               type="email"
               name="correo"
-              placeholder="correo@google.com"
+              placeholder="email@google.com"
               fullWidth
               value={correo}
               onChange={onInputChange}
@@ -78,10 +78,10 @@ export const Register = () => {
 
           <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
             <TextField
-              label="Contraseña"
+              label="Password"
               type="password"
               name="password"
-              placeholder="contraseña"
+              placeholder="password"
               fullWidth
               value={password}
               onChange={onInputChange}
@@ -91,15 +91,15 @@ export const Register = () => {
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid size={{ xs: 12 }}>
                 <Button type="submit" variant="contained" fullWidth>
-                  Crear cuenta
+                  Create account
                 </Button>
               </Grid>
             </Grid>
 
             <Grid container direction="row" justifyContent="end" size={12}>
-              <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
+              <Typography sx={{ mr: 1 }}>Already have an account?</Typography>
               <Link component={RouterLink} to="/login">
-                ingresar
+                get into
               </Link>
             </Grid>
           </Grid>
