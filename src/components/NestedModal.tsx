@@ -1,6 +1,8 @@
 import { Box, Button, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "store/store";
 import { FirebaseDB } from "../firebase/config";
 import { useForm } from "../hooks/useForm";
 
@@ -27,6 +29,8 @@ const materiales = [
 ];
 
 export default function NestedModal() {
+  const { displayName } = useSelector((state: RootState) => state.auth);
+
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -47,11 +51,13 @@ export default function NestedModal() {
     }
 
     try {
-      await addDoc(collection(FirebaseDB, "lugaresReciclaje"), {
+      await addDoc(collection(FirebaseDB, `/usuarios/${displayName}/lugaresReciclaje`), {
         nombre,
         url,
         tipo,
         createdAt: new Date(),
+        registradoPor: displayName || 'Anónimo',
+        
       });
 
       setSuccess("Lugar guardado correctamente");
