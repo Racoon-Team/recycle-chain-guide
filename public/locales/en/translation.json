@@ -11,10 +11,9 @@
     "login": "Sign in",
     "google": "Google",
     "createAccount": "Create an account",
-    "fullname":" Full name",
-    "titleAccount":"Already have an account?",
-    "getInto":"get into"
-    
+    "fullname": " Full name",
+    "titleAccount": "Already have an account?",
+    "getInto": "get into"
   },
   "errors": {
     "requiredName": "Name is required",
