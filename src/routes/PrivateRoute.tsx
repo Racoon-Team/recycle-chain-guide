@@ -10,7 +10,7 @@ export const PrivateRoute = () => {
   if (status === 'checking') {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-        <CircularProgress />
+        <CircularProgress color="secondary"/>
       </Box>
     );
   }

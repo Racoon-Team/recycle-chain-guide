@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,6 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { signOut } from 'firebase/auth';
+import { useSelector } from 'react-redux';
+import type { RootState } from 'store/store';
+import { FirebaseAuth } from '../firebase/config';
 
 const pages = [
   { name: 'Home', path: '/' },
@@ -23,6 +27,15 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
+
+  const { displayName } = useSelector((state: RootState) => state.auth);
+
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await signOut(FirebaseAuth); 
+    navigate('/login'); 
+  };
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -130,10 +143,15 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', gap: 1 }}>
+            {displayName && (
+              <Typography variant="subtitle1" sx={{ color: 'white' }}>
+                {displayName}
+              </Typography>
+            )}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={displayName ?? 'User'} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -155,7 +173,13 @@ function ResponsiveAppBar() {
                 <MenuItem key={name} onClick={handleCloseNavMenu} component={Link} to={path}>
                   <Typography sx={{ textAlign: 'center' }}>{name}</Typography>
                 </MenuItem>
+                
               ))}
+              <Button onClick={handleLogout}>
+              logout
+              </Button>
+
+              
             </Menu>
           </Box>
         </Toolbar>
