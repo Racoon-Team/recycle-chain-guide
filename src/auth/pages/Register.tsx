@@ -34,6 +34,7 @@ export const Register = () => {
     event.preventDefault();
 
     const nombreError = nombre.trim() === '' ? t('errors.requiredName') : '';
+
     const correoError = !correo.match(/^\S+@\S+\.\S+$/) ? t('errors.invalidEmail') : '';
     const passwordError = password.length <= 6 ? t('errors.shortPassword') : '';
 
