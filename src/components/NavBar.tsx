@@ -27,13 +27,12 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
-
   const { displayName } = useSelector((state: RootState) => state.auth);
 
   const navigate = useNavigate();
   const handleLogout = async () => {
-    await signOut(FirebaseAuth); 
-    navigate('/login'); 
+    await signOut(FirebaseAuth);
+    navigate('/login');
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -173,13 +172,8 @@ function ResponsiveAppBar() {
                 <MenuItem key={name} onClick={handleCloseNavMenu} component={Link} to={path}>
                   <Typography sx={{ textAlign: 'center' }}>{name}</Typography>
                 </MenuItem>
-                
               ))}
-              <Button onClick={handleLogout}>
-              logout
-              </Button>
-
-              
+              <Button onClick={handleLogout}>logout</Button>
             </Menu>
           </Box>
         </Toolbar>

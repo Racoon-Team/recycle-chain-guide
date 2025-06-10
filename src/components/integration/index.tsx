@@ -1,0 +1,21 @@
+import IntegrationArea from './IntegrationArea';
+import CtaAreaHomeOne from '../homes/home-1/CtaAreaHomeOne';
+import BackToTop from '../../common/BackToTop';
+import HeaderOne from '../../layouts/headers/HeaderOne';
+import Breadcrumb from '../../common/Breadcrumb';
+import FooterOne from '../../layouts/footers/FooterOne';
+
+const Integration = () => {
+  return (
+    <>
+      <HeaderOne />
+      <Breadcrumb title="Integration" subtitle="Integration" />
+      <IntegrationArea />
+      <CtaAreaHomeOne style_2={true} />
+      <FooterOne />
+      <BackToTop />
+    </>
+  );
+};
+
+export default Integration;

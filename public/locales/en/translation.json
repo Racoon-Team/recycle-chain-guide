@@ -4,17 +4,16 @@
     "description": "This is the main page of our application where you can find various features and functionalities."
   },
 
-"login": {
-"title": "Log in",
-"email": "Email",
-"password": "Password",
-"login": "Sign in",
-"google": "Google",
-"createAccount": "Create an account"
-},
-"errors": {
-"invalidEmail": "Invalid email",
-"shortPassword": "Must be at least 6 characters"
-}
-
+  "login": {
+    "title": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "login": "Sign in",
+    "google": "Google",
+    "createAccount": "Create an account"
+  },
+  "errors": {
+    "invalidEmail": "Invalid email",
+    "shortPassword": "Must be at least 6 characters"
+  }
 }

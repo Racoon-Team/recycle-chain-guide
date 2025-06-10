@@ -32,7 +32,7 @@ export const startLogout = () => {
     try {
       // Cierra sesión en Firebase
       await signOut(FirebaseAuth);
-      
+
       // Limpia el estado en Redux (authSlice)
       dispatch(logout(null));
     } catch (error) {
