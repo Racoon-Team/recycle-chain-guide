@@ -17,6 +17,6 @@ export const useCheckAuth = () => {
       dispatch(login({ uid, email, displayName, photoURL }));
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, [dispatch]);
 };

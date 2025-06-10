@@ -28,6 +28,7 @@ export default tseslint.config(
           ignoreStrings: true,
         },
       ],
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   }
 );
