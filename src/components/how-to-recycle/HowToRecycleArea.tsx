@@ -26,13 +26,20 @@ const HowToRecycleArea = () => {
           revistas, folletos, cartón corrugado, cartulinas, cajas de embalaje, kraft, cilindros de papel absorbente e
           higiénico, papel y cartón plastificado o encerado.
         </p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Deben estar limpios y secos.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          No reciclamos papel higiénico, papel toalla, servilletas, papel térmico.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Deben estar limpios y secos.
+            </div>
+          </div>
+
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              No reciclamos papel higiénico, papel toalla, servilletas, papel térmico.
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -44,13 +51,19 @@ const HowToRecycleArea = () => {
           limpieza (transparentes y de color), bandejas de frutas y domos de torta. Puedes identificarlos fácilmente
           porque cuentan con este símbolo:
         </p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Que deben estar limpios, secos y compactados.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          Envases de aceite.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Que deben estar limpios, secos y compactados.
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              Envases de aceite.
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -62,13 +75,19 @@ const HowToRecycleArea = () => {
           de detergente, de productos lácteos, de mantequilla y margarina. Puedes identificarlos fácilmente porque
           cuentan con estos símbolos:
         </p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Que deben estar limpios, secos y compactados.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          Envases de tecnopor o poliestireno, bolsas de plástico ni de alimentos.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Que deben estar limpios, secos y compactados.
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              Envases de tecnopor o poliestireno, bolsas de plástico ni de alimentos.
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -76,13 +95,19 @@ const HowToRecycleArea = () => {
       <>
         <h4>Tetra Pak</h4>
         <p>Se pueden reciclar envases de cartón para leches, jugos, vino y cremas.</p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Que deben estar enjuagados, secos, desarmados y aplastados.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          Cartones plastificados ni vasos de papel para bebidas calientes.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Que deben estar enjuagados, secos, desarmados y aplastados.
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              Cartones plastificados ni vasos de papel para bebidas calientes.
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -93,13 +118,19 @@ const HowToRecycleArea = () => {
           Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, así como envases de vidrio para
           conservas.
         </p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Que deben estar limpios y secos.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          Espejos, cristales y lozas, tubos fluorescentes, focos ahorradores, ni vidrios de automóviles.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Que deben estar limpios y secos.
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              Espejos, cristales y lozas, tubos fluorescentes, focos ahorradores, ni vidrios de automóviles.
+            </div>
+          </div>
         </div>
       </>
     ),
@@ -110,13 +141,19 @@ const HowToRecycleArea = () => {
           Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y
           aerosoles. Además se pueden reciclar envases de hojalata de leche, bebidas y café.
         </p>
-        <div className="alert alert-success">
-          <h5>Recuerda</h5>
-          Que deben estar limpios, secos y sin etiquetas.
-        </div>
-        <div className="alert alert-danger">
-          <h5>No reciclamos</h5>
-          Latas de pintura y químicos.
+        <div className="row">
+          <div className="col-md-6">
+            <div className="alert alert-success">
+              <h5>Recuerda</h5>
+              Que deben estar limpios, secos y sin etiquetas.
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-danger">
+              <h5>No reciclamos</h5>
+              Latas de pintura y químicos.
+            </div>
+          </div>
         </div>
       </>
     ),
