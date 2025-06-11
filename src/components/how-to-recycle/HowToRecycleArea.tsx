@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type TabItem = {
   key: string;
@@ -6,42 +7,40 @@ type TabItem = {
 };
 
 const HowToRecycleArea = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>('papel');
 
   const tabItems: TabItem[] = [
-    { key: 'papel', label: 'Papel y cartón' },
-    { key: 'pet', label: 'Plástico PET' },
-    { key: 'duro', label: 'Plástico duro' },
-    { key: 'tetra', label: 'Tetra Pak' },
-    { key: 'vidrio', label: 'Vidrio' },
-    { key: 'latas', label: 'Latas' },
+    { key: 'papel', label: t('materials.papel.label') },
+    { key: 'pet', label: t('materials.pet.label') },
+    { key: 'duro', label: t('materials.duro.label') },
+    { key: 'tetra', label: t('materials.tetra.label') },
+    { key: 'vidrio', label: t('materials.vidrio.label') },
+    { key: 'latas', label: t('materials.latas.label') },
   ];
 
   const content: Record<string, ReactNode> = {
     papel: (
       <>
-        <h4 className="text-center">Papel y Cartón</h4>
+        <h4 className="text-center">{t('materials.papel.title')}</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPapelFinal.webp" className="rounded" />
         </div>
         <br />
-        <p>
-          Se pueden reciclar hojas blancas usadas, hojas de cuaderno, fotocopias, cartas, periódicos, revistas,
-          folletos, cartón corrugado, cartulinas, cajas de embalaje, cilindros de papel.
-        </p>
+        <p>{t('materials.papel.description')}</p>
 
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Deben estar limpios y secos para facilitar su reciclaje adecuado
+              <h5>{t('remember')}</h5>
+              {t('materials.papel.remember')}
             </div>
           </div>
 
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Papel higiénico, papel toalla, servilletas, papel térmico.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.papel.no_recycle')}
             </div>
           </div>
         </div>
@@ -49,7 +48,7 @@ const HowToRecycleArea = () => {
     ),
     pet: (
       <>
-        <h4 className="text-center">Plástico PET</h4>
+        <h4 className="text-center">{t('materials.pet.title')}</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlsticoFinal.webp"
@@ -57,21 +56,18 @@ const HowToRecycleArea = () => {
           />
         </div>
         <br />
-        <p>
-          Se pueden reciclar botellas desechables de bebidas, aguas, jugos, yogurts, productos de higiene personal y
-          limpieza (transparentes y de color), bandejas de frutas y domos de torta.
-        </p>
+        <p>{t('materials.pet.description')}</p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Deben estar limpios, secos y compactados para su reciclaje.
+              <h5>{t('remember')}</h5>
+              {t('materials.pet.remember')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Envases de aceite deben estar limpios, secos y sin residuos.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.pet.no_recycle')}
             </div>
           </div>
         </div>
@@ -79,7 +75,7 @@ const HowToRecycleArea = () => {
     ),
     duro: (
       <>
-        <h4 className="text-center">Plástico Duro</h4>
+        <h4 className="text-center">{t('materials.duro.title')}</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlastico2Final.webp"
@@ -87,21 +83,18 @@ const HowToRecycleArea = () => {
           />
         </div>
         <br />
-        <p>
-          Se pueden reciclar tapas de botellas, bidones, botellas de shampoo, cremas y de cosméticos, así como envases
-          de detergente, de productos lácteos, de mantequilla y margarina.
-        </p>
+        <p>{t('materials.duro.description')}</p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Que deben estar limpios, secos y compactados.
+              <h5>{t('remember')}</h5>
+              {t('materials.duro.remember')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Envases de poliestireno, bolsas de plástico ni de alimentos.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.duro.no_recycle')}
             </div>
           </div>
         </div>
@@ -109,26 +102,23 @@ const HowToRecycleArea = () => {
     ),
     tetra: (
       <>
-        <h4 className="text-center">Tetra Pak</h4>
+        <h4 className="text-center">{t('materials.tetra.title')}</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoTetraFinal.webp" className="rounded" />
         </div>
         <br />
-        <p>
-          Se pueden reciclar envases de cartón como los de leche, jugos, vino y cremas, conocidos como Tetra Pak. Es
-          importante enjuagarlos y llevarlos a puntos de acopio adecuados para facilitar su reciclaje.
-        </p>
+        <p>{t('materials.tetra.description')}</p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Deben estar enjuagados, secos, desarmados y aplastados.
+              <h5>{t('remember')}</h5>
+              {t('materials.tetra.remember')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Cartones plastificados ni vasos de papel para bebidas calientes.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.tetra.no_recycle')}
             </div>
           </div>
         </div>
@@ -136,7 +126,7 @@ const HowToRecycleArea = () => {
     ),
     vidrio: (
       <>
-        <h4 className="text-center">Vidrio</h4>
+        <h4 className="text-center">{t('materials.vidrio.title')}</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoBotellaFinal.webp"
@@ -144,21 +134,18 @@ const HowToRecycleArea = () => {
           />
         </div>
         <br />
-        <p>
-          Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, además de envases de vidrio para
-          conservas. Es clave enjuagarlos y depositarlos en contenedores específicos para vidrio.
-        </p>
+        <p>{t('materials.vidrio.description')}</p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Deben estar limpios, secos y sin residuos para reciclar.
+              <h5>{t('remember')}</h5>
+              {t('materials.vidrio.remember')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Espejos, cristales, focos, ni vidrios de automóviles.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.vidrio.no_recycle')}
             </div>
           </div>
         </div>
@@ -166,26 +153,23 @@ const HowToRecycleArea = () => {
     ),
     latas: (
       <>
-        <h4 className="text-center">Latas</h4>
+        <h4 className="text-center">{t('materials.latas.title')}</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoLataFinal.webp" className="rounded" />
         </div>
         <br />
-        <p>
-          Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y
-          aerosoles. Además se pueden reciclar envases de hojalata de leche, bebidas y café.
-        </p>
+        <p>{t('materials.latas.description')}</p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
-              <h5>Recuerda</h5>
-              Deben estar limpios, secos y sin etiquetas.
+              <h5>{t('remember')}</h5>
+              {t('materials.latas.remember')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>No reciclamos</h5>
-              Latas de pintura y químicos deben estar vacías y limpias.
+              <h5>{t('no_recycle')}</h5>
+              {t('materials.latas.no_recycle')}
             </div>
           </div>
         </div>
@@ -200,21 +184,16 @@ const HowToRecycleArea = () => {
           {/* Text Info */}
           <div className="col-lg-7">
             <div className="lonyo-section-title center">
-              <h2>¿Cómo reciclar correctamente?</h2>
+              <h2>{t('title')}</h2>
               <br />
-              <p className="max-w616">
-                Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.
-              </p>
-              <p className="mt-4">
-                Es importante seguir los lineamientos para asegurar que los materiales puedan ser reciclados sin
-                contaminar otros recursos. Mantén siempre los residuos limpios y secos antes de entregarlos.
-              </p>
+              <p className="max-w616">{t('intro')}</p>
+              <p className="mt-4">{t('explanation')}</p>
             </div>
           </div>
 
           {/* <div className="col-lg-5"> */}
           <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
-            <h4>Tipos de materiales reciclables</h4>
+            <h4>{t('types_title')}</h4>
 
             <div className="d-flex flex-wrap justify-content-start gap-4 my-3">
               {tabItems.map((item) => (
