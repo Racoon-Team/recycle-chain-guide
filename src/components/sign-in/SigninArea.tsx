@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SigninArea = () => {
   const [passwordType, setPasswordType] = useState('password');

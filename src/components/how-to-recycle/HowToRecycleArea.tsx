@@ -26,23 +26,22 @@ const HowToRecycleArea = () => {
         </div>
         <br />
         <p>
-          Se pueden reciclar hojas blancas usadas y sin usar, hojas de cuaderno, fotocopias, fax, cartas, periódicos,
-          revistas, folletos, cartón corrugado, cartulinas, cajas de embalaje, kraft, cilindros de papel absorbente e
-          higiénico, papel y cartón plastificado o encerado.
+          Se pueden reciclar hojas blancas usadas, hojas de cuaderno, fotocopias, cartas, periódicos, revistas,
+          folletos, cartón corrugado, cartulinas, cajas de embalaje, cilindros de papel.
         </p>
 
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>Recuerda</h5>
-              Deben estar limpios y secos.
+              Deben estar limpios y secos para facilitar su reciclaje adecuado
             </div>
           </div>
 
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>No reciclamos</h5>
-              No reciclamos papel higiénico, papel toalla, servilletas, papel térmico.
+              Papel higiénico, papel toalla, servilletas, papel térmico.
             </div>
           </div>
         </div>
@@ -60,20 +59,19 @@ const HowToRecycleArea = () => {
         <br />
         <p>
           Se pueden reciclar botellas desechables de bebidas, aguas, jugos, yogurts, productos de higiene personal y
-          limpieza (transparentes y de color), bandejas de frutas y domos de torta. Puedes identificarlos fácilmente
-          porque cuentan con este símbolo:
+          limpieza (transparentes y de color), bandejas de frutas y domos de torta.
         </p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>Recuerda</h5>
-              Que deben estar limpios, secos y compactados.
+              Deben estar limpios, secos y compactados para su reciclaje.
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>No reciclamos</h5>
-              Envases de aceite.
+              Envases de aceite deben estar limpios, secos y sin residuos.
             </div>
           </div>
         </div>
@@ -91,8 +89,7 @@ const HowToRecycleArea = () => {
         <br />
         <p>
           Se pueden reciclar tapas de botellas, bidones, botellas de shampoo, cremas y de cosméticos, así como envases
-          de detergente, de productos lácteos, de mantequilla y margarina. Puedes identificarlos fácilmente porque
-          cuentan con estos símbolos:
+          de detergente, de productos lácteos, de mantequilla y margarina.
         </p>
         <div className="row">
           <div className="col-md-6">
@@ -104,7 +101,7 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>No reciclamos</h5>
-              Envases de tecnopor o poliestireno, bolsas de plástico ni de alimentos.
+              Envases de poliestireno, bolsas de plástico ni de alimentos.
             </div>
           </div>
         </div>
@@ -117,12 +114,15 @@ const HowToRecycleArea = () => {
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoTetraFinal.webp" className="rounded" />
         </div>
         <br />
-        <p>Se pueden reciclar envases de cartón para leches, jugos, vino y cremas.</p>
+        <p>
+          Se pueden reciclar envases de cartón como los de leche, jugos, vino y cremas, conocidos como Tetra Pak. Es
+          importante enjuagarlos y llevarlos a puntos de acopio adecuados para facilitar su reciclaje.
+        </p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>Recuerda</h5>
-              Que deben estar enjuagados, secos, desarmados y aplastados.
+              Deben estar enjuagados, secos, desarmados y aplastados.
             </div>
           </div>
           <div className="col-md-6">
@@ -145,20 +145,20 @@ const HowToRecycleArea = () => {
         </div>
         <br />
         <p>
-          Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, así como envases de vidrio para
-          conservas.
+          Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, además de envases de vidrio para
+          conservas. Es clave enjuagarlos y depositarlos en contenedores específicos para vidrio.
         </p>
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>Recuerda</h5>
-              Que deben estar limpios y secos.
+              Deben estar limpios, secos y sin residuos para reciclar.
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>No reciclamos</h5>
-              Espejos, cristales y lozas, tubos fluorescentes, focos ahorradores, ni vidrios de automóviles.
+              Espejos, cristales, focos, ni vidrios de automóviles.
             </div>
           </div>
         </div>
@@ -179,13 +179,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>Recuerda</h5>
-              Que deben estar limpios, secos y sin etiquetas.
+              Deben estar limpios, secos y sin etiquetas.
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>No reciclamos</h5>
-              Latas de pintura y químicos.
+              Latas de pintura y químicos deben estar vacías y limpias.
             </div>
           </div>
         </div>
@@ -216,12 +216,12 @@ const HowToRecycleArea = () => {
           <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
             <h4>Tipos de materiales reciclables</h4>
 
-            <div className="d-flex flex-wrap justify-content-start gap-2 my-3">
+            <div className="d-flex flex-wrap justify-content-start gap-4 my-3">
               {tabItems.map((item) => (
                 <div
                   key={item.key}
-                  className={`tab-button px-3 py-1 rounded ${
-                    activeTab === item.key ? 'bg-success text-white fw-bold' : 'bg-light text-dark'
+                  className={`tab-button px-4  rounded ${
+                    activeTab === item.key ? 'bg-success text-white ' : 'bg-light '
                   }`}
                   style={{ cursor: 'pointer' }}
                   onClick={() => setActiveTab(item.key)}>
