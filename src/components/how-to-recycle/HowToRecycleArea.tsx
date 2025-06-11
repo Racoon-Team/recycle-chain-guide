@@ -20,7 +20,7 @@ const HowToRecycleArea = () => {
   const content: Record<string, ReactNode> = {
     papel: (
       <>
-        <h4>Papel y Cartón</h4>
+        <h4 className="text-center">Papel y Cartón</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPapelFinal.webp" className="rounded" />
         </div>
@@ -50,7 +50,7 @@ const HowToRecycleArea = () => {
     ),
     pet: (
       <>
-        <h4>Plástico PET</h4>
+        <h4 className="text-center">Plástico PET</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlsticoFinal.webp"
@@ -81,7 +81,7 @@ const HowToRecycleArea = () => {
     ),
     duro: (
       <>
-        <h4>Plástico Duro</h4>
+        <h4 className="text-center">Plástico Duro</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlastico2Final.webp"
@@ -112,7 +112,7 @@ const HowToRecycleArea = () => {
     ),
     tetra: (
       <>
-        <h4>Tetra Pak</h4>
+        <h4 className="text-center">Tetra Pak</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoTetraFinal.webp" className="rounded" />
         </div>
@@ -136,7 +136,7 @@ const HowToRecycleArea = () => {
     ),
     vidrio: (
       <>
-        <h4>Vidrio</h4>
+        <h4 className="text-center">Vidrio</h4>
         <div className="text-center ">
           <img
             src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoBotellaFinal.webp"
@@ -166,7 +166,7 @@ const HowToRecycleArea = () => {
     ),
     latas: (
       <>
-        <h4>Latas</h4>
+        <h4 className="text-center">Latas</h4>
         <div className="text-center ">
           <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoLataFinal.webp" className="rounded" />
         </div>
@@ -201,10 +201,11 @@ const HowToRecycleArea = () => {
           <div className="col-lg-7">
             <div className="lonyo-section-title center">
               <h2>¿Cómo reciclar correctamente?</h2>
+              <br />
               <p className="max-w616">
                 Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.
               </p>
-              <p className="mt-3">
+              <p className="mt-4">
                 Es importante seguir los lineamientos para asegurar que los materiales puedan ser reciclados sin
                 contaminar otros recursos. Mantén siempre los residuos limpios y secos antes de entregarlos.
               </p>
