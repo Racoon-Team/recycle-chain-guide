@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from 'store/store';
 import { useForm } from '../../hooks/useForm';
 import { startGoogleSingIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
+import './SingninArea.css';
 
 const SigninArea = () => {
   const { t } = useTranslation();
@@ -102,13 +103,6 @@ const SigninArea = () => {
                   <div
                     className={`fa fa-fw field-icon toggle-password ${passwordType === 'password' ? 'fa-eye-slash' : 'fa-eye'}`}
                     onClick={togglePasswordVisibility}
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      right: '10px',
-                      cursor: 'pointer',
-                      transform: 'translateY(-50%)',
-                    }}
                   />
                 </div>
                 {error.password && <small className="text-danger">{error.password}</small>}
