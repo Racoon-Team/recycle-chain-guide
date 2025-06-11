@@ -21,11 +21,16 @@ const HowToRecycleArea = () => {
     papel: (
       <>
         <h4>Papel y Cartón</h4>
+        <div className="text-center ">
+          <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPapelFinal.webp" className="rounded" />
+        </div>
+        <br />
         <p>
           Se pueden reciclar hojas blancas usadas y sin usar, hojas de cuaderno, fotocopias, fax, cartas, periódicos,
           revistas, folletos, cartón corrugado, cartulinas, cajas de embalaje, kraft, cilindros de papel absorbente e
           higiénico, papel y cartón plastificado o encerado.
         </p>
+
         <div className="row">
           <div className="col-md-6">
             <div className="alert alert-success">
@@ -46,6 +51,13 @@ const HowToRecycleArea = () => {
     pet: (
       <>
         <h4>Plástico PET</h4>
+        <div className="text-center ">
+          <img
+            src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlsticoFinal.webp"
+            className="rounded"
+          />
+        </div>
+        <br />
         <p>
           Se pueden reciclar botellas desechables de bebidas, aguas, jugos, yogurts, productos de higiene personal y
           limpieza (transparentes y de color), bandejas de frutas y domos de torta. Puedes identificarlos fácilmente
@@ -70,6 +82,13 @@ const HowToRecycleArea = () => {
     duro: (
       <>
         <h4>Plástico Duro</h4>
+        <div className="text-center ">
+          <img
+            src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoPlastico2Final.webp"
+            className="rounded"
+          />
+        </div>
+        <br />
         <p>
           Se pueden reciclar tapas de botellas, bidones, botellas de shampoo, cremas y de cosméticos, así como envases
           de detergente, de productos lácteos, de mantequilla y margarina. Puedes identificarlos fácilmente porque
@@ -94,6 +113,10 @@ const HowToRecycleArea = () => {
     tetra: (
       <>
         <h4>Tetra Pak</h4>
+        <div className="text-center ">
+          <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoTetraFinal.webp" className="rounded" />
+        </div>
+        <br />
         <p>Se pueden reciclar envases de cartón para leches, jugos, vino y cremas.</p>
         <div className="row">
           <div className="col-md-6">
@@ -114,6 +137,13 @@ const HowToRecycleArea = () => {
     vidrio: (
       <>
         <h4>Vidrio</h4>
+        <div className="text-center ">
+          <img
+            src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoBotellaFinal.webp"
+            className="rounded"
+          />
+        </div>
+        <br />
         <p>
           Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, así como envases de vidrio para
           conservas.
@@ -137,6 +167,10 @@ const HowToRecycleArea = () => {
     latas: (
       <>
         <h4>Latas</h4>
+        <div className="text-center ">
+          <img src="https://reciclaconsciente.pe/wp-content/uploads/2025/05/IconoLataFinal.webp" className="rounded" />
+        </div>
+        <br />
         <p>
           Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y
           aerosoles. Además se pueden reciclar envases de hojalata de leche, bebidas y café.
