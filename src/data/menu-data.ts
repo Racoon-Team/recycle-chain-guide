@@ -111,5 +111,12 @@ const menu_data = [
     link: '/contact-us',
     has_dropdown: false,
   },
+
+  {
+    id: 7,
+    title: 'How to recycle',
+    link: '/how-to-recycle',
+    has_dropdown: false,
+  },
 ];
 export default menu_data;

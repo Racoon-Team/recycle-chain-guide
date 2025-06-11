@@ -1,3 +1,4 @@
+import HowToRecycle from '@components/how-to-recycle';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUs from './components/about-us';
 import Blog from './components/blog';
@@ -49,6 +50,8 @@ const router = createBrowserRouter([
   { path: '/blog', element: <Blog /> },
   { path: '/single-blog', element: <SingleBlog /> },
   { path: '/contact-us', element: <Contactus /> },
+
+  { path: '/how-to-recycle', element: <HowToRecycle /> },
 
   { path: '*', element: <NotFound /> },
 ]);
