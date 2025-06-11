@@ -12,17 +12,18 @@ const SigninArea = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { status } = useSelector((state: RootState) => state.auth);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (status === 'authenticated') {
-      navigate('/home');
+      navigate('/home-2');
     }
   }, [status, navigate]);
 
   const { email, password, onInputChange } = useForm({
-    email: 'noelia@gmail.com',
-    password: '1234567',
+    email: '',
+    password: '',
   });
 
   const [error, setError] = useState({ email: '', password: '' });
@@ -53,7 +54,7 @@ const SigninArea = () => {
       <div className="container">
         <div className="lonyo-account-title">
           <h1>{t('login.login')}</h1>
-          <p>Step inside Lonyo and start managing finances like never before</p>
+          <p>{t('main.description')}</p>
         </div>
 
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
@@ -68,13 +69,13 @@ const SigninArea = () => {
           </div>
 
           <div className="or">
-            <p>or</p>
+            <p>{t('main.or')}</p>
           </div>
 
           <div className="lonyo-contact-box2">
             <form onSubmit={handleSubmit}>
               <div className="lonyo-main-field">
-                <p>Email address*</p>
+                <p>{t('login.email')}</p>
                 <input
                   className="light-bg"
                   type="email"
@@ -87,7 +88,7 @@ const SigninArea = () => {
               </div>
 
               <div className="lonyo-main-field">
-                <p>Password*</p>
+                <p>{t('login.password')}</p>
                 <div className="position-relative">
                   <input
                     id="password-field"
@@ -121,9 +122,9 @@ const SigninArea = () => {
               </button>
 
               <div className="login">
-                <span>Don't have an account?</span>
-                <Link to="/sign-up">
-                  <p>Sign up here</p>
+                <span>{t('login.question')}</span>
+                <Link to="/home-2">
+                  <p>{t('login.createAccount')}</p>
                 </Link>
               </div>
             </form>
