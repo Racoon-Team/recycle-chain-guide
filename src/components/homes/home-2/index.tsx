@@ -1,16 +1,16 @@
-import HeroAreaHomeTwo from './HeroAreaHomeTwo';
-import BrandAreaHomeTwo from './BrandAreaHomeTwo';
+import BackToTop from '../../../common/BackToTop';
+import FooterOne from '../../../layouts/footers/FooterOne';
+import HeaderOne from '../../../layouts/headers/HeaderOne';
 import BannerAreaHomeTwo from './BannerAreaHomeTwo';
-import FinancialDecisionsHomeTwo from './FinancialDecisionsHomeTwo';
+import BrandAreaHomeTwo from './BrandAreaHomeTwo';
+import CtaAreaHomeTwo from './CtaAreaHomeTwo';
 import FeaturesAreaHomeTwo from './FeaturesAreaHomeTwo';
+import FinancialDecisionsHomeTwo from './FinancialDecisionsHomeTwo';
 import FinancialUpdatesHomeTwo from './FinancialUpdatesHomeTwo';
+import HeroAreaHomeTwo from './HeroAreaHomeTwo';
+import PriceingAreaHomeTwo from './PriceingAreaHomeTwo';
 import TabAreaHomeTwo from './TabAreaHomeTwo';
 import TestimonialAreaHomeTwo from './TestimonialAreaHomeTwo';
-import PriceingAreaHomeTwo from './PriceingAreaHomeTwo';
-import CtaAreaHomeTwo from './CtaAreaHomeTwo';
-import HeaderOne from '../../../layouts/headers/HeaderOne';
-import FooterOne from '../../../layouts/footers/FooterOne';
-import BackToTop from '../../../common/BackToTop';
 
 const HomeTwo = () => {
   return (

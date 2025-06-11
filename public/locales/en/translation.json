@@ -1,7 +1,8 @@
 {
   "main": {
     "title": "Welcome to the Main Page",
-    "description": "This is the main page of our application where you can find various features and functionalities."
+    "description":"Step inside Lonyo and start managing finances like never before",
+    "or": "or"
   },
 
   "login": {
@@ -10,7 +11,9 @@
     "password": "Password",
     "login": "Sign in",
     "google": "Google",
-    "createAccount": "Create an account"
+    "createAccount": "Create an account",
+    "question":"Don't have an account?"
+    
   },
   "errors": {
     "invalidEmail": "Invalid email",

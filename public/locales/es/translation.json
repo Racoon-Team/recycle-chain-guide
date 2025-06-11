@@ -1,11 +1,19 @@
 {
+ "main": {
+    "title": "Welcome to the Main Page",
+    "description":"Entra en Lonyo y empieza a gestionar tus finanzas como nunca antes.",
+    "or": "o"
+  },
+
+
   "login": {
     "title": "Iniciar sesión",
     "email": "Correo",
     "password": "Contraseña",
     "login": "Entrar",
     "google": "Google",
-    "createAccount": "Crear una cuenta"
+    "createAccount": "Crear una cuenta",
+    "question":"¿No tienes una cuenta?"
   },
   "errors": {
     "invalidEmail": "Correo inválido",
