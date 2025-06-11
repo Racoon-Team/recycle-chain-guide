@@ -77,10 +77,10 @@ const HowToRecycleArea = () => {
   return (
     <div className="lonyo-section-padding">
       <div className="container">
-        <div className="row ">
+        <div className="row justify-content-center">
           {/* Text Info */}
           <div className="col-lg-7">
-            <div className="lonyo-default-content">
+            <div className="lonyo-section-title center">
               <h2>¿Cómo reciclar correctamente?</h2>
               <p className="max-w616">
                 Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.
@@ -92,27 +92,27 @@ const HowToRecycleArea = () => {
             </div>
           </div>
 
-          <div className="col-lg-5">
-            <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
-              <h4>Tipos de materiales reciclables</h4>
+          {/* <div className="col-lg-5"> */}
+          <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
+            <h4>Tipos de materiales reciclables</h4>
 
-              <div className="d-flex flex-wrap justify-content-start gap-2 my-3">
-                {tabItems.map((item) => (
-                  <div
-                    key={item.key}
-                    className={`tab-button px-3 py-1 rounded ${
-                      activeTab === item.key ? 'bg-success text-white fw-bold' : 'bg-light text-dark'
-                    }`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setActiveTab(item.key)}>
-                    {item.label}
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-light p-3 rounded shadow-sm">{content[activeTab]}</div>
+            <div className="d-flex flex-wrap justify-content-start gap-2 my-3">
+              {tabItems.map((item) => (
+                <div
+                  key={item.key}
+                  className={`tab-button px-3 py-1 rounded ${
+                    activeTab === item.key ? 'bg-success text-white fw-bold' : 'bg-light text-dark'
+                  }`}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setActiveTab(item.key)}>
+                  {item.label}
+                </div>
+              ))}
             </div>
+
+            <div className="bg-light p-3 rounded shadow-sm">{content[activeTab]}</div>
           </div>
+          {/* </div> */}
         </div>
       </div>
     </div>
