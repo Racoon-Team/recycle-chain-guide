@@ -1,52 +1,54 @@
 {
+  "breadcrumb":"How to recycle",
   "title": "How to recycle properly?",
   "intro": "Select the type of material you want to recycle to learn best practices.",
   "explanation": "It is important to follow the guidelines to ensure that materials can be recycled without contaminating other resources. Always keep waste clean and dry before delivering it.",
   "types_title": "Types of recyclable materials",
   "remember": "Remember",
   "no_recycle": "Do not recycle",
+  
   "materials": {
     "papel": {
-      "label": "Paper and cardboard",
+      
       "title": "Paper and Cardboard",
       "description": "You can recycle used white sheets, notebook pages, photocopies, letters, newspapers, magazines, brochures, corrugated cardboard, cards, packaging boxes, and paper cylinders.",
-      "remember": "They must be clean and dry to facilitate proper recycling.",
-      "no_recycle": "Toilet paper, paper towels, napkins, thermal paper."
+      "rememberText": "They must be clean and dry to facilitate proper recycling.",
+      "noRecycleText": "Toilet paper, paper towels, napkins, thermal paper."
     },
     "pet": {
-      "label": "PET Plastic",
+      
       "title": "PET Plastic",
       "description": "You can recycle disposable bottles of drinks, water, juices, yogurts, personal hygiene and cleaning products (clear and colored), fruit trays, and cake domes.",
-      "remember": "They must be clean, dry, and compacted for recycling.",
-      "no_recycle": "Oil containers must be clean, dry, and residue-free."
+      "rememberText": "They must be clean, dry, and compacted for recycling.",
+      "noRecycleText": "Oil containers must be clean, dry, and residue-free."
     },
     "duro": {
-      "label": "Hard plastic",
+      
       "title": "Hard Plastic",
       "description": "You can recycle bottle caps, drums, shampoo bottles, creams and cosmetics, as well as detergent containers, dairy products, butter and margarine tubs.",
-      "remember": "They must be clean, dry, and compacted.",
-      "no_recycle": "Polystyrene containers, plastic bags or food wrappers."
+      "rememberText": "They must be clean, dry, and compacted.",
+      "noRecycleText": "Polystyrene containers, plastic bags or food wrappers."
     },
     "tetra": {
-      "label": "Tetra Pak",
+      
       "title": "Tetra Pak",
       "description": "You can recycle carton containers like those for milk, juices, wine, and creams, known as Tetra Pak. It is important to rinse them and take them to appropriate collection points for recycling.",
-      "remember": "They must be rinsed, dry, dismantled, and flattened.",
-      "no_recycle": "Laminated cartons or paper cups for hot drinks."
+      "rememberText": "They must be rinsed, dry, dismantled, and flattened.",
+      "noRecycleText": "Laminated cartons or paper cups for hot drinks."
     },
     "vidrio": {
-      "label": "Glass",
+      
       "title": "Glass",
       "description": "You can recycle beer, juice, wine, milk and yogurt bottles, as well as glass jars for preserves. It is key to rinse them and place them in specific glass containers.",
-      "remember": "They must be clean, dry, and residue-free for recycling.",
-      "no_recycle": "Mirrors, crystals, bulbs, or car windows."
+      "rememberText": "They must be clean, dry, and residue-free for recycling.",
+      "noRecycleText": "Mirrors, crystals, bulbs, or car windows."
     },
     "latas": {
-      "label": "Cans",
+      
       "title": "Cans",
       "description": "You can recycle aluminum cans of beer, soda, energy drinks, milk, preserves, juices, and aerosols. Also, tin containers for milk, drinks, and coffee can be recycled.",
-      "remember": "They must be clean, dry, and label-free.",
-      "no_recycle": "Paint and chemical cans must be empty and clean."
+      "rememberText": "They must be clean, dry, and label-free.",
+      "noRecycleText": "Paint and chemical cans must be empty and clean."
     }
   },
 

@@ -11,12 +11,12 @@ const HowToRecycleArea = () => {
   const [activeTab, setActiveTab] = useState<string>('papel');
 
   const tabItems: TabItem[] = [
-    { key: 'papel', label: t('materials.papel.label') },
-    { key: 'pet', label: t('materials.pet.label') },
-    { key: 'duro', label: t('materials.duro.label') },
-    { key: 'tetra', label: t('materials.tetra.label') },
-    { key: 'vidrio', label: t('materials.vidrio.label') },
-    { key: 'latas', label: t('materials.latas.label') },
+    { key: 'papel', label: t('materials.papel.title') },
+    { key: 'pet', label: t('materials.pet.title') },
+    { key: 'duro', label: t('materials.duro.title') },
+    { key: 'tetra', label: t('materials.tetra.title') },
+    { key: 'vidrio', label: t('materials.vidrio.title') },
+    { key: 'latas', label: t('materials.latas.title') },
   ];
 
   const content: Record<string, ReactNode> = {
@@ -33,14 +33,14 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.papel.remember')}
+              {t('materials.papel.rememberText')}
             </div>
           </div>
 
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.papel.no_recycle')}
+              {t('materials.papel.noRecycleText')}
             </div>
           </div>
         </div>
@@ -61,13 +61,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.pet.remember')}
+              {t('materials.pet.rememberText')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.pet.no_recycle')}
+              {t('materials.pet.noRecycleText')}
             </div>
           </div>
         </div>
@@ -88,13 +88,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.duro.remember')}
+              {t('materials.duro.rememberText')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.duro.no_recycle')}
+              {t('materials.duro.noRecycleText')}
             </div>
           </div>
         </div>
@@ -112,13 +112,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.tetra.remember')}
+              {t('materials.tetra.rememberText')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.tetra.no_recycle')}
+              {t('materials.tetra.noRecycleText')}
             </div>
           </div>
         </div>
@@ -139,13 +139,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.vidrio.remember')}
+              {t('materials.vidrio.rememberText')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.vidrio.no_recycle')}
+              {t('materials.vidrio.noRecycleText')}
             </div>
           </div>
         </div>
@@ -163,13 +163,13 @@ const HowToRecycleArea = () => {
           <div className="col-md-6">
             <div className="alert alert-success">
               <h5>{t('remember')}</h5>
-              {t('materials.latas.remember')}
+              {t('materials.latas.rememberText')}
             </div>
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
               <h5>{t('no_recycle')}</h5>
-              {t('materials.latas.no_recycle')}
+              {t('materials.latas.noRecycleText')}
             </div>
           </div>
         </div>
@@ -190,8 +190,6 @@ const HowToRecycleArea = () => {
               <p className="mt-4">{t('explanation')}</p>
             </div>
           </div>
-
-          {/* <div className="col-lg-5"> */}
           <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
             <h4>{t('types_title')}</h4>
 
@@ -208,10 +206,8 @@ const HowToRecycleArea = () => {
                 </div>
               ))}
             </div>
-
             <div className="bg-light p-3 rounded shadow-sm">{content[activeTab]}</div>
           </div>
-          {/* </div> */}
         </div>
       </div>
     </div>

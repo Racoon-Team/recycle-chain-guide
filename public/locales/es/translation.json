@@ -1,4 +1,5 @@
 {
+  "breadcrumb":"Cómo reciclar",
   "title": "¿Cómo reciclar correctamente?",
   "intro": "Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.",
   "explanation": "Es importante seguir los lineamientos para asegurar que los materiales puedan ser reciclados sin contaminar otros recursos. Mantén siempre los residuos limpios y secos antes de entregarlos.",
@@ -7,46 +8,46 @@
   "no_recycle": "No reciclamos",
   "materials": {
     "papel": {
-      "label": "Papel y cartón",
+      
       "title": "Papel y Cartón",
       "description": "Se pueden reciclar hojas blancas usadas, hojas de cuaderno, fotocopias, cartas, periódicos, revistas, folletos, cartón corrugado, cartulinas, cajas de embalaje, cilindros de papel.",
-      "remember": "Deben estar limpios y secos para facilitar su reciclaje adecuado",
-      "no_recycle": "Papel higiénico, papel toalla, servilletas, papel térmico."
+      "rememberText": "Deben estar limpios y secos para facilitar su reciclaje adecuado",
+      "noRecycleText": "Papel higiénico, papel toalla, servilletas, papel térmico."
     },
     "pet": {
-      "label": "Plástico PET",
+      
       "title": "Plástico PET",
       "description": "Se pueden reciclar botellas desechables de bebidas, aguas, jugos, yogurts, productos de higiene personal y limpieza (transparentes y de color), bandejas de frutas y domos de torta.",
-      "remember": "Deben estar limpios, secos y compactados para su reciclaje.",
-      "no_recycle": "Envases de aceite deben estar limpios, secos y sin residuos."
+      "rememberText": "Deben estar limpios, secos y compactados para su reciclaje.",
+      "noRecycleText": "Envases de aceite deben estar limpios, secos y sin residuos."
     },
     "duro": {
-      "label": "Plástico duro",
+      
       "title": "Plástico Duro",
       "description": "Se pueden reciclar tapas de botellas, bidones, botellas de shampoo, cremas y de cosméticos, así como envases de detergente, de productos lácteos, de mantequilla y margarina.",
-      "remember": "Que deben estar limpios, secos y compactados.",
-      "no_recycle": "Envases de poliestireno, bolsas de plástico ni de alimentos."
+      "rememberText": "Que deben estar limpios, secos y compactados.",
+      "noRecycleText": "Envases de poliestireno, bolsas de plástico ni de alimentos."
     },
     "tetra": {
-      "label": "Tetra Pak",
+      
       "title": "Tetra Pak",
       "description": "Se pueden reciclar envases de cartón como los de leche, jugos, vino y cremas, conocidos como Tetra Pak. Es importante enjuagarlos y llevarlos a puntos de acopio adecuados para facilitar su reciclaje.",
-      "remember": "Deben estar enjuagados, secos, desarmados y aplastados.",
-      "no_recycle": "Cartones plastificados ni vasos de papel para bebidas calientes."
+      "rememberText": "Deben estar enjuagados, secos, desarmados y aplastados.",
+      "noRecycleText": "Cartones plastificados ni vasos de papel para bebidas calientes."
     },
     "vidrio": {
-      "label": "Vidrio",
+      
       "title": "Vidrio",
       "description": "Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, además de envases de vidrio para conservas. Es clave enjuagarlos y depositarlos en contenedores específicos para vidrio.",
-      "remember": "Deben estar limpios, secos y sin residuos para reciclar.",
-      "no_recycle": "Espejos, cristales, focos, ni vidrios de automóviles."
+      "rememberText": "Deben estar limpios, secos y sin residuos para reciclar.",
+      "noRecycleText": "Espejos, cristales, focos, ni vidrios de automóviles."
     },
     "latas": {
-      "label": "Latas",
+      
       "title": "Latas",
       "description": "Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y aerosoles. Además se pueden reciclar envases de hojalata de leche, bebidas y café.",
-      "remember": "Deben estar limpios, secos y sin etiquetas.",
-      "no_recycle": "Latas de pintura y químicos deben estar vacías y limpias."
+      "rememberText": "Deben estar limpios, secos y sin etiquetas.",
+      "noRecycleText": "Latas de pintura y químicos deben estar vacías y limpias."
     }
   },
   
