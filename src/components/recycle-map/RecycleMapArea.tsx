@@ -109,52 +109,52 @@ export const RecycleMapArea = () => {
   };
 
   return (
-    <div style={{ height: '82vh', width: '100%' }}>
-      <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} style={{ height: '80%', width: '100%' }}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    <div style={{ display: 'flex', height: '82vh', width: '100%' }}>
+      {/* Mapa */}
+      <div style={{ flex: 1 }}>
+        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} style={{ height: '80%', width: '100%' }}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-        {points.map((point) => (
-          <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
-            <Popup>
-              <strong>{point.name}</strong>
-              <br />
-              Tipo: {point.tipo}
-              <br />
-              Registrado por: {point.registerBy}
-              <br />
-              {point.url && (
-                <a href={point.url} target="_blank" rel="noopener noreferrer">
-                  Más información
-                </a>
-              )}
-            </Popup>
-          </Marker>
-        ))}
+          {points.map((point) => (
+            <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
+              <Popup>
+                <strong>{point.name}</strong>
+                <br />
+                Tipo: {point.tipo}
+                <br />
+                Registrado por: {point.registerBy}
+                <br />
+                {point.url && (
+                  <a href={point.url} target="_blank" rel="noopener noreferrer">
+                    Más información
+                  </a>
+                )}
+              </Popup>
+            </Marker>
+          ))}
 
-        <MapEvents />
-      </MapContainer>
+          <MapEvents />
+        </MapContainer>
+      </div>
 
+      {/* Modal/Formulario lateral */}
       {showForm && newPointPos && (
         <div
           style={{
-            position: 'absolute',
-            top: '10%',
-            left: '50%',
-            transform: 'translateX(-50%)',
+            height: '630px',
+            width: '320px',
             backgroundColor: 'white',
-            padding: '1rem',
-            borderRadius: '8px',
-            boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-            zIndex: 1000,
-            width: '300px',
+            padding: '1.5rem',
+            borderLeft: '1px solid #ccc',
+            boxShadow: '0 0 10px rgba(0,0,0,0.2)',
           }}>
-          <h3>Agregar lugar de reciclaje</h3>
+          <h3 style={{ marginBottom: '1rem' }}>Agregar lugar de reciclaje</h3>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>Nombre del Lugar:</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.1rem' }}>Nombre del Lugar:</label>
               <input
                 type="text"
                 name="name"
@@ -171,7 +171,7 @@ export const RecycleMapArea = () => {
             </div>
 
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>Tipo de material:</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>Tipo de material:</label>
               <input
                 type="text"
                 name="tipo"
@@ -188,13 +188,12 @@ export const RecycleMapArea = () => {
             </div>
 
             <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>URL (opcional):</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>URL (opcional):</label>
               <input
                 type="url"
                 name="url"
                 value={formData.url}
                 onChange={handleInputChange}
-                placeholder=""
                 style={{
                   width: '100%',
                   padding: '0.5rem',
@@ -217,7 +216,6 @@ export const RecycleMapArea = () => {
                 }}>
                 Guardar
               </button>
-
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
