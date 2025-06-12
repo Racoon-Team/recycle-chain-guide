@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import { FirebaseDB } from '../../firebase/config';
 
+import { getAuth } from 'firebase/auth';
+
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -77,13 +79,17 @@ export const RecycleMapArea = () => {
     e.preventDefault();
     if (!newPointPos) return;
 
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const displayName = user?.displayName || 'Anónimo';
+
     const docRef = await addDoc(collection(FirebaseDB, 'lugaresReciclaje'), {
       name: formData.name,
       tipo: formData.tipo,
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
-      registerBy: 'Usuario actual',
+      registerBy: displayName,
     });
 
     const newPoint: RecyclePoint = {
@@ -93,7 +99,7 @@ export const RecycleMapArea = () => {
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
-      registerBy: 'Usuario actual',
+      registerBy: displayName,
     };
 
     setPoints([...points, newPoint]);
@@ -148,12 +154,12 @@ export const RecycleMapArea = () => {
           <h3>Agregar lugar de reciclaje</h3>
           <form onSubmit={handleSubmit}>
             <label>
-              Nombre:
+              Nombre del Lugar:
               <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
             </label>
             <br />
             <label>
-              Tipo:
+              Tipo de material:
               <input type="text" name="tipo" value={formData.tipo} onChange={handleInputChange} required />
             </label>
             <br />
