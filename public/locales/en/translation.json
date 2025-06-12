@@ -78,7 +78,9 @@
     "login": "Sign in",
     "google": "Google",
     "createAccount": "Create an account",
-    "question":"Don't have an account?"
+    "question":"Don't have an account?",
+    "Usersettings":" User settings",
+    "Logout":"Logout"
     
   },
   "errors": {

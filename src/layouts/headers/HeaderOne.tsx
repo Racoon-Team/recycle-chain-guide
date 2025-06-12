@@ -1,5 +1,6 @@
 import { signOut } from 'firebase/auth';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import type { RootState } from 'store/store';
@@ -11,6 +12,7 @@ import useSticky from '../../hooks/use-sticky';
 import { logout } from '../../store/auth/authSlice';
 
 const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { sticky } = useSticky();
   const { status, displayName } = useSelector((state: RootState) => state.auth);
@@ -91,7 +93,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                   <ul className="d-flex align-items-center gap-3 m-0 list-unstyled">
                     {status !== 'authenticated' ? (
                       <li>
-                        <Link to="/sign-in">Log in</Link>
+                        <Link to="/sign-in">{t('login.login')}</Link>
                       </li>
                     ) : (
                       <li className="position-relative">
@@ -117,7 +119,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                                   setDropdownOpen(false);
                                   navigate('/settingArea');
                                 }}>
-                                User settings
+                                {t('login.Usersettings')}
                               </button>
                             </li>
                             <li>
@@ -130,7 +132,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                                   setDropdownOpen(false);
                                   handleLogout();
                                 }}>
-                                Logout
+                                {t('login.Logout')}
                               </button>
                             </li>
                           </ul>
