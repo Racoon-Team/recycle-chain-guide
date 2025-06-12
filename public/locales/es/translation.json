@@ -55,6 +55,21 @@
       "noRecycleText": "Latas de pintura y químicos deben estar vacías y limpias."
     }
   },
+
+  
+  "addPlace": "Agregar lugar de reciclaje",
+  "placeName": "Nombre del Lugar",
+  "materialType": "Tipo de material",
+  "optionalUrl": "URL (opcional)",
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "type": "Tipo",
+  "registeredBy": "Registrado por",
+  "moreInfo": "Más información",
+
+
+  
+
   "login": {
     "title": "Iniciar sesión",
     "email": "Correo",

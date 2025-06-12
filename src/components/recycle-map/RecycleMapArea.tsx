@@ -6,6 +6,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaf
 import { FirebaseDB } from '../../firebase/config';
 
 import { getAuth } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -27,6 +28,8 @@ type RecyclePoint = {
 const center = { lat: -17.3895, lng: -66.1568 };
 
 export const RecycleMapArea = () => {
+  const { t } = useTranslation();
+
   const [points, setPoints] = useState<RecyclePoint[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
@@ -110,7 +113,6 @@ export const RecycleMapArea = () => {
 
   return (
     <div style={{ display: 'flex', height: '82vh', width: '100%' }}>
-      {/* Mapa */}
       <div style={{ flex: 1 }}>
         <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} style={{ height: '80%', width: '100%' }}>
           <TileLayer
@@ -123,13 +125,13 @@ export const RecycleMapArea = () => {
               <Popup>
                 <strong>{point.name}</strong>
                 <br />
-                Tipo: {point.tipo}
+                {t('type')}: {point.tipo}
                 <br />
-                Registrado por: {point.registerBy}
+                {t('registeredBy')}: {point.registerBy}
                 <br />
                 {point.url && (
                   <a href={point.url} target="_blank" rel="noopener noreferrer">
-                    Más información
+                    {t('moreInfo')}
                   </a>
                 )}
               </Popup>
@@ -140,7 +142,6 @@ export const RecycleMapArea = () => {
         </MapContainer>
       </div>
 
-      {/* Modal/Formulario lateral */}
       {showForm && newPointPos && (
         <div
           style={{
@@ -151,10 +152,10 @@ export const RecycleMapArea = () => {
             borderLeft: '1px solid #ccc',
             boxShadow: '0 0 10px rgba(0,0,0,0.2)',
           }}>
-          <h3 style={{ marginBottom: '1rem' }}>Agregar lugar de reciclaje</h3>
+          <h3 style={{ marginBottom: '1rem' }}>{t('addPlace')}</h3>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.1rem' }}>Nombre del Lugar:</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.1rem' }}>{t('placeName')}:</label>
               <input
                 type="text"
                 name="name"
@@ -171,7 +172,9 @@ export const RecycleMapArea = () => {
             </div>
 
             <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>Tipo de material:</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                {t('materialType')}:
+              </label>
               <input
                 type="text"
                 name="tipo"
@@ -188,7 +191,9 @@ export const RecycleMapArea = () => {
             </div>
 
             <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>URL (opcional):</label>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                {t('optionalUrl')}:
+              </label>
               <input
                 type="url"
                 name="url"
@@ -214,7 +219,7 @@ export const RecycleMapArea = () => {
                   borderRadius: '8px',
                   cursor: 'pointer',
                 }}>
-                Guardar
+                {t('save')}
               </button>
               <button
                 type="button"
@@ -227,7 +232,7 @@ export const RecycleMapArea = () => {
                   borderRadius: '8px',
                   cursor: 'pointer',
                 }}>
-                Cancelar
+                {t('cancel')}
               </button>
             </div>
           </form>
