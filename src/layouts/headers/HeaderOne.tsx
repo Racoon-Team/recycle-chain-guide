@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import useSticky from '../../hooks/use-sticky';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import menu_data from '../../data/menu-data';
+import type { RootState } from 'store/store';
 import OffCanvas from '../../common/OffCanvas';
+import menu_data from '../../data/menu-data';
+import useSticky from '../../hooks/use-sticky';
 
 const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { sticky } = useSticky();
-
+  const { status } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <header
@@ -65,9 +67,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
               <div className="lonyo-header-info-wraper2">
                 <div className={`lonyo-header-info-content ${style_2 ? 'content2' : ''}`}>
                   <ul>
-                    <li>
-                      <Link to="/sign-in">Log in</Link>
-                    </li>
+                    <li>{status !== 'authenticated' && <Link to="/sign-in">Log in</Link>}</li>
                   </ul>
                 </div>
                 <Link className={`lonyo-default-btn lonyo-header-btn ${style_2 ? 'btn2' : ''}`} to="/contact-us">

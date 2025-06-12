@@ -15,11 +15,11 @@ export const startGoogleSingIn = () => {
   };
 };
 
-export const startLoginWithEmailPassword = ({ correo, password }: { correo: string; password: string }) => {
+export const startLoginWithEmailPassword = ({ email, password }: { email: string; password: string }) => {
   return async (dispatch: AppDispatch) => {
     dispatch(checkingCredentials());
 
-    const result = await signInWithEmailPassword({ correo, password });
+    const result = await signInWithEmailPassword({ email, password });
 
     if (!result.ok) return dispatch(logout(result.errorMessage));
 
@@ -30,14 +30,11 @@ export const startLoginWithEmailPassword = ({ correo, password }: { correo: stri
 export const startLogout = () => {
   return async (dispatch: AppDispatch) => {
     try {
-      // Cierra sesión en Firebase
       await signOut(FirebaseAuth);
 
-      // Limpia el estado en Redux (authSlice)
       dispatch(logout(null));
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
-      // Aquí podrías despachar otro action para manejar errores si quieres
     }
   };
 };

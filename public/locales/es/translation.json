@@ -1,4 +1,9 @@
 {
+ "main": {
+    "title": "Welcome to the Main Page",
+    "description":"Entra en Lonyo y empieza a gestionar tus finanzas como nunca antes.",
+    "or": "o"
+  },
   "breadcrumb":"Cómo reciclar",
   "title": "¿Cómo reciclar correctamente?",
   "intro": "Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.",
@@ -50,14 +55,14 @@
       "noRecycleText": "Latas de pintura y químicos deben estar vacías y limpias."
     }
   },
-  
   "login": {
     "title": "Iniciar sesión",
     "email": "Correo",
     "password": "Contraseña",
     "login": "Entrar",
     "google": "Google",
-    "createAccount": "Crear una cuenta"
+    "createAccount": "Crear una cuenta",
+    "question":"¿No tienes una cuenta?"
   },
   "errors": {
     "invalidEmail": "Correo inválido",

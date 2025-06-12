@@ -29,11 +29,10 @@ export const singInWithGoogle = async () => {
   }
 };
 
-export const signInWithEmailPassword = async ({ correo, password }: { correo: string; password: string }) => {
+export const signInWithEmailPassword = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const resp = await signInWithEmailAndPassword(FirebaseAuth, correo, password);
+    const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
     const { uid, displayName, photoURL } = resp.user;
-    console.log('displayName:', displayName);
 
     return {
       ok: true,
