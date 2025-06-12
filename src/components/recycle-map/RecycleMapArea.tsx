@@ -109,8 +109,8 @@ export const RecycleMapArea = () => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <MapContainer center={center} zoom={15.5} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+    <div style={{ height: '82vh', width: '100%' }}>
+      <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} style={{ height: '80%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -153,25 +153,85 @@ export const RecycleMapArea = () => {
           }}>
           <h3>Agregar lugar de reciclaje</h3>
           <form onSubmit={handleSubmit}>
-            <label>
-              Nombre del Lugar:
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
-            </label>
-            <br />
-            <label>
-              Tipo de material:
-              <input type="text" name="tipo" value={formData.tipo} onChange={handleInputChange} required />
-            </label>
-            <br />
-            <label>
-              URL (opcional):
-              <input type="url" name="url" value={formData.url} onChange={handleInputChange} />
-            </label>
-            <br />
-            <button type="submit">Guardar</button>{' '}
-            <button type="button" onClick={() => setShowForm(false)}>
-              Cancelar
-            </button>
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>Nombre del Lugar:</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.5rem',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>Tipo de material:</label>
+              <input
+                type="text"
+                name="tipo"
+                value={formData.tipo}
+                onChange={handleInputChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.5rem',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 'bold' }}>URL (opcional):</label>
+              <input
+                type="url"
+                name="url"
+                value={formData.url}
+                onChange={handleInputChange}
+                placeholder=""
+                style={{
+                  width: '100%',
+                  padding: '0.5rem',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <button
+                type="submit"
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#2e7d32',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                }}>
+                Guardar
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#c62828',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                }}>
+                Cancelar
+              </button>
+            </div>
           </form>
         </div>
       )}
