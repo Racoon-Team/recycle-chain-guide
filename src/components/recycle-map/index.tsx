@@ -1,6 +1,6 @@
 import Breadcrumb from '../../common/Breadcrumb';
 import HeaderOne from '../../layouts/headers/HeaderOne';
-import RecycleMapArea from './RecycleMapArea';
+import { RecycleMapArea } from './RecycleMapArea';
 
 const RecycleMap = () => {
   return (
