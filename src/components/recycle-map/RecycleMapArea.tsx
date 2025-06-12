@@ -1,12 +1,10 @@
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-
-import { collection, getDocs } from 'firebase/firestore';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import { FirebaseDB } from '../../firebase/config';
 
-// Fix de íconos de Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -28,12 +26,19 @@ const center = { lat: -17.3895, lng: -66.1568 };
 
 export const RecycleMapArea = () => {
   const [points, setPoints] = useState<RecyclePoint[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    tipo: '',
+    url: '',
+  });
 
   useEffect(() => {
     const loadPoints = async () => {
       const snapshot = await getDocs(collection(FirebaseDB, 'lugaresReciclaje'));
       const pointsData: RecyclePoint[] = [];
-
       snapshot.forEach((doc) => {
         const data = doc.data();
         if (data.lat && data.lng) {
@@ -54,10 +59,52 @@ export const RecycleMapArea = () => {
 
     loadPoints();
   }, []);
+  const MapEvents = () => {
+    useMapEvents({
+      contextmenu(e) {
+        setNewPointPos(e.latlng);
+        setShowForm(true);
+      },
+    });
+    return null;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPointPos) return;
+
+    const docRef = await addDoc(collection(FirebaseDB, 'lugaresReciclaje'), {
+      name: formData.name,
+      tipo: formData.tipo,
+      url: formData.url,
+      lat: newPointPos.lat,
+      lng: newPointPos.lng,
+      registerBy: 'Usuario actual',
+    });
+
+    const newPoint: RecyclePoint = {
+      id: docRef.id,
+      name: formData.name,
+      tipo: formData.tipo,
+      url: formData.url,
+      lat: newPointPos.lat,
+      lng: newPointPos.lng,
+      registerBy: 'Usuario actual',
+    };
+
+    setPoints([...points, newPoint]);
+    setShowForm(false);
+    setFormData({ name: '', tipo: '', url: '' });
+    setNewPointPos(null);
+  };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
-      <MapContainer center={center} zoom={6.5} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={center} zoom={15.5} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -80,7 +127,48 @@ export const RecycleMapArea = () => {
             </Popup>
           </Marker>
         ))}
+
+        <MapEvents />
       </MapContainer>
+
+      {showForm && newPointPos && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '10%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'white',
+            padding: '1rem',
+            borderRadius: '8px',
+            boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+            zIndex: 1000,
+            width: '300px',
+          }}>
+          <h3>Agregar lugar de reciclaje</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nombre:
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
+            </label>
+            <br />
+            <label>
+              Tipo:
+              <input type="text" name="tipo" value={formData.tipo} onChange={handleInputChange} required />
+            </label>
+            <br />
+            <label>
+              URL (opcional):
+              <input type="url" name="url" value={formData.url} onChange={handleInputChange} />
+            </label>
+            <br />
+            <button type="submit">Guardar</button>{' '}
+            <button type="button" onClick={() => setShowForm(false)}>
+              Cancelar
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
