@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import type { RootState } from 'store/store';
 import OffCanvas from '../../common/OffCanvas';
+import '../../components/sign-in/SingninArea.css';
 import menu_data from '../../data/menu-data';
 import { FirebaseAuth } from '../../firebase/config';
 import useSticky from '../../hooks/use-sticky';
@@ -108,22 +109,13 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                         </button>
 
                         {dropdownOpen && (
-                          <ul
-                            className="dropdown-menu show"
-                            style={{
-                              display: 'block',
-                              position: 'absolute',
-                              right: 0,
-                              top: '100%',
-                              marginTop: '0.5rem',
-                              zIndex: 1000,
-                            }}>
+                          <ul className="dropdown-menu show dropdownMenu">
                             <li>
                               <button
                                 className="dropdown-item"
                                 onClick={() => {
                                   setDropdownOpen(false);
-                                  navigate('/settings');
+                                  navigate('/settingArea');
                                 }}>
                                 User settings
                               </button>
