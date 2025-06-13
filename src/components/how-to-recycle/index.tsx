@@ -8,7 +8,7 @@ const HowToRecycle = () => {
   return (
     <>
       <HeaderOne />
-      <Breadcrumb title={t('breadcrumb')} subtitle={t('breadcrumb')} />
+      <Breadcrumb title={t('breadcrumb_howtorecycle')} subtitle={t('breadcrumb_howtorecycle')} />
       <HowToRecycleArea />
     </>
   );

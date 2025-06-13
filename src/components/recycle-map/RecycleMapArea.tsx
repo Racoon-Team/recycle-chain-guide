@@ -7,6 +7,7 @@ import { FirebaseDB } from '../../firebase/config';
 
 import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
+import '../../components/recycle-map/RecycleMapArea.css';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -42,7 +43,7 @@ export const RecycleMapArea = () => {
 
   useEffect(() => {
     const loadPoints = async () => {
-      const snapshot = await getDocs(collection(FirebaseDB, 'lugaresReciclaje'));
+      const snapshot = await getDocs(collection(FirebaseDB, 'recyclingPoints'));
       const pointsData: RecyclePoint[] = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
@@ -86,7 +87,7 @@ export const RecycleMapArea = () => {
     const user = auth.currentUser;
     const displayName = user?.displayName || 'Anónimo';
 
-    const docRef = await addDoc(collection(FirebaseDB, 'lugaresReciclaje'), {
+    const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
       name: formData.name,
       tipo: formData.tipo,
       url: formData.url,
@@ -112,9 +113,9 @@ export const RecycleMapArea = () => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '82vh', width: '100%' }}>
-      <div style={{ flex: 1 }}>
-        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} style={{ height: '80%', width: '100%' }}>
+    <div className="containerPrimary">
+      <div className="mapArea">
+        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -143,95 +144,43 @@ export const RecycleMapArea = () => {
       </div>
 
       {showForm && newPointPos && (
-        <div
-          style={{
-            height: '630px',
-            width: '320px',
-            backgroundColor: 'white',
-            padding: '1.5rem',
-            borderLeft: '1px solid #ccc',
-            boxShadow: '0 0 10px rgba(0,0,0,0.2)',
-          }}>
-          <h3 style={{ marginBottom: '1rem' }}>{t('addPlace')}</h3>
+        <div className="formContainer">
+          <h3 className="formTitle">{t('addPlace')}</h3>
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.1rem' }}>{t('placeName')}:</label>
+            <div className="formGroup">
+              <label className="formLabel">{t('placeName')}:</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
-                }}
+                className="formInput"
               />
             </div>
 
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>
-                {t('materialType')}:
-              </label>
+            <div className="formGroup">
+              <label className="formLabel">{t('materialType')}:</label>
               <input
                 type="text"
                 name="tipo"
                 value={formData.tipo}
                 onChange={handleInputChange}
                 required
-                style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
-                }}
+                className="formInput"
               />
             </div>
 
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>
-                {t('optionalUrl')}:
-              </label>
-              <input
-                type="url"
-                name="url"
-                value={formData.url}
-                onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
-                }}
-              />
+            <div className="formGroup">
+              <label className="formLabel">{t('optionalUrl')}:</label>
+              <input className="formInput" type="url" name="url" value={formData.url} onChange={handleInputChange} />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <button
-                type="submit"
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: '#2e7d32',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                }}>
+              <button type="submit" className="btnSave">
                 {t('save')}
               </button>
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: '#c62828',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                }}>
+              <button type="button" onClick={() => setShowForm(false)} className="btnCancel">
                 {t('cancel')}
               </button>
             </div>
