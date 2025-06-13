@@ -88,12 +88,37 @@
     "google": "Google",
     "createAccount": "Create an account",
     "question":"Don't have an account?",
-    "usersettings":" User settings",
+    "userSettings":" User settings",
     "logout":"Logout"
     
   },
   "errors": {
     "invalidEmail": "Invalid email",
     "shortPassword": "Must be at least 6 characters"
+  },
+
+  
+  "validation":{
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email is invalid",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "signup":{
+
+    "title":"Sign Up",
+    "description": "Step into the future with Lonyo and take your financial game to the next level!",
+    "fullName":"Full name",
+    "lastName":"Last name",
+    "email":"Email address",
+    "password": "Password",
+    "repeatPassword":"Repeat password",
+    "question":"Already have an account?",
+    "signInHere":"Sign in here"
+
+
   }
 }

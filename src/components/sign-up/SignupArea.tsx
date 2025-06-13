@@ -32,7 +32,6 @@ const SignUpArea = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-  // Toggle password visibility
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordVisible(!confirmPasswordVisible);
 
@@ -44,13 +43,13 @@ const SignUpArea = () => {
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (!formData.password) newErrors.password = 'Password is required';
-    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = 'Passwords do not match';
+    if (!formData.firstName.trim()) newErrors.firstName = t('validation.firstNameRequired');
+    if (!formData.lastName.trim()) newErrors.lastName = t('validation.lastNameRequired');
+    if (!formData.email.trim()) newErrors.email = t('validation.emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = t('validation.emailInvalid');
+    if (!formData.password) newErrors.password = t('validation.passwordRequired');
+    else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
+    if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -78,8 +77,8 @@ const SignUpArea = () => {
     <div className="lonyo-account-section light-bg">
       <div className="container">
         <div className="lonyo-account-title">
-          <h1>Sign Up</h1>
-          <p>Step into the future with Lonyo and take your financial game to the next level!</p>
+          <h1>{t('signup.title')}</h1>
+          <p>{t('signup.description')}</p>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
           <div className="login-with-google">
@@ -99,35 +98,35 @@ const SignUpArea = () => {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="lonyo-main-field">
-                    <p>Full name*</p>
+                    <p>{t('signup.fullName')}</p>
                     <input
                       className="light-bg"
                       type="text"
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      placeholder="Adam"
+                      placeholder="Full name"
                     />
                     {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="lonyo-main-field">
-                    <p>Last Name*</p>
+                    <p>{t('signup.lastName')}</p>
                     <input
                       className="light-bg"
                       type="text"
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      placeholder="Smith"
+                      placeholder="Last name"
                     />
                     {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
                   </div>
                 </div>
               </div>
               <div className="lonyo-main-field">
-                <p>Email address*</p>
+                <p>{t('signup.email')}</p>
                 <input
                   className="light-bg"
                   type="email"
@@ -139,7 +138,7 @@ const SignUpArea = () => {
                 {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
               <div className="lonyo-main-field">
-                <p>Password*</p>
+                <p>{t('signup.password')}</p>
                 <input
                   className="light-bg form-control"
                   type={passwordVisible ? 'text' : 'password'}
@@ -154,7 +153,7 @@ const SignUpArea = () => {
                 {errors.password && <small className="text-danger">{errors.password}</small>}
               </div>
               <div className="lonyo-main-field">
-                <p>Repeat password*</p>
+                <p>{t('signup.repeatPassword')}</p>
                 <input
                   className="light-bg form-control"
                   type={confirmPasswordVisible ? 'text' : 'password'}
@@ -169,12 +168,12 @@ const SignUpArea = () => {
                 {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
               </div>
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
-                Sign up
+                {t('signup.title')}
               </button>
               <div className="login">
-                <span>Already have an account?</span>
+                <span>{t('signup.question')}</span>
                 <Link to="/sign-in">
-                  <p>Sign in here</p>
+                  <p>{t('signup.signInHere')}</p>
                 </Link>
               </div>
             </form>
