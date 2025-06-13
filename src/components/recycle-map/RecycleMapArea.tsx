@@ -181,11 +181,11 @@ export const RecycleMapArea = () => {
 
             <div className="formGroup">
               <label className="formLabel">{t('materialType')}:</label>
-              <div>
+              <div className="checkboxGroup">
                 {materialOptions.map((material) => {
                   const isChecked = formData.tipo.includes(material);
                   return (
-                    <label key={material}>
+                    <label key={material} className="checkboxLabel">
                       <input
                         type="checkbox"
                         checked={isChecked}
