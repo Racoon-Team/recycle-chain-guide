@@ -27,7 +27,9 @@ type RecyclePoint = {
   lng: number;
 };
 
-const center = { lat: -17.3895, lng: -66.1568 };
+const materialOptions = ['Papel y Cartón', 'Plástico PET', 'Plástico Duro', 'Tetra Pak', 'Vidrio', 'Latas'];
+
+const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
@@ -38,7 +40,7 @@ export const RecycleMapArea = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    tipo: '',
+    tipo: [] as string[],
     url: '',
   });
 
@@ -84,7 +86,16 @@ export const RecycleMapArea = () => {
     return null;
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, options } = e.target as HTMLSelectElement;
+
+    const newValue =
+      type === 'select-multiple'
+        ? Array.from(options)
+            .filter((o) => o.selected)
+            .map((o) => o.value)
+        : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,7 +108,7 @@ export const RecycleMapArea = () => {
 
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
       name: formData.name,
-      tipo: formData.tipo,
+      tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -107,7 +118,7 @@ export const RecycleMapArea = () => {
     const newPoint: RecyclePoint = {
       id: docRef.id,
       name: formData.name,
-      tipo: formData.tipo,
+      tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -116,7 +127,7 @@ export const RecycleMapArea = () => {
 
     setPoints([...points, newPoint]);
     setShowForm(false);
-    setFormData({ name: '', tipo: '', url: '' });
+    setFormData({ name: '', tipo: [], url: '' });
     setNewPointPos(null);
   };
 
@@ -170,14 +181,26 @@ export const RecycleMapArea = () => {
 
             <div className="formGroup">
               <label className="formLabel">{t('materialType')}:</label>
-              <input
-                type="text"
-                name="tipo"
-                value={formData.tipo}
-                onChange={handleInputChange}
-                required
-                className="formInput"
-              />
+              <div>
+                {materialOptions.map((material) => {
+                  const isChecked = formData.tipo.includes(material);
+                  return (
+                    <label key={material}>
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            tipo: isChecked ? prev.tipo.filter((m) => m !== material) : [...prev.tipo, material],
+                          }))
+                        }
+                      />
+                      {material}
+                    </label>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="formGroup">
