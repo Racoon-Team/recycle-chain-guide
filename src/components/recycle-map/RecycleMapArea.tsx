@@ -1,13 +1,13 @@
+import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
-import { FirebaseDB } from '../../firebase/config';
-
-import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import Swal from 'sweetalert2';
 import '../../components/recycle-map/RecycleMapArea.css';
+import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -74,6 +74,18 @@ export const RecycleMapArea = () => {
   const MapEvents = () => {
     useMapEvents({
       contextmenu: async (e) => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Acceso denegado',
+            text: 'Debes iniciar sesión para registrar un lugar.',
+            confirmButtonText: 'Aceptar',
+          });
+          return;
+        }
+
         const { lat, lng } = e.latlng;
         setNewPointPos({ lat, lng });
         setShowForm(true);
@@ -85,6 +97,7 @@ export const RecycleMapArea = () => {
     });
     return null;
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type, options } = e.target as HTMLSelectElement;
 
@@ -139,7 +152,6 @@ export const RecycleMapArea = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
           {points.map((point) => (
             <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
               <Popup>
