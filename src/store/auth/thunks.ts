@@ -15,6 +15,17 @@ export const startGoogleSingIn = () => {
   };
 };
 
+export const startGoogleSingup = () => {
+  return async (dispatch: AppDispatch) => {
+    const result = await singInWithGoogle();
+
+    if (!result.ok) return dispatch(logout(result.errorMessage));
+
+    const { uid, displayName, email, photoURL } = result;
+    dispatch(login({ uid, displayName, email, photoURL }));
+  };
+};
+
 export const startLoginWithEmailPassword = ({ email, password }: { email: string; password: string }) => {
   return async (dispatch: AppDispatch) => {
     dispatch(checkingCredentials());

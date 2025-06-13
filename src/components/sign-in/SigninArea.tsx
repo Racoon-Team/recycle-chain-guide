@@ -117,7 +117,7 @@ const SigninArea = () => {
 
               <div className="login">
                 <span>{t('login.question')}</span>
-                <Link to="/home-2">
+                <Link to="/sign-up">
                   <p>{t('login.createAccount')}</p>
                 </Link>
               </div>
