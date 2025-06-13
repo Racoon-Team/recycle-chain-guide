@@ -1,15 +1,37 @@
+import { signOut } from 'firebase/auth';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import type { RootState } from 'store/store';
 import OffCanvas from '../../common/OffCanvas';
+import '../../components/sign-in/SingninArea.css';
 import menu_data from '../../data/menu-data';
+import { FirebaseAuth } from '../../firebase/config';
 import useSticky from '../../hooks/use-sticky';
+import { logout } from '../../store/auth/authSlice';
 
 const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { sticky } = useSticky();
-  const { status } = useSelector((state: RootState) => state.auth);
+  const { status, displayName } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(FirebaseAuth);
+      dispatch(logout());
+      navigate('/sign-in');
+    } catch (error: any) {
+      console.error('Error logging out:', error);
+      dispatch(logout({ errorMessage: error.message }));
+    }
+  };
+
   return (
     <>
       <header
@@ -28,6 +50,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                 </Link>
               </div>
             </div>
+
             <div className="col">
               <div className="lonyo-main-menu-item">
                 <nav className="main-menu menu-style1 d-none d-lg-block menu-left">
@@ -63,17 +86,63 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                 </nav>
               </div>
             </div>
+
             <div className="col-auto d-flex align-items-center">
               <div className="lonyo-header-info-wraper2">
                 <div className={`lonyo-header-info-content ${style_2 ? 'content2' : ''}`}>
-                  <ul>
-                    <li>{status !== 'authenticated' && <Link to="/sign-in">Log in</Link>}</li>
+                  <ul className="d-flex align-items-center gap-3 m-0 list-unstyled">
+                    {status !== 'authenticated' ? (
+                      <li>
+                        <Link to="/sign-in">{t('login.login')}</Link>
+                      </li>
+                    ) : (
+                      <li className="position-relative">
+                        <button
+                          className="btn d-flex align-items-center text-white border-0 bg-transparent"
+                          onClick={() => setDropdownOpen((prev) => !prev)}>
+                          <img
+                            src="/static/images/avatar/2.jpg"
+                            alt={displayName ?? 'User'}
+                            className="rounded-circle me-2"
+                            width="40"
+                            height="40"
+                          />
+                          {displayName}
+                        </button>
+
+                        {dropdownOpen && (
+                          <ul className="dropdown-menu show dropdownMenu">
+                            <li>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => {
+                                  setDropdownOpen(false);
+                                  navigate('/userSetting');
+                                }}>
+                                {t('login.usersettings')}
+                              </button>
+                            </li>
+                            <li>
+                              <hr className="dropdown-divider" />
+                            </li>
+                            <li>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => {
+                                  setDropdownOpen(false);
+                                  handleLogout();
+                                }}>
+                                {t('login.logout')}
+                              </button>
+                            </li>
+                          </ul>
+                        )}
+                      </li>
+                    )}
                   </ul>
                 </div>
-                <Link className={`lonyo-default-btn lonyo-header-btn ${style_2 ? 'btn2' : ''}`} to="/contact-us">
-                  Book a demo
-                </Link>
               </div>
+
               <div className="lonyo-header-menu">
                 <nav className="navbar site-navbar justify-content-between">
                   <button
@@ -87,6 +156,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
           </div>
         </div>
       </header>
+
       <OffCanvas setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
     </>
   );
