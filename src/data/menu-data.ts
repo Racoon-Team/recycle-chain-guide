@@ -118,5 +118,12 @@ const menu_data = [
     link: '/how-to-recycle',
     has_dropdown: false,
   },
+
+  {
+    id: 8,
+    title: 'Recycle map',
+    link: '/recycle-map',
+    has_dropdown: false,
+  },
 ];
 export default menu_data;

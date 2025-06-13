@@ -1,16 +1,16 @@
 {
- "main": {
-    "title": "Welcome to the Main Page",
-    "description":"Entra en Lonyo y empieza a gestionar tus finanzas como nunca antes.",
-    "or": "o"
-  },
-  "breadcrumb":"Cómo reciclar",
+  
+  "breadcrumb_howtorecycle":"Cómo reciclar",
+  "breadcrumb_recyclemap":"Puntos de reciclaje",
+
+
   "title": "¿Cómo reciclar correctamente?",
   "intro": "Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.",
   "explanation": "Es importante seguir los lineamientos para asegurar que los materiales puedan ser reciclados sin contaminar otros recursos. Mantén siempre los residuos limpios y secos antes de entregarlos.",
   "types_title": "Tipos de materiales reciclables",
   "remember": "Recuerda",
   "no_recycle": "No reciclamos",
+
   "materials": {
     "papel": {
       
@@ -55,6 +55,24 @@
       "noRecycleText": "Latas de pintura y químicos deben estar vacías y limpias."
     }
   },
+
+  
+  "addPlace": "Agregar lugar de reciclaje",
+  "placeName": "Nombre del Lugar",
+  "materialType": "Tipo de material",
+  "optionalUrl": "URL (opcional)",
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "type": "Tipo",
+  "registeredBy": "Registrado por",
+  "moreInfo": "Más información",
+
+  "main": {
+    "title": "Welcome to the Main Page",
+    "description":"Entra en Lonyo y empieza a gestionar tus finanzas como nunca antes.",
+    "or": "o"
+  },
+
   "login": {
     "title": "Iniciar sesión",
     "email": "Correo",

@@ -1,0 +1,72 @@
+.containerPrimary {
+  display: flex;
+  height: 82vh;
+  width: 100%;
+}
+
+.mapArea {
+  flex: 1;
+}
+
+.mapContainer {
+  height: 80%;
+  width: 100%;
+}
+
+.formContainer {
+  height: 630px;
+  width: 320px;
+  background-color: white;
+  padding: 1.5rem;
+  border-left: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.formTitle {
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.formGroup:first-child .formLabel {
+  margin-bottom: 0.1rem;
+}
+
+.formInput {
+  width: 100% !important;
+  padding: 0.5rem !important;
+  border-radius: 8px !important;
+  border: 1px solid #ccc !important;
+  box-sizing: border-box !important;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnSave {
+  padding: 0.5rem 1rem;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btnCancel {
+  padding: 0.5rem 1rem;
+  background-color: #c62828;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

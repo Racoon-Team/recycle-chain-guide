@@ -1,5 +1,7 @@
 {
-  "breadcrumb":"How to recycle",
+  "breadcrumb_howtorecycle":"How to recycle",
+  "breadcrumb_recyclemap":"Recycling points",
+
   "title": "How to recycle properly?",
   "intro": "Select the type of material you want to recycle to learn best practices.",
   "explanation": "It is important to follow the guidelines to ensure that materials can be recycled without contaminating other resources. Always keep waste clean and dry before delivering it.",
@@ -51,6 +53,17 @@
       "noRecycleText": "Paint and chemical cans must be empty and clean."
     }
   },
+
+
+  "addPlace": "Add recycling place",
+  "placeName": "Place Name",
+  "materialType": "Material Type",
+  "optionalUrl": "URL (optional)",
+  "save": "Save",
+  "cancel": "Cancel",
+  "type": "Type",
+  "registeredBy": "Registered by",
+  "moreInfo": "More Info",
 
   "main": {
     "title": "Welcome to the Main Page",
