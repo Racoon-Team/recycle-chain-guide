@@ -165,7 +165,7 @@ export const RecycleMapArea = () => {
                 required
                 className="formInput"
               />
-              {fullAddress && <p>{fullAddress}</p>}
+              {fullAddress && <p className="formAddress">{fullAddress}</p>}
             </div>
 
             <div className="formGroup">
