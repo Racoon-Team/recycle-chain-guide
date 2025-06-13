@@ -81,8 +81,8 @@
     "google": "Google",
     "createAccount": "Crear una cuenta",
     "question":"¿No tienes una cuenta?",
-    "Usersettings":"Configuraciones de usuario",
-    "Logout":"Cerrar sesión"
+    "usersettings":"Configuraciones de usuario",
+    "logout":"Cerrar sesión"
   },
   "errors": {
     "invalidEmail": "Correo inválido",

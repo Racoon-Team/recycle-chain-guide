@@ -117,9 +117,9 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                                 className="dropdown-item"
                                 onClick={() => {
                                   setDropdownOpen(false);
-                                  navigate('/settingArea');
+                                  navigate('/userSetting');
                                 }}>
-                                {t('login.Usersettings')}
+                                {t('login.usersettings')}
                               </button>
                             </li>
                             <li>
@@ -132,7 +132,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                                   setDropdownOpen(false);
                                   handleLogout();
                                 }}>
-                                {t('login.Logout')}
+                                {t('login.logout')}
                               </button>
                             </li>
                           </ul>

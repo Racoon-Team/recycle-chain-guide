@@ -1,13 +1,13 @@
 import HeaderOne from '../../layouts/headers/HeaderOne';
-import { SettingArea } from './SettingArea';
+import { UserSettings } from './UserSettings';
 
-const settingArea = () => {
+const userSetting = () => {
   return (
     <>
       <HeaderOne />
-      <SettingArea />
+      <UserSettings />
     </>
   );
 };
 
-export default settingArea;
+export default userSetting;

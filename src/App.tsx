@@ -1,6 +1,6 @@
 import HowToRecycle from '@components/how-to-recycle';
 import RecycleMap from '@components/recycle-map';
-import { SettingArea } from '@components/setting/SettingArea';
+import { UserSettings } from '@components/setting/UserSettings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUs from './components/about-us';
 import Blog from './components/blog';
@@ -54,11 +54,8 @@ const router = createBrowserRouter([
   { path: '/contact-us', element: <Contactus /> },
 
   { path: '/how-to-recycle', element: <HowToRecycle /> },
-
   { path: '/recycle-map', element: <RecycleMap /> },
-
-  { path: '/settingArea', element: <SettingArea /> },
-
+  { path: '/userSetting', element: <UserSettings /> },
   { path: '*', element: <NotFound /> },
 ]);
 
