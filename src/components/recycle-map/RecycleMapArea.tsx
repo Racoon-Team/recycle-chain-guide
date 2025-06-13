@@ -8,6 +8,7 @@ import { FirebaseDB } from '../../firebase/config';
 import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import '../../components/recycle-map/RecycleMapArea.css';
+import { reverseGeocode } from './reverseGeocode';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -65,16 +66,23 @@ export const RecycleMapArea = () => {
 
     loadPoints();
   }, []);
+
+  const [fullAddress, setFullAddress] = useState('');
+
   const MapEvents = () => {
     useMapEvents({
-      contextmenu(e) {
-        setNewPointPos(e.latlng);
+      contextmenu: async (e) => {
+        const { lat, lng } = e.latlng;
+        setNewPointPos({ lat, lng });
         setShowForm(true);
+
+        const { name, address } = await reverseGeocode(lat, lng);
+        setFormData((prev) => ({ ...prev, name }));
+        setFullAddress(address);
       },
     });
     return null;
   };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -157,6 +165,7 @@ export const RecycleMapArea = () => {
                 required
                 className="formInput"
               />
+              {fullAddress && <p>{fullAddress}</p>}
             </div>
 
             <div className="formGroup">
