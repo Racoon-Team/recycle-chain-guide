@@ -111,9 +111,18 @@ export const RecycleMapArea = () => {
     setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
+  const [tipoError, setTipoError] = useState('');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPointPos) return;
+
+    if (formData.tipo.length === 0) {
+      setTipoError('Seleccionar un tipo de material.');
+      return;
+    }
+
+    setTipoError('');
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -169,7 +178,6 @@ export const RecycleMapArea = () => {
               </Popup>
             </Marker>
           ))}
-
           <MapEvents />
         </MapContainer>
       </div>
@@ -201,18 +209,24 @@ export const RecycleMapArea = () => {
                       <input
                         type="checkbox"
                         checked={isChecked}
-                        onChange={() =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            tipo: isChecked ? prev.tipo.filter((m) => m !== material) : [...prev.tipo, material],
-                          }))
-                        }
+                        onChange={() => {
+                          const updatedTipo = isChecked
+                            ? formData.tipo.filter((m) => m !== material)
+                            : [...formData.tipo, material];
+
+                          setFormData((prev) => ({ ...prev, tipo: updatedTipo }));
+
+                          if (!isChecked && tipoError) {
+                            setTipoError('');
+                          }
+                        }}
                       />
                       {material}
                     </label>
                   );
                 })}
               </div>
+              {tipoError && <p className="validation">{tipoError}</p>}
             </div>
 
             <div className="formGroup">
