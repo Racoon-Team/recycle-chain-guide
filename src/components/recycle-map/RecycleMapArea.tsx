@@ -159,6 +159,13 @@ export const RecycleMapArea = () => {
     setShowForm(false);
     setFormData({ name: '', tipo: [], url: '' });
     setNewPointPos(null);
+
+    Swal.fire({
+      icon: 'success',
+      title: '¡Registrado!', // Usando i18n
+      text: 'El punto de reciclaje fue registrado correctamente.',
+      confirmButtonText: 'Aceptar',
+    });
   };
 
   return (
