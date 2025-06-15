@@ -79,9 +79,9 @@ export const RecycleMapArea = () => {
         if (!user) {
           Swal.fire({
             icon: 'warning',
-            title: 'Acceso denegado',
-            text: 'Debes iniciar sesión para registrar un lugar.',
-            confirmButtonText: 'Aceptar',
+            title: t('accessDenied'),
+            text: t('mustBeLoggedIn'),
+            confirmButtonText: t('accept'),
           });
           return;
         }

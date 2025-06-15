@@ -2,6 +2,10 @@
   "breadcrumb_howtorecycle":"How to recycle",
   "breadcrumb_recyclemap":"Recycling points",
 
+  "accessDenied": "Access denied",
+  "mustBeLoggedIn": "You must be logged in to register a place.",
+  "accept":"Accept",
+
   "title": "How to recycle properly?",
   "intro": "Select the type of material you want to recycle to learn best practices.",
   "explanation": "It is important to follow the guidelines to ensure that materials can be recycled without contaminating other resources. Always keep waste clean and dry before delivering it.",

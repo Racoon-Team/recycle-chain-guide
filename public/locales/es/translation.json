@@ -3,6 +3,10 @@
   "breadcrumb_howtorecycle":"Cómo reciclar",
   "breadcrumb_recyclemap":"Puntos de reciclaje",
 
+  "accessDenied": "Acceso denegado",
+  "mustBeLoggedIn": "Debes iniciar sesión para registrar un lugar.",
+  "accept":"Aceptar",
+
 
   "title": "¿Cómo reciclar correctamente?",
   "intro": "Selecciona el tipo de material que quieres reciclar para conocer las mejores prácticas.",
