@@ -14,12 +14,19 @@
 }
 
 .formContainer {
-  height: 630px;
-  width: 320px;
+  position: absolute;
+  z-index: 1000;
   background-color: white;
   padding: 1.5rem;
   border-left: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 15vw;
+  width: fit-content;
+  height: fit-content;
 }
 
 .formTitle {
@@ -55,9 +62,9 @@
 }
 
 .checkboxGroup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .checkboxLabel {
@@ -67,12 +74,12 @@
   background: #f0f0f0;
   padding: 1px 8px;
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 0.80rem;
   cursor: pointer;
 }
 
 .checkboxLabel input[type="checkbox"] {
-  width: 14px;
+  width: 12px;
   height: 14px;
   margin: 0;
 }
@@ -83,19 +90,68 @@
 }
 
 .btnSave {
+  position: relative;
   padding: 0.5rem 1rem;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
+  color: #142863;
+  background-color: transparent;
+  border: 2px solid #142863;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 0.3s ease;
+}
+
+.btnSave::before {
+  content: "";
+  position: absolute;
+  bottom: -100%; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #142863;
+  transition: bottom 0.4s ease;
+  z-index: -1;
+}
+.btnSave:hover::before {
+  bottom: 0; 
+}
+
+.btnSave:hover {
+  color: white;
 }
 
 .btnCancel {
+  position: relative;
   padding: 0.5rem 1rem;
-  background-color: #c62828;
-  color: white;
-  border: none;
+  color: #142863;
+  background-color: transparent;
+  border: 2px solid #142863;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 0.3s ease;
+}
+
+.btnCancel::before {
+  content: "";
+  position: absolute;
+  bottom: -100%; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #142863;
+  transition: bottom 0.4s ease;
+  z-index: -1;
+}
+
+.btnCancel:hover::before {
+  bottom: 0;
+}
+
+.btnCancel:hover {
+  color: white;
 }
