@@ -11,6 +11,7 @@
 .mapContainer {
   height: 80%;
   width: 100%;
+  
 }
 
 .formContainer {
@@ -169,4 +170,8 @@
 
 .btnCancel:hover {
   color: white;
+}
+
+.leaflet-container {
+  cursor: url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41, auto;
 }
