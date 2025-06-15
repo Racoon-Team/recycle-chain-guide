@@ -13,13 +13,13 @@
 .intro-text {
   max-width: 600px;
   margin: 0 auto;
-  font-size:large;
+  font-size: large;
   color: #333;
 }
 
 .explanation-text {
   margin-top: 1rem;
-  font-size:large;
+  font-size: large;
   color: #555;
 }
 
@@ -30,7 +30,6 @@
   margin: 1rem 0;
   justify-content: center;
 }
-
 
 .tab-button {
   min-width: 120px;
@@ -44,7 +43,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 
 .tab-button:hover {
   background-color: #e6e9f3;
@@ -67,4 +65,3 @@
   position: relative;
   transition: all 0.3s ease;
 }
-

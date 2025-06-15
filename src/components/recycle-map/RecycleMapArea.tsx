@@ -44,7 +44,14 @@ export const RecycleMapArea = () => {
     url: '',
   });
 
+  const [, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(!!user);
+    });
+
     const loadPoints = async () => {
       const snapshot = await getDocs(collection(FirebaseDB, 'recyclingPoints'));
       const pointsData: RecyclePoint[] = [];
@@ -62,11 +69,12 @@ export const RecycleMapArea = () => {
           });
         }
       });
-
       setPoints(pointsData);
     };
 
     loadPoints();
+
+    return () => unsubscribe();
   }, []);
 
   const [fullAddress, setFullAddress] = useState('');
@@ -83,7 +91,7 @@ export const RecycleMapArea = () => {
             text: t('mustBeLoggedIn'),
             confirmButtonText: t('accept'),
           });
-          return;
+          return null;
         }
 
         const { lat, lng } = e.latlng;
