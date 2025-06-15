@@ -32,27 +32,27 @@
       
       "title": "Hard Plastic",
       "description": "You can recycle bottle caps, drums, shampoo bottles, creams and cosmetics, as well as detergent containers, dairy products, butter and margarine tubs.",
-      "rememberText": "They must be clean, dry, and compacted.",
+      "rememberText": "They must be clean, dry, and compacted for recycling.",
       "noRecycleText": "Polystyrene containers, plastic bags or food wrappers."
     },
     "tetra": {
       
       "title": "Tetra Pak",
-      "description": "You can recycle carton containers like those for milk, juices, wine, and creams, known as Tetra Pak. It is important to rinse them and take them to appropriate collection points for recycling.",
+      "description": "You can recycle carton containers like those for milk, juices, wine, known as Tetra Pak. It is important to rinse them and take them to appropriate collection points for recycling.",
       "rememberText": "They must be rinsed, dry, dismantled, and flattened.",
       "noRecycleText": "Laminated cartons or paper cups for hot drinks."
     },
     "vidrio": {
       
       "title": "Glass",
-      "description": "You can recycle beer, juice, wine, milk and yogurt bottles, as well as glass jars for preserves. It is key to rinse them and place them in specific glass containers.",
+      "description": "You can recycle beer, juice, wine and milk, as well as glass jars for preserves. It is key to rinse them and place them in specific glass containers.",
       "rememberText": "They must be clean, dry, and residue-free for recycling.",
       "noRecycleText": "Mirrors, crystals, bulbs, or car windows."
     },
     "latas": {
       
       "title": "Cans",
-      "description": "You can recycle aluminum cans of beer, soda, energy drinks, milk, preserves, juices, and aerosols. Also, tin containers for milk, drinks, and coffee can be recycled.",
+      "description": "You can recycle aluminum cans of beer, soda, energy drinks, milk, preserves, juices, and aerosols. Also, Tin cans of milk and soft drinks can also be recycled.",
       "rememberText": "They must be clean, dry, and label-free.",
       "noRecycleText": "Paint and chemical cans must be empty and clean."
     }

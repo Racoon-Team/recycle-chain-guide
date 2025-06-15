@@ -34,27 +34,27 @@
       
       "title": "Plástico Duro",
       "description": "Se pueden reciclar tapas de botellas, bidones, botellas de shampoo, cremas y de cosméticos, así como envases de detergente, de productos lácteos, de mantequilla y margarina.",
-      "rememberText": "Que deben estar limpios, secos y compactados.",
+      "rememberText": "Que deben estar limpios, secos y compactados para su reciclaje.",
       "noRecycleText": "Envases de poliestireno, bolsas de plástico ni de alimentos."
     },
     "tetra": {
       
       "title": "Tetra Pak",
-      "description": "Se pueden reciclar envases de cartón como los de leche, jugos, vino y cremas, conocidos como Tetra Pak. Es importante enjuagarlos y llevarlos a puntos de acopio adecuados para facilitar su reciclaje.",
+      "description": "Se pueden reciclar envases de cartón como los de leche, jugos, vino, conocidos como Tetra Pak. Es importante enjuagarlos y llevarlos a puntos de acopio adecuados para su reciclaje.",
       "rememberText": "Deben estar enjuagados, secos, desarmados y aplastados.",
       "noRecycleText": "Cartones plastificados ni vasos de papel para bebidas calientes."
     },
     "vidrio": {
       
       "title": "Vidrio",
-      "description": "Se pueden reciclar botellas de cerveza, jugos, vino, leche y yogurt, además de envases de vidrio para conservas. Es clave enjuagarlos y depositarlos en contenedores específicos para vidrio.",
+      "description": "Se pueden reciclar botellas de cerveza, jugos, vino y leche, además de envases de vidrio para conservas. Es clave enjuagarlos y depositarlos en contenedores específicos para vidrio.",
       "rememberText": "Deben estar limpios, secos y sin residuos para reciclar.",
       "noRecycleText": "Espejos, cristales, focos, ni vidrios de automóviles."
     },
     "latas": {
       
       "title": "Latas",
-      "description": "Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y aerosoles. Además se pueden reciclar envases de hojalata de leche, bebidas y café.",
+      "description": "Se pueden reciclar latas de aluminio de cerveza, gaseosas, bebidas energizantes, leche, conservas, jugos y aerosoles. Además se pueden reciclar envases de hojalata de leche y bebidas",
       "rememberText": "Deben estar limpios, secos y sin etiquetas.",
       "noRecycleText": "Latas de pintura y químicos deben estar vacías y limpias."
     }
