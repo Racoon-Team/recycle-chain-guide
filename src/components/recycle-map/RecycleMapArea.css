@@ -27,6 +27,16 @@
   max-width: 15vw;
   width: fit-content;
   height: fit-content;
+
+  animation: fadeSlideUp 0.4s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .formTitle {
