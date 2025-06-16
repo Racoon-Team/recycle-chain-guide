@@ -1,13 +1,14 @@
+import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
-import { FirebaseDB } from '../../firebase/config';
-
-import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import Swal from 'sweetalert2';
 import '../../components/recycle-map/RecycleMapArea.css';
+import { FirebaseDB } from '../../firebase/config';
+import { reverseGeocode } from './reverseGeocode';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -26,7 +27,9 @@ type RecyclePoint = {
   lng: number;
 };
 
-const center = { lat: -17.3895, lng: -66.1568 };
+const materialOptions = ['Papel y Cartón', 'Plástico PET', 'Plástico Duro', 'Tetra Pak', 'Vidrio', 'Latas'];
+
+const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
@@ -37,11 +40,18 @@ export const RecycleMapArea = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    tipo: '',
+    tipo: [] as string[],
     url: '',
   });
 
+  const [, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(!!user);
+    });
+
     const loadPoints = async () => {
       const snapshot = await getDocs(collection(FirebaseDB, 'recyclingPoints'));
       const pointsData: RecyclePoint[] = [];
@@ -59,29 +69,68 @@ export const RecycleMapArea = () => {
           });
         }
       });
-
       setPoints(pointsData);
     };
 
     loadPoints();
+
+    return () => unsubscribe();
   }, []);
+
+  const [fullAddress, setFullAddress] = useState('');
+
   const MapEvents = () => {
     useMapEvents({
-      contextmenu(e) {
-        setNewPointPos(e.latlng);
+      contextmenu: async (e) => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+          Swal.fire({
+            icon: 'warning',
+            title: t('accessDenied'),
+            text: t('mustBeLoggedIn'),
+            confirmButtonText: t('accept'),
+          });
+          return null;
+        }
+
+        const { lat, lng } = e.latlng;
+        setNewPointPos({ lat, lng });
         setShowForm(true);
+
+        const { name, address } = await reverseGeocode(lat, lng);
+        setFormData((prev) => ({ ...prev, name }));
+        setFullAddress(address);
       },
     });
     return null;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, options } = e.target as HTMLSelectElement;
+
+    const newValue =
+      type === 'select-multiple'
+        ? Array.from(options)
+            .filter((o) => o.selected)
+            .map((o) => o.value)
+        : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
+
+  const [tipoError, setTipoError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPointPos) return;
+
+    if (formData.tipo.length === 0) {
+      setTipoError(t('selectMaterialType'));
+      return;
+    }
+
+    setTipoError('');
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -89,7 +138,7 @@ export const RecycleMapArea = () => {
 
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
       name: formData.name,
-      tipo: formData.tipo,
+      tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -99,7 +148,7 @@ export const RecycleMapArea = () => {
     const newPoint: RecyclePoint = {
       id: docRef.id,
       name: formData.name,
-      tipo: formData.tipo,
+      tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -108,8 +157,15 @@ export const RecycleMapArea = () => {
 
     setPoints([...points, newPoint]);
     setShowForm(false);
-    setFormData({ name: '', tipo: '', url: '' });
+    setFormData({ name: '', tipo: [], url: '' });
     setNewPointPos(null);
+
+    Swal.fire({
+      icon: 'success',
+      title: t('registered'),
+      text: t('successMessage'),
+      confirmButtonText: t('accept'),
+    });
   };
 
   return (
@@ -120,7 +176,6 @@ export const RecycleMapArea = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
           {points.map((point) => (
             <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
               <Popup>
@@ -138,7 +193,19 @@ export const RecycleMapArea = () => {
               </Popup>
             </Marker>
           ))}
-
+          {newPointPos && (
+            <Marker
+              position={newPointPos}
+              icon={L.icon({
+                iconUrl:
+                  'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+              })}
+            />
+          )}
           <MapEvents />
         </MapContainer>
       </div>
@@ -157,18 +224,37 @@ export const RecycleMapArea = () => {
                 required
                 className="formInput"
               />
+              {fullAddress && <p className="formAddress">{fullAddress}</p>}
             </div>
 
             <div className="formGroup">
               <label className="formLabel">{t('materialType')}:</label>
-              <input
-                type="text"
-                name="tipo"
-                value={formData.tipo}
-                onChange={handleInputChange}
-                required
-                className="formInput"
-              />
+              <div className="checkboxGroup">
+                {materialOptions.map((material) => {
+                  const isChecked = formData.tipo.includes(material);
+                  return (
+                    <label key={material} className="checkboxLabel">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {
+                          const updatedTipo = isChecked
+                            ? formData.tipo.filter((m) => m !== material)
+                            : [...formData.tipo, material];
+
+                          setFormData((prev) => ({ ...prev, tipo: updatedTipo }));
+
+                          if (!isChecked && tipoError) {
+                            setTipoError('');
+                          }
+                        }}
+                      />
+                      {material}
+                    </label>
+                  );
+                })}
+              </div>
+              {tipoError && <p className="validation">{tipoError}</p>}
             </div>
 
             <div className="formGroup">

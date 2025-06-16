@@ -1,6 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import '../../components/how-to-recycle/HowToRecycle.css';
+
 type TabItem = {
   key: string;
   label: string;
@@ -39,7 +41,7 @@ const HowToRecycleArea = () => {
 
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.papel.noRecycleText')}
             </div>
           </div>
@@ -66,7 +68,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.pet.noRecycleText')}
             </div>
           </div>
@@ -93,7 +95,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.duro.noRecycleText')}
             </div>
           </div>
@@ -117,7 +119,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.tetra.noRecycleText')}
             </div>
           </div>
@@ -144,7 +146,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.vidrio.noRecycleText')}
             </div>
           </div>
@@ -168,7 +170,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.latas.noRecycleText')}
             </div>
           </div>
@@ -179,35 +181,28 @@ const HowToRecycleArea = () => {
 
   return (
     <div className="lonyo-section-padding">
-      <div className="container">
-        <div className="row justify-content-center">
-          {/* Text Info */}
-          <div className="col-lg-7">
-            <div className="lonyo-section-title center">
-              <h2>{t('title')}</h2>
-              <br />
-              <p className="max-w616">{t('intro')}</p>
-              <p className="mt-4">{t('explanation')}</p>
-            </div>
-          </div>
-          <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
-            <h4>{t('types_title')}</h4>
+      <div className="custom-container">
+        <div className="lonyo-section-title text-center">
+          <h2>{t('title')}</h2>
+          <p className="intro-text">{t('intro')}</p>
+          <p className="explanation-text">{t('explanation')}</p>
+        </div>
 
-            <div className="d-flex flex-wrap justify-content-start gap-4 my-3">
-              {tabItems.map((item) => (
-                <div
-                  key={item.key}
-                  className={`tab-button px-4  rounded ${
-                    activeTab === item.key ? 'bg-success text-white ' : 'bg-light '
-                  }`}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => setActiveTab(item.key)}>
-                  {item.label}
-                </div>
-              ))}
-            </div>
-            <div className="bg-light p-3 rounded shadow-sm">{content[activeTab]}</div>
+        <div className="lonyo-contact-box box2" data-aos="fade-up" data-aos-duration="700">
+          <h4>{t('types_title')}</h4>
+
+          <div className="tab-buttons-wrapper">
+            {tabItems.map((item) => (
+              <div
+                key={item.key}
+                className={`tab-button ${activeTab === item.key ? 'active' : ''}`}
+                onClick={() => setActiveTab(item.key)}>
+                {item.label}
+              </div>
+            ))}
           </div>
+
+          <div className="tab-content">{content[activeTab]}</div>
         </div>
       </div>
     </div>

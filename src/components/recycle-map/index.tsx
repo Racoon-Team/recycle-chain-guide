@@ -8,7 +8,7 @@ const RecycleMap = () => {
   return (
     <>
       <HeaderOne />
-      <Breadcrumb title={t('breadcrumb_recyclemap')} subtitle={t('breadcrumb_recyclemap')} />
+      <Breadcrumb title={t('breadcrumbRecyclemap')} subtitle={t('breadcrumbRecyclemap')} />
       <RecycleMapArea />
     </>
   );
