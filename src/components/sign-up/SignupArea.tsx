@@ -1,17 +1,16 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import type { AppDispatch, RootState } from 'store/store';
+import type { RootState } from 'store/store';
 import { FirebaseAuth } from '../../firebase/config';
-import { startGoogleSingup } from '../../store/auth/thunks';
+import './SignupArea.css';
 
 const SignUpArea = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch<AppDispatch>();
   const { status } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
@@ -69,9 +68,6 @@ const SignUpArea = () => {
       }
     }
   };
-  const handleGoogleSignup = () => {
-    dispatch(startGoogleSingup());
-  };
 
   return (
     <div className="lonyo-account-section light-bg">
@@ -81,18 +77,6 @@ const SignUpArea = () => {
           <p>{t('signup.description')}</p>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
-          <div className="login-with-google">
-            <button
-              type="button"
-              onClick={handleGoogleSignup}
-              className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2"
-              disabled={status === 'authenticated'}>
-              <h6 className="mb-0">{t('login.google')}</h6>
-            </button>
-          </div>
-          <div className="or">
-            <p>or</p>
-          </div>
           <div className="lonyo-contact-box2">
             <form onSubmit={handleSubmit}>
               <div className="row">
@@ -100,6 +84,7 @@ const SignUpArea = () => {
                   <div className="lonyo-main-field">
                     <p>{t('signup.fullName')}</p>
                     <input
+                      id="firstName-field"
                       className="light-bg"
                       type="text"
                       name="firstName"
@@ -109,11 +94,13 @@ const SignUpArea = () => {
                     />
                     {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
                   </div>
+                  <br />
                 </div>
                 <div className="col-lg-6">
                   <div className="lonyo-main-field">
                     <p>{t('signup.lastName')}</p>
                     <input
+                      id="lastName-field"
                       className="light-bg"
                       type="text"
                       name="lastName"
@@ -123,11 +110,13 @@ const SignUpArea = () => {
                     />
                     {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
                   </div>
+                  <br />
                 </div>
               </div>
               <div className="lonyo-main-field">
                 <p>{t('signup.email')}</p>
                 <input
+                  id="email-field"
                   className="light-bg"
                   type="email"
                   name="email"
@@ -137,36 +126,46 @@ const SignUpArea = () => {
                 />
                 {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
+              <br />
               <div className="lonyo-main-field">
                 <p>{t('signup.password')}</p>
-                <input
-                  className="light-bg form-control"
-                  type={passwordVisible ? 'text' : 'password'}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Min 6 characters"
-                />
-                <div
-                  onClick={togglePasswordVisibility}
-                  className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                <div className="position-relative">
+                  <input
+                    id="password-field"
+                    className="light-bg form-control"
+                    type={passwordVisible ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Min 6 characters"
+                  />
+                  <div
+                    onClick={togglePasswordVisibility}
+                    className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                </div>
                 {errors.password && <small className="text-danger">{errors.password}</small>}
               </div>
+              <br />
+
               <div className="lonyo-main-field">
                 <p>{t('signup.repeatPassword')}</p>
-                <input
-                  className="light-bg form-control"
-                  type={confirmPasswordVisible ? 'text' : 'password'}
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Min 6 characters"
-                />
-                <div
-                  onClick={toggleConfirmPasswordVisibility}
-                  className={`fa fa-fw field-icon2 toggle-password2 ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                <div className="position-relative">
+                  <input
+                    id="confirm-password-field"
+                    className="light-bg form-control"
+                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Min 6 characters"
+                  />
+                  <div
+                    onClick={toggleConfirmPasswordVisibility}
+                    className={`fa fa-fw field-icon2 toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                </div>
                 {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
               </div>
+              <br />
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
                 {t('signup.title')}
               </button>
