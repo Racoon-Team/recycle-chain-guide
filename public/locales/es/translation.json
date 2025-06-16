@@ -92,14 +92,22 @@
     "google": "Google",
     "createAccount": "Crear una cuenta",
     "question":"¿No tienes una cuenta?",
-    "usersettings":"Configuraciones de usuario",
+    "userSettings":"Configuraciones de usuario",
     "logout":"Cerrar sesión"
   },
   "errors": {
     "invalidEmail": "Correo inválido",
     "shortPassword": "Debe tener mínimo 6 caracteres"
-  }
-  
+  },
 
+ "validation": {
+    "firstNameRequired": "El nombre es obligatorio",
+    "lastNameRequired": "El apellido es obligatorio",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "El correo electrónico no es válido",
+    "passwordRequired": "La contraseña es obligatoria",
+    "passwordLength": "La contraseña debe tener al menos 6 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden"
+  }
   
 }

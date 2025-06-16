@@ -4,24 +4,19 @@
   cursor: pointer;
   transform: translateY(100%);
 }
-.dropdownMenu {
-  display: block;
-  position: absolute;
-  right: 40;
-  top: 100%;
-  margin-top: 0.5rem;
-  z-index: 1000;
-}
 
-.google-logo {
-  width: 20px;
-  height: 20px;
+#firstName-field {
+  margin-bottom: 0;
 }
-
+#lastName-field {
+  margin-bottom: 0;
+}
 #email-field {
   margin-bottom: 0;
 }
-
 #password-field {
+  margin-bottom: 0;
+}
+#confirm-password-field {
   margin-bottom: 0;
 }

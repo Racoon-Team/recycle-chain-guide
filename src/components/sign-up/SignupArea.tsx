@@ -1,85 +1,178 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import type { RootState } from 'store/store';
+import { FirebaseAuth } from '../../firebase/config';
+import './SignupArea.css';
 
 const SignUpArea = () => {
-  // State for password visibility toggles
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { status } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      navigate('/home-2');
+    }
+  }, [status, navigate]);
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-  // Toggle password visibility
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordVisible(!confirmPasswordVisible);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setErrors({ ...errors, [event.target.name]: '' });
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.firstName.trim()) newErrors.firstName = t('validation.firstNameRequired');
+    if (!formData.lastName.trim()) newErrors.lastName = t('validation.lastNameRequired');
+    if (!formData.email.trim()) newErrors.email = t('validation.emailRequired');
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = t('validation.emailInvalid');
+    if (!formData.password) newErrors.password = t('validation.passwordRequired');
+    else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
+    if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (validate()) {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
+        console.log('User registered:', userCredential.user);
+        navigate('/sign-in');
+      } catch (error: any) {
+        console.error('Registration error:', error.message);
+
+        setErrors({ ...errors, email: error.message });
+      }
+    }
+  };
 
   return (
     <div className="lonyo-account-section light-bg">
       <div className="container">
         <div className="lonyo-account-title">
-          <h1>Sign Up</h1>
-          <p>Step into the future with Lonyo and take your financial game to the next level!</p>
+          <h1>{t('signup.title')}</h1>
+          <p>{t('signup.description')}</p>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
-          <div className="login-with-google">
-            <a href="https://www.google.com/">
-              <img src="/assets/images/account/a1.svg" alt="Google sign-up" />
-              <h6>Sign up with Google</h6>
-            </a>
-          </div>
-          <div className="or">
-            <p>or</p>
-          </div>
           <div className="lonyo-contact-box2">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-lg-6">
                   <div className="lonyo-main-field">
-                    <p>Full name*</p>
-                    <input className="light-bg" type="text" placeholder="Adam" />
+                    <p>{t('signup.fullName')}</p>
+                    <input
+                      id="firstName-field"
+                      className="light-bg"
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="Full name"
+                    />
+                    {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
                   </div>
+                  <br />
                 </div>
                 <div className="col-lg-6">
                   <div className="lonyo-main-field">
-                    <p>Last Name*</p>
-                    <input className="light-bg" type="text" placeholder="Smith" />
+                    <p>{t('signup.lastName')}</p>
+                    <input
+                      id="lastName-field"
+                      className="light-bg"
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Last name"
+                    />
+                    {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
                   </div>
+                  <br />
                 </div>
               </div>
               <div className="lonyo-main-field">
-                <p>Email address*</p>
-                <input className="light-bg" type="email" placeholder="Your email address" />
-              </div>
-              <div className="lonyo-main-field">
-                <p>Password*</p>
+                <p>{t('signup.email')}</p>
                 <input
-                  id="password-field"
-                  className="light-bg form-control"
-                  type={passwordVisible ? 'text' : 'password'}
-                  name="password"
-                  defaultValue={'Min 8 characters'}
+                  id="email-field"
+                  className="light-bg"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Your email address"
                 />
-                <div
-                  onClick={togglePasswordVisibility}
-                  className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
+              <br />
               <div className="lonyo-main-field">
-                <p>Repeat password*</p>
-                <input
-                  id="password-field1"
-                  className="light-bg form-control"
-                  type={confirmPasswordVisible ? 'text' : 'password'}
-                  name="password"
-                  defaultValue={'Min 8 characters'}
-                />
-                <div
-                  onClick={toggleConfirmPasswordVisibility}
-                  className={`fa fa-fw field-icon2 toggle-password2 ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                <p>{t('signup.password')}</p>
+                <div className="position-relative">
+                  <input
+                    id="password-field"
+                    className="light-bg form-control"
+                    type={passwordVisible ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Min 6 characters"
+                  />
+                  <div
+                    onClick={togglePasswordVisibility}
+                    className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                </div>
+                {errors.password && <small className="text-danger">{errors.password}</small>}
               </div>
-              <button className="lonyo-default-btn extra-btn d-block" type="button">
-                Sign up
+              <br />
+
+              <div className="lonyo-main-field">
+                <p>{t('signup.repeatPassword')}</p>
+                <div className="position-relative">
+                  <input
+                    id="confirm-password-field"
+                    className="light-bg form-control"
+                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Min 6 characters"
+                  />
+                  <div
+                    onClick={toggleConfirmPasswordVisibility}
+                    className={`fa fa-fw field-icon2 toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                </div>
+                {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
+              </div>
+              <br />
+              <button className="lonyo-default-btn extra-btn d-block" type="submit">
+                {t('signup.title')}
               </button>
               <div className="login">
-                <span>Already have an account?</span>
+                <span>{t('signup.question')}</span>
                 <Link to="/sign-in">
-                  <p>Sign in here</p>
+                  <p>{t('signup.signInHere')}</p>
                 </Link>
               </div>
             </form>

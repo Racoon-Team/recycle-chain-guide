@@ -65,6 +65,12 @@ const SigninArea = () => {
               onClick={handleGoogleSignIn}
               className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2"
               disabled={status === 'authenticated'}>
+              <img
+                src="https://developers.google.com/identity/images/g-logo.png"
+                alt="Google logo"
+                className="google-logo"
+              />
+
               <h6 className="mb-0">{t('login.google')}</h6>
             </button>
           </div>
@@ -78,6 +84,7 @@ const SigninArea = () => {
               <div className="lonyo-main-field">
                 <p>{t('login.email')}</p>
                 <input
+                  id="email-field"
                   className="light-bg"
                   type="email"
                   name="email"
@@ -87,6 +94,7 @@ const SigninArea = () => {
                 />
                 {error.email && <small className="text-danger">{error.email}</small>}
               </div>
+              <br />
 
               <div className="lonyo-main-field">
                 <p>{t('login.password')}</p>
@@ -107,6 +115,7 @@ const SigninArea = () => {
                 </div>
                 {error.password && <small className="text-danger">{error.password}</small>}
               </div>
+              <br />
 
               <button
                 className="lonyo-default-btn extra-btn d-block"
@@ -117,7 +126,7 @@ const SigninArea = () => {
 
               <div className="login">
                 <span>{t('login.question')}</span>
-                <Link to="/home-2">
+                <Link to="/sign-up">
                   <p>{t('login.createAccount')}</p>
                 </Link>
               </div>

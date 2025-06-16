@@ -24,7 +24,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
   const handleLogout = async () => {
     try {
       await signOut(FirebaseAuth);
-      dispatch(logout());
+      dispatch(logout(null));
       navigate('/sign-in');
     } catch (error: any) {
       console.error('Error logging out:', error);
@@ -119,7 +119,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                                   setDropdownOpen(false);
                                   navigate('/userSetting');
                                 }}>
-                                {t('login.usersettings')}
+                                {t('login.userSettings')}
                               </button>
                             </li>
                             <li>

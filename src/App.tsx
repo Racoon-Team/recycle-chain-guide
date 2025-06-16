@@ -1,6 +1,7 @@
 import HowToRecycle from '@components/how-to-recycle';
 import RecycleMap from '@components/recycle-map';
 import { UserSettings } from '@components/setting/UserSettings';
+import { useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUs from './components/about-us';
 import Blog from './components/blog';
@@ -26,6 +27,7 @@ import SinglePortfolio from './components/single-portfolio';
 import SingleService from './components/single-service';
 import SingleTeam from './components/single-team';
 import Team from './components/team';
+import { useCheckAuth } from './hooks/useCheckAuth';
 import Wrapper from './layouts/Wrapper';
 
 const router = createBrowserRouter([
@@ -62,6 +64,13 @@ const router = createBrowserRouter([
 // declare var global: any;
 
 function App() {
+  useCheckAuth();
+
+  const { status } = useSelector((state) => state.auth);
+
+  if (status === 'checking') {
+    return;
+  }
   return (
     <>
       <Wrapper>
