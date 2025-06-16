@@ -41,7 +41,7 @@ const HowToRecycleArea = () => {
 
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.papel.noRecycleText')}
             </div>
           </div>
@@ -68,7 +68,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.pet.noRecycleText')}
             </div>
           </div>
@@ -95,7 +95,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.duro.noRecycleText')}
             </div>
           </div>
@@ -119,7 +119,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.tetra.noRecycleText')}
             </div>
           </div>
@@ -146,7 +146,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.vidrio.noRecycleText')}
             </div>
           </div>
@@ -170,7 +170,7 @@ const HowToRecycleArea = () => {
           </div>
           <div className="col-md-6">
             <div className="alert alert-danger">
-              <h5>{t('no_recycle')}</h5>
+              <h5>{t('noRecycle')}</h5>
               {t('materials.latas.noRecycleText')}
             </div>
           </div>

@@ -1,11 +1,18 @@
 {
   
-  "breadcrumb_howtorecycle":"Cómo reciclar",
-  "breadcrumb_recyclemap":"Puntos de reciclaje",
+  "breadcrumbHowToRecycle":"Cómo reciclar",
+  "breadcrumbRecyclemap":"Puntos de reciclaje",
+
+  "selectMaterialType": "Seleccionar un tipo de material.",
 
   "accessDenied": "Acceso denegado",
   "mustBeLoggedIn": "Debes iniciar sesión para registrar un lugar.",
+
+  "registered": "¡Registrado!",
+  "successMessage": "El punto de reciclaje fue registrado correctamente.",
+
   "accept":"Aceptar",
+
 
 
   "title": "¿Cómo reciclar correctamente?",
@@ -13,7 +20,7 @@
   "explanation": "Es importante seguir los lineamientos para asegurar que los materiales puedan ser reciclados sin contaminar otros recursos. Mantén siempre los residuos limpios y secos antes de entregarlos.",
   "types_title": "Tipos de materiales reciclables",
   "remember": "Recuerda",
-  "no_recycle": "No reciclamos",
+  "noRecycle": "No reciclamos",
 
   "materials": {
     "papel": {

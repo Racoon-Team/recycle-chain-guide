@@ -126,7 +126,7 @@ export const RecycleMapArea = () => {
     if (!newPointPos) return;
 
     if (formData.tipo.length === 0) {
-      setTipoError('Seleccionar un tipo de material.');
+      setTipoError(t('selectMaterialType'));
       return;
     }
 
@@ -162,9 +162,9 @@ export const RecycleMapArea = () => {
 
     Swal.fire({
       icon: 'success',
-      title: '¡Registrado!', // Usando i18n
-      text: 'El punto de reciclaje fue registrado correctamente.',
-      confirmButtonText: 'Aceptar',
+      title: t('registered'),
+      text: t('successMessage'),
+      confirmButtonText: t('accept'),
     });
   };
 
