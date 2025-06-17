@@ -227,6 +227,30 @@ export const RecycleMapArea = () => {
           <MapEvents />
         </MapContainer>
       </div>
+      <div className="placeListArea">
+        <h4>{t('recyclingPlaces')}</h4>
+
+        {points.length === 0 && <p>{t('noPlacesRegistered')}</p>}
+
+        {points.map((point) => (
+          <div key={point.id} className="card mb-3">
+            <div className="card-header">{point.name}</div>
+            <div className="card-body">
+              <h5 className="card-title">
+                {t('type')}: {point.tipo}
+              </h5>
+              <p className="card-text">
+                {t('registeredBy')}: {point.registerBy}
+              </p>
+              {point.url && (
+                <a href={point.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                  {t('moreInfo')}
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
 
       {showForm && newPointPos && (
         <div className="formContainer">
