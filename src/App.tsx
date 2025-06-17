@@ -1,6 +1,7 @@
 import HowToRecycle from '@components/how-to-recycle';
 import RecycleMap from '@components/recycle-map';
-import { UserSettings } from '@components/setting/UserSettings';
+
+import UserSettings from '@components/setting/UserSettings';
 import { useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUs from './components/about-us';
