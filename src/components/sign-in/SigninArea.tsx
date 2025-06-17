@@ -65,11 +65,7 @@ const SigninArea = () => {
               onClick={handleGoogleSignIn}
               className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-2"
               disabled={status === 'authenticated'}>
-              <img
-                src="https://developers.google.com/identity/images/g-logo.png"
-                alt="Google logo"
-                className="google-logo"
-              />
+              <img src="assets/images/account/a1.svg" alt="Google Sign-in" />
 
               <h6 className="mb-0">{t('login.google')}</h6>
             </button>
