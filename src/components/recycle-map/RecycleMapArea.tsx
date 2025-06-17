@@ -2,9 +2,9 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import Swal from 'sweetalert2';
 import '../../components/recycle-map/RecycleMapArea.css';
 import { FirebaseDB } from '../../firebase/config';
@@ -41,11 +41,11 @@ const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
-
+  const [selectedPoint, setSelectedPoint] = useState<{ id: string; lat: number; lng: number } | null>(null);
   const [points, setPoints] = useState<RecyclePoint[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
-
+  const markerRefs = useRef<Record<string, L.Marker>>({});
   const [formData, setFormData] = useState({
     placeName: '',
     street: '',
@@ -54,6 +54,26 @@ export const RecycleMapArea = () => {
   });
 
   const [, setIsAuthenticated] = useState(false);
+
+  const handleCardClick = (id: string, lat: number, lng: number) => {
+    setSelectedPoint({ id, lat, lng });
+  };
+  const MapFlyTo = ({ id, lat, lng }: { id: string; lat: number; lng: number }) => {
+    const map = useMap();
+
+    useEffect(() => {
+      map.flyTo([lat, lng], 17, { animate: true });
+
+      const marker = markerRefs.current[id];
+      if (marker) {
+        setTimeout(() => {
+          marker.openPopup();
+        }, 500);
+      }
+    }, [id, lat, lng, map]);
+
+    return null;
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -183,13 +203,20 @@ export const RecycleMapArea = () => {
   return (
     <div className="containerPrimary">
       <div className="mapArea">
-        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} className="mapContainer">
+        <MapContainer center={center} zoom={10.5} scrollWheelZoom={false} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {points.map((point) => (
-            <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
+            <Marker
+              key={point.id}
+              position={{ lat: point.lat, lng: point.lng }}
+              ref={(ref) => {
+                if (ref) {
+                  markerRefs.current[point.id] = ref;
+                }
+              }}>
               <Popup>
                 {point.placeName && (
                   <>
@@ -225,6 +252,7 @@ export const RecycleMapArea = () => {
             />
           )}
           <MapEvents />
+          {selectedPoint && <MapFlyTo id={selectedPoint.id} lat={selectedPoint.lat} lng={selectedPoint.lng} />}
         </MapContainer>
       </div>
       <div className="placeListArea">
@@ -233,7 +261,11 @@ export const RecycleMapArea = () => {
         {points.length === 0 && <p>{t('noPlacesRegistered')}</p>}
 
         {points.map((point) => (
-          <div key={point.id} className="card mb-3">
+          <div
+            key={point.id}
+            className="card mb-3"
+            onClick={() => handleCardClick(point.id, point.lat, point.lng)}
+            style={{ cursor: 'pointer' }}>
             <div className="card-header">{point.name}</div>
             <div className="card-body">
               <h5 className="card-title">
