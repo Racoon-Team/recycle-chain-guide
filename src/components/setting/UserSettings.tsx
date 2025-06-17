@@ -1,4 +1,12 @@
-import { createUserWithEmailAndPassword, getAuth, updateEmail, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  EmailAuthProvider,
+  getAuth,
+  reauthenticateWithCredential,
+  updateEmail,
+  updatePassword,
+  updateProfile,
+} from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +27,7 @@ const UserSettings = () => {
     firstName: '',
     lastName: '',
     email: '',
+    currentPassword: '',
     password: '',
     confirmPassword: '',
   });
@@ -62,6 +71,12 @@ const UserSettings = () => {
       if (!formData.password) newErrors.password = t('validation.passwordRequired');
       else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
       if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
+    } else {
+      if (formData.password || formData.confirmPassword) {
+        if (!formData.currentPassword) newErrors.currentPassword = 'Tu contraseña actual es incorrecta';
+        if (formData.password.length < 6) newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+        if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = 'Las contraseñas no coinciden';
+      }
     }
 
     setErrors(newErrors);
@@ -77,6 +92,12 @@ const UserSettings = () => {
       const user = auth.currentUser;
 
       if (user && isAuthenticatedUser) {
+        if (formData.password && formData.currentPassword) {
+          const credential = EmailAuthProvider.credential(user.email || '', formData.currentPassword);
+          await reauthenticateWithCredential(user, credential);
+          await updatePassword(user, formData.password);
+        }
+
         await updateProfile(user, {
           displayName: `${formData.firstName} ${formData.lastName}`,
         });
@@ -105,7 +126,6 @@ const UserSettings = () => {
         navigate('/home-2');
       } else {
         const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
-
         const newUser = userCredential.user;
 
         await updateProfile(newUser, {
@@ -124,7 +144,13 @@ const UserSettings = () => {
       }
     } catch (error: any) {
       console.error('Error actualizacion', error.message);
-      setErrors({ ...errors, email: error.message });
+      if (error.code === 'auth/wrong-password') {
+        setErrors({ ...errors, currentPassword: 'Tu contraseña actual es incorrecta' });
+      } else if (error.code === 'auth/requires-recent-login') {
+        setErrors({ ...errors, currentPassword: 'Debes volver a iniciar sesión para cambiar datos sensibles' });
+      } else {
+        setErrors({ ...errors, email: error.message });
+      }
     }
   };
 
@@ -171,6 +197,7 @@ const UserSettings = () => {
                   <br />
                 </div>
               </div>
+
               <div className="lonyo-main-field">
                 <p>{t('signup.email')}</p>
                 <input
@@ -185,8 +212,27 @@ const UserSettings = () => {
                 {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
               <br />
+
+              {isAuthenticatedUser && (
+                <>
+                  <div className="lonyo-main-field">
+                    <p>Contraseña actual</p>
+                    <input
+                      id="current-password-field"
+                      className="light-bg form-control"
+                      type="password"
+                      name="currentPassword"
+                      value={formData.currentPassword}
+                      onChange={handleChange}
+                      placeholder="Current password"
+                    />
+                    {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
+                  </div>
+                </>
+              )}
+
               <div className="lonyo-main-field">
-                <p>{t('signup.password')}</p>
+                <p>Contraseña nueva</p>
                 <div className="position-relative">
                   <input
                     id="password-field"
@@ -206,7 +252,7 @@ const UserSettings = () => {
               <br />
 
               <div className="lonyo-main-field">
-                <p>{t('signup.repeatPassword')}</p>
+                <p>Confirmar contraseña nueva</p>
                 <div className="position-relative">
                   <input
                     id="confirm-password-field"
@@ -224,6 +270,7 @@ const UserSettings = () => {
                 {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
               </div>
               <br />
+
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
                 Guardar cambios
               </button>
