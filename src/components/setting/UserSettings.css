@@ -17,6 +17,12 @@ input[type="text"] {
   padding-right: 2.5rem;
 }
 
+.lonyo-account-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #firstName-field {
   margin-bottom: 0;
 }
