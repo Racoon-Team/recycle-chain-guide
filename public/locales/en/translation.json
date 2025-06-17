@@ -7,8 +7,10 @@
 
   "accessDenied": "Access denied",
   "mustBeLoggedIn": "You must be logged in to register a place.",
+
   "registered": "Registered!",
   "successMessage": "The recycling point was registered successfully.",
+
   "accept":"Accept",
 
   "title": "How to recycle properly?",
@@ -94,10 +96,12 @@
   },
   "errors": {
     "invalidEmail": "Invalid email",
-    "shortPassword": "Must be at least 6 characters"
+    "shortPassword": "Must be at least 6 characters",
+    "wrongPassword": "Your current password is incorrect",
+    "requiresRecentLogin": "You must log in again to change sensitive data",
+    "unknown": "An unknown error occurred"
   },
 
-  
   "validation":{
     "firstNameRequired": "First name is required",
     "lastNameRequired": "Last name is required",
@@ -108,7 +112,6 @@
     "passwordMismatch": "Passwords do not match"
   },
   "signup":{
-
     "title":"Sign Up",
     "description": "Step into the future with Lonyo and take your financial game to the next level!",
     "fullName":"Full name",
@@ -118,7 +121,20 @@
     "repeatPassword":"Repeat password",
     "question":"Already have an account?",
     "signInHere":"Sign in here"
+  },
 
-
+  "User Settings": {
+    "title": "User Settings",
+    "fullName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "changePassword": "I want to change my password",
+    "cancelChangePassword": "Cancel Password Change",
+    "saveChanges": "Save Changes"
   }
+
+  
 }

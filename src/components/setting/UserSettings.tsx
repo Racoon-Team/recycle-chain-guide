@@ -77,9 +77,10 @@ const UserSettings = () => {
       if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
     } else {
       if (wantsToChangePassword) {
-        if (!formData.currentPassword) newErrors.currentPassword = 'Tu contraseña actual es incorrecta';
-        if (formData.password.length < 6) newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
-        if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = 'Las contraseñas no coinciden';
+        if (!formData.currentPassword) newErrors.currentPassword = t('errors.wrongPassword');
+        if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
+        if (formData.confirmPassword !== formData.password)
+          newErrors.confirmPassword = t('validation.passwordMismatch');
       }
     }
 
@@ -125,8 +126,6 @@ const UserSettings = () => {
             status: 'authenticated',
           })
         );
-
-        console.log('Profile updated successfully');
         navigate('/home-2');
       } else {
         const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
@@ -142,24 +141,22 @@ const UserSettings = () => {
           lastName: formData.lastName,
           email: formData.email,
         });
-
-        console.log('User registered:', newUser);
         navigate('/home-2');
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-          setErrors((prev) => ({ ...prev, currentPassword: 'Tu contraseña actual es incorrecta' }));
+          setErrors((prev) => ({ ...prev, currentPassword: t('errors.wrongPassword') }));
         } else if (error.code === 'auth/requires-recent-login') {
           setErrors((prev) => ({
             ...prev,
-            currentPassword: 'Debes volver a iniciar sesión para cambiar datos sensibles',
+            currentPassword: t('errors.requiresRecentLogin'),
           }));
         } else {
           setErrors((prev) => ({ ...prev, email: error.message }));
         }
       } else {
-        setErrors((prev) => ({ ...prev, email: 'Ocurrió un error desconocido' }));
+        setErrors((prev) => ({ ...prev, email: t('errors.unknown') }));
       }
     }
   };
@@ -168,7 +165,7 @@ const UserSettings = () => {
     <div className="lonyo-account-section light-bg">
       <div className="container">
         <div className="lonyo-account-title">
-          <h1>User Settings</h1>
+          <h1>{t('userSettings.title')}</h1>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
           <div className="lonyo-contact-box2">
@@ -227,7 +224,7 @@ const UserSettings = () => {
                   type="button"
                   className="lonyo-default-btn extra-btn"
                   onClick={() => setWantsToChangePassword(!wantsToChangePassword)}>
-                  {wantsToChangePassword ? 'Cancelar cambio de contraseña' : 'Quiero cambiar mi contraseña'}
+                  {wantsToChangePassword ? t('userSettings.cancelChangePassword') : t('userSettings.changePassword')}
                 </button>
               </div>
               <br />
@@ -235,7 +232,7 @@ const UserSettings = () => {
               {isAuthenticatedUser && wantsToChangePassword && (
                 <>
                   <div className="lonyo-main-field">
-                    <p>Contraseña actual</p>
+                    <p>{t('userSettings.currentPassword')}</p>
                     <div className="position-relative">
                       <input
                         id="current-password-field"
@@ -259,7 +256,7 @@ const UserSettings = () => {
               {wantsToChangePassword && (
                 <>
                   <div className="lonyo-main-field">
-                    <p>Contraseña nueva</p>
+                    <p>{t('userSettings.newPassword')}</p>
                     <div className="position-relative">
                       <input
                         id="password-field"
@@ -279,7 +276,7 @@ const UserSettings = () => {
                   <br />
 
                   <div className="lonyo-main-field">
-                    <p>Confirmar contraseña nueva</p>
+                    <p>{t('userSettings.confirmNewPassword')}</p>
                     <div className="position-relative">
                       <input
                         id="confirm-password-field"
@@ -301,7 +298,7 @@ const UserSettings = () => {
               )}
 
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
-                Guardar cambios
+                {t('userSettings.saveChanges')}
               </button>
             </form>
           </div>

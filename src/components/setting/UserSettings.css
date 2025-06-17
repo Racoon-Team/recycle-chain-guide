@@ -14,7 +14,7 @@
 
 input[type="password"],
 input[type="text"] {
-  padding-right: 2.5rem; /* espacio para el icono */
+  padding-right: 2.5rem;
 }
 
 #firstName-field {
