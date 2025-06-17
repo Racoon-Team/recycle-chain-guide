@@ -1,3 +1,4 @@
+import { FirebaseError } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
@@ -12,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import '../../components/sign-up/SignupArea.css';
+import '../../components/setting/UserSettings.css';
 import { FirebaseAuth, FirebaseDB } from '../../firebase/config';
 import { login } from '../../store/auth/authSlice';
 
@@ -21,6 +22,7 @@ const UserSettings = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [wantsToChangePassword, setWantsToChangePassword] = useState(false);
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -35,6 +37,7 @@ const UserSettings = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [actualPasswordVisible, setActualPasswordVisible] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -53,6 +56,7 @@ const UserSettings = () => {
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordVisible(!confirmPasswordVisible);
+  const toggleActualPasswordVisibility = () => setActualPasswordVisible(!actualPasswordVisible);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -72,7 +76,7 @@ const UserSettings = () => {
       else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
       if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
     } else {
-      if (formData.password || formData.confirmPassword) {
+      if (wantsToChangePassword) {
         if (!formData.currentPassword) newErrors.currentPassword = 'Tu contraseña actual es incorrecta';
         if (formData.password.length < 6) newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
         if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = 'Las contraseñas no coinciden';
@@ -142,14 +146,20 @@ const UserSettings = () => {
         console.log('User registered:', newUser);
         navigate('/home-2');
       }
-    } catch (error: any) {
-      console.error('Error actualizacion', error.message);
-      if (error.code === 'auth/wrong-password') {
-        setErrors({ ...errors, currentPassword: 'Tu contraseña actual es incorrecta' });
-      } else if (error.code === 'auth/requires-recent-login') {
-        setErrors({ ...errors, currentPassword: 'Debes volver a iniciar sesión para cambiar datos sensibles' });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          setErrors((prev) => ({ ...prev, currentPassword: 'Tu contraseña actual es incorrecta' }));
+        } else if (error.code === 'auth/requires-recent-login') {
+          setErrors((prev) => ({
+            ...prev,
+            currentPassword: 'Debes volver a iniciar sesión para cambiar datos sensibles',
+          }));
+        } else {
+          setErrors((prev) => ({ ...prev, email: error.message }));
+        }
       } else {
-        setErrors({ ...errors, email: error.message });
+        setErrors((prev) => ({ ...prev, email: 'Ocurrió un error desconocido' }));
       }
     }
   };
@@ -212,64 +222,83 @@ const UserSettings = () => {
                 {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
               <br />
+              <div className="lonyo-main-field">
+                <button
+                  type="button"
+                  className="lonyo-default-btn extra-btn"
+                  onClick={() => setWantsToChangePassword(!wantsToChangePassword)}>
+                  {wantsToChangePassword ? 'Cancelar cambio de contraseña' : 'Quiero cambiar mi contraseña'}
+                </button>
+              </div>
+              <br />
 
-              {isAuthenticatedUser && (
+              {isAuthenticatedUser && wantsToChangePassword && (
                 <>
                   <div className="lonyo-main-field">
                     <p>Contraseña actual</p>
-                    <input
-                      id="current-password-field"
-                      className="light-bg form-control"
-                      type="password"
-                      name="currentPassword"
-                      value={formData.currentPassword}
-                      onChange={handleChange}
-                      placeholder="Current password"
-                    />
+                    <div className="position-relative">
+                      <input
+                        id="current-password-field"
+                        className="light-bg form-control"
+                        type={actualPasswordVisible ? 'text' : 'password'}
+                        name="currentPassword"
+                        value={formData.currentPassword}
+                        onChange={handleChange}
+                        placeholder="Current password"
+                      />
+                      <div
+                        onClick={toggleActualPasswordVisibility}
+                        className={`fa fa-fw field-icon toggle-password ${actualPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                    </div>
                     {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
                   </div>
                 </>
               )}
-
-              <div className="lonyo-main-field">
-                <p>Contraseña nueva</p>
-                <div className="position-relative">
-                  <input
-                    id="password-field"
-                    className="light-bg form-control"
-                    type={passwordVisible ? 'text' : 'password'}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Min 6 characters"
-                  />
-                  <div
-                    onClick={togglePasswordVisibility}
-                    className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
-                </div>
-                {errors.password && <small className="text-danger">{errors.password}</small>}
-              </div>
               <br />
 
-              <div className="lonyo-main-field">
-                <p>Confirmar contraseña nueva</p>
-                <div className="position-relative">
-                  <input
-                    id="confirm-password-field"
-                    className="light-bg form-control"
-                    type={confirmPasswordVisible ? 'text' : 'password'}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Min 6 characters"
-                  />
-                  <div
-                    onClick={toggleConfirmPasswordVisibility}
-                    className={`fa fa-fw field-icon2 toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
-                </div>
-                {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
-              </div>
-              <br />
+              {wantsToChangePassword && (
+                <>
+                  <div className="lonyo-main-field">
+                    <p>Contraseña nueva</p>
+                    <div className="position-relative">
+                      <input
+                        id="password-field"
+                        className="light-bg form-control"
+                        type={passwordVisible ? 'text' : 'password'}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeholder="Min 6 characters"
+                      />
+                      <div
+                        onClick={togglePasswordVisibility}
+                        className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                    </div>
+                    {errors.password && <small className="text-danger">{errors.password}</small>}
+                  </div>
+                  <br />
+
+                  <div className="lonyo-main-field">
+                    <p>Confirmar contraseña nueva</p>
+                    <div className="position-relative">
+                      <input
+                        id="confirm-password-field"
+                        className="light-bg form-control"
+                        type={confirmPasswordVisible ? 'text' : 'password'}
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        placeholder="Min 6 characters"
+                      />
+                      <div
+                        onClick={toggleConfirmPasswordVisibility}
+                        className={`fa fa-fw field-icon toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                    </div>
+                    {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
+                  </div>
+                  <br />
+                </>
+              )}
 
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
                 Guardar cambios
