@@ -161,7 +161,7 @@ const SignUpArea = () => {
                   />
                   <div
                     onClick={toggleConfirmPasswordVisibility}
-                    className={`fa fa-fw field-icon2 toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                    className={`fa fa-fw field-icon toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
                 </div>
                 {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
               </div>
