@@ -55,7 +55,6 @@ const SigninArea = () => {
       <div className="container">
         <div className="lonyo-account-title">
           <h1>{t('login.login')}</h1>
-          <p>{t('main.description')}</p>
         </div>
 
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
