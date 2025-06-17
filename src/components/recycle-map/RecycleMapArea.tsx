@@ -260,13 +260,14 @@ export const RecycleMapArea = () => {
 
         {points.length === 0 && <p>{t('noPlacesRegistered')}</p>}
 
-        {points.map((point) => (
+        {points.map((point, index) => (
           <div
             key={point.id}
-            className="card mb-3"
-            onClick={() => handleCardClick(point.id, point.lat, point.lng)}
-            style={{ cursor: 'pointer' }}>
-            <div className="card-header">{point.name}</div>
+            className="card mb-3 clickable-card "
+            onClick={() => handleCardClick(point.id, point.lat, point.lng)}>
+            <div className="card-header">
+              {index + 1}. {point.name}
+            </div>
             <div className="card-body">
               <h5 className="card-title">
                 {t('type')}: {point.tipo}

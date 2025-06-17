@@ -181,3 +181,6 @@
   border-left: 1px solid #ddd;
   background-color: #f9f9f9;
 }
+.clickable-card {
+  cursor: pointer;
+}
