@@ -1,23 +1,19 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, updateEmail, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import type { RootState } from 'store/store';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import '../../components/sign-up/SignupArea.css';
-import { FirebaseAuth } from '../../firebase/config';
+import { FirebaseAuth, FirebaseDB } from '../../firebase/config';
+import { login } from '../../store/auth/authSlice';
 
 const UserSettings = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { status } = useSelector((state: RootState) => state.auth);
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      navigate('/userSetting');
-    }
-  }, [status, navigate]);
+  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -30,6 +26,21 @@ const UserSettings = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      const [firstName, lastName = ''] = user.displayName?.split(' ') ?? ['', ''];
+      setFormData((prev) => ({
+        ...prev,
+        firstName,
+        lastName,
+        email: user.email || '',
+      }));
+      setIsAuthenticatedUser(true);
+    }
+  }, []);
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
   const toggleConfirmPasswordVisibility = () => setConfirmPasswordVisible(!confirmPasswordVisible);
@@ -46,9 +57,12 @@ const UserSettings = () => {
     if (!formData.lastName.trim()) newErrors.lastName = t('validation.lastNameRequired');
     if (!formData.email.trim()) newErrors.email = t('validation.emailRequired');
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = t('validation.emailInvalid');
-    if (!formData.password) newErrors.password = t('validation.passwordRequired');
-    else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
-    if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
+
+    if (!isAuthenticatedUser) {
+      if (!formData.password) newErrors.password = t('validation.passwordRequired');
+      else if (formData.password.length < 6) newErrors.password = t('validation.passwordLength');
+      if (formData.confirmPassword !== formData.password) newErrors.confirmPassword = t('validation.passwordMismatch');
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -56,16 +70,61 @@ const UserSettings = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (validate()) {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
-        console.log('User registered:', userCredential.user);
-        navigate('/sign-in');
-      } catch (error: any) {
-        console.error('Registration error:', error.message);
+    if (!validate()) return;
 
-        setErrors({ ...errors, email: error.message });
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user && isAuthenticatedUser) {
+        await updateProfile(user, {
+          displayName: `${formData.firstName} ${formData.lastName}`,
+        });
+
+        if (formData.email !== user.email) {
+          await updateEmail(user, formData.email);
+        }
+
+        const userDoc = doc(FirebaseDB, `users/${user.uid}`);
+        await setDoc(userDoc, {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+        });
+
+        dispatch(
+          login({
+            uid: user.uid,
+            email: formData.email,
+            displayName: `${formData.firstName} ${formData.lastName}`,
+            status: 'authenticated',
+          })
+        );
+
+        console.log('Profile updated successfully');
+        navigate('/home-2');
+      } else {
+        const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
+
+        const newUser = userCredential.user;
+
+        await updateProfile(newUser, {
+          displayName: `${formData.firstName} ${formData.lastName}`,
+        });
+
+        const userDoc = doc(FirebaseDB, `users/${newUser.uid}`);
+        await setDoc(userDoc, {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+        });
+
+        console.log('User registered:', newUser);
+        navigate('/home-2');
       }
+    } catch (error: any) {
+      console.error('Error actualizacion', error.message);
+      setErrors({ ...errors, email: error.message });
     }
   };
 
@@ -73,7 +132,7 @@ const UserSettings = () => {
     <div className="lonyo-account-section light-bg">
       <div className="container">
         <div className="lonyo-account-title">
-          <h1>configuracion de ususario </h1>
+          <h1>User Settings</h1>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
           <div className="lonyo-contact-box2">
@@ -166,14 +225,8 @@ const UserSettings = () => {
               </div>
               <br />
               <button className="lonyo-default-btn extra-btn d-block" type="submit">
-                {t('signup.title')}
+                Guardar cambios
               </button>
-              <div className="login">
-                <span>{t('signup.question')}</span>
-                <Link to="/sign-in">
-                  <p>{t('signup.signInHere')}</p>
-                </Link>
-              </div>
             </form>
           </div>
         </div>
