@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import Slider from 'react-slick';
-import { LazyLoadTypes } from 'react-slick';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import type { LazyLoadTypes } from 'react-slick';
+import Slider from 'react-slick';
 
 const setting = {
   slidesToShow: 4,
