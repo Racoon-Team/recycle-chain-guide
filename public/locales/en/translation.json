@@ -123,7 +123,7 @@
     "signInHere":"Sign in here"
   },
 
-  "User Settings": {
+  "userSettings": {
     "title": "User Settings",
     "fullName": "First Name",
     "lastName": "Last Name",
