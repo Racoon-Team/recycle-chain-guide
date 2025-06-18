@@ -65,7 +65,7 @@ const router = createBrowserRouter([
 function App() {
   useCheckAuth();
 
-  const { status } = useSelector((state) => state.auth);
+  const { status } = useSelector((state: any) => state.auth);
 
   if (status === 'checking') {
     return;
