@@ -15,7 +15,8 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { sticky } = useSticky();
-  const { status, displayName } = useSelector((state: RootState) => state.auth);
+  const { status, displayName, photoURL } = useSelector((state: RootState) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -101,7 +102,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                           className="btn d-flex align-items-center text-white border-0 bg-transparent"
                           onClick={() => setDropdownOpen((prev) => !prev)}>
                           <img
-                            src="/static/images/avatar/2.jpg"
+                            src={photoURL || '/static/images/avatar/2.jpg'}
                             alt={displayName ?? 'User'}
                             className="rounded-circle me-2"
                             width="40"
