@@ -135,7 +135,8 @@
     "confirmNewPassword": "Confirmar contraseña nueva",
     "changePassword": "Quiero cambiar mi contraseña",
     "cancelChangePassword": "Cancelar cambio de contraseña",
-    "saveChanges": "Guardar cambios"
+    "saveChanges": "Guardar cambios",
+    "generalChanges": "Cambios generales"
   }
 
   

@@ -22,8 +22,9 @@ const UserSettings = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [wantsToChangePassword, setWantsToChangePassword] = useState(false);
+  const [wantsToChangePassword] = useState(false);
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
+  const [activeTab, setActiveTab] = useState<'profile' | 'password'>('profile');
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -167,94 +168,108 @@ const UserSettings = () => {
         <div className="lonyo-account-title">
           <h1>{t('userSettings.title')}</h1>
         </div>
+
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
           <div className="lonyo-contact-box2">
             <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="lonyo-main-field">
-                    <p>{t('signup.fullName')}</p>
-                    <input
-                      id="firstName-field"
-                      className="light-bg"
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      placeholder="Full name"
-                    />
-                    {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
-                  </div>
-                  <br />
-                </div>
-                <div className="col-lg-6">
-                  <div className="lonyo-main-field">
-                    <p>{t('signup.lastName')}</p>
-                    <input
-                      id="lastName-field"
-                      className="light-bg"
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Last name"
-                    />
-                    {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
-                  </div>
-                  <br />
-                </div>
-              </div>
-
-              <div className="lonyo-main-field">
-                <p>{t('signup.email')}</p>
-                <input
-                  id="email-field"
-                  className="light-bg"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Your email address"
-                />
-                {errors.email && <small className="text-danger">{errors.email}</small>}
-              </div>
-              <br />
-              <div className="lonyo-main-field">
-                <button
-                  type="button"
-                  className="lonyo-default-btn extra-btn"
-                  onClick={() => setWantsToChangePassword(!wantsToChangePassword)}>
-                  {wantsToChangePassword ? t('userSettings.cancelChangePassword') : t('userSettings.changePassword')}
-                </button>
-              </div>
+              <ul className="nav tab-nav">
+                <li className="nav-item">
+                  <button
+                    className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('profile')}
+                    type="button">
+                    {t('userSettings.generalChanges')}
+                  </button>
+                </li>
+                <li className="nav-item">
+                  <button
+                    className={`tab-btn ${activeTab === 'password' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('password')}
+                    type="button">
+                    {t('userSettings.changePassword')}
+                  </button>
+                </li>
+              </ul>
               <br />
 
-              {isAuthenticatedUser && wantsToChangePassword && (
+              {activeTab === 'profile' && (
                 <>
-                  <div className="lonyo-main-field">
-                    <p>{t('userSettings.currentPassword')}</p>
-                    <div className="position-relative">
-                      <input
-                        id="current-password-field"
-                        className="light-bg form-control"
-                        type={actualPasswordVisible ? 'text' : 'password'}
-                        name="currentPassword"
-                        value={formData.currentPassword}
-                        onChange={handleChange}
-                        placeholder="Current password"
-                      />
-                      <div
-                        onClick={toggleActualPasswordVisibility}
-                        className={`fa fa-fw field-icon toggle-password ${actualPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <div className="lonyo-main-field">
+                        <p>{t('signup.fullName')}</p>
+                        <input
+                          id="firstName-field"
+                          className="light-bg"
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          placeholder="Full name"
+                        />
+                        {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
+                      </div>
+                      <br />
                     </div>
-                    {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
+                    <div className="col-lg-6">
+                      <div className="lonyo-main-field">
+                        <p>{t('signup.lastName')}</p>
+                        <input
+                          id="lastName-field"
+                          className="light-bg"
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          placeholder="Last name"
+                        />
+                        {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
+                      </div>
+                      <br />
+                    </div>
                   </div>
+
+                  <div className="lonyo-main-field">
+                    <p>{t('signup.email')}</p>
+                    <input
+                      id="email-field"
+                      className="light-bg"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Your email address"
+                    />
+                    {errors.email && <small className="text-danger">{errors.email}</small>}
+                  </div>
+                  <br />
                 </>
               )}
-              <br />
 
-              {wantsToChangePassword && (
+              {activeTab === 'password' && (
                 <>
+                  {isAuthenticatedUser && (
+                    <div className="lonyo-main-field">
+                      <p>{t('userSettings.currentPassword')}</p>
+                      <div className="position-relative">
+                        <input
+                          id="current-password-field"
+                          className="light-bg form-control"
+                          type={actualPasswordVisible ? 'text' : 'password'}
+                          name="currentPassword"
+                          value={formData.currentPassword}
+                          onChange={handleChange}
+                          placeholder="Current password"
+                        />
+                        <div
+                          onClick={toggleActualPasswordVisibility}
+                          className={`fa fa-fw field-icon toggle-password ${actualPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                      </div>
+                      {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
+                    </div>
+                  )}
+                  <br />
+
                   <div className="lonyo-main-field">
                     <p>{t('userSettings.newPassword')}</p>
                     <div className="position-relative">

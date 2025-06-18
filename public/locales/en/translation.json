@@ -133,7 +133,8 @@
     "confirmNewPassword": "Confirm New Password",
     "changePassword": "I want to change my password",
     "cancelChangePassword": "Cancel Password Change",
-    "saveChanges": "Save Changes"
+    "saveChanges": "Save Changes",
+    "generalChanges": "General changes"
   }
 
   
