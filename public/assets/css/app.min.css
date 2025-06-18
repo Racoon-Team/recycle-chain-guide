@@ -7354,7 +7354,7 @@ textarea::placeholder {
 .breadcrumb-wrapper {
   z-index: 0;
   text-align: center;
-  padding: 200px 0 130px;
+  padding: 120px 0 30px;
   position: relative;
   transition: all 0.4s;
 }

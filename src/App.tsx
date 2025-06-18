@@ -9,7 +9,6 @@ import Career from './components/career';
 import Contactus from './components/contact-us';
 import CoomingSoon from './components/cooming-soon';
 import Faq from './components/faq';
-import HomeOne from './components/homes/home-1';
 import HomeTwo from './components/homes/home-2';
 import HomeThree from './components/homes/home-3';
 import Integration from './components/integration';
@@ -31,7 +30,7 @@ import { useCheckAuth } from './hooks/useCheckAuth';
 import Wrapper from './layouts/Wrapper';
 
 const router = createBrowserRouter([
-  { path: '/', element: <HomeOne /> },
+  { path: '/', element: <HomeThree /> },
   { path: '/home-2', element: <HomeTwo /> },
   { path: '/home-3', element: <HomeThree /> },
   { path: '/about-us', element: <AboutUs /> },
@@ -66,7 +65,7 @@ const router = createBrowserRouter([
 function App() {
   useCheckAuth();
 
-  const { status } = useSelector((state) => state.auth);
+  const { status } = useSelector((state: any) => state.auth);
 
   if (status === 'checking') {
     return;

@@ -11,7 +11,6 @@
 .mapContainer {
   height: 80%;
   width: 100%;
-  
 }
 
 .formContainer {
@@ -37,7 +36,6 @@
     opacity: 1;
     transform: translateX(0);
   }
-
 }
 
 .formTitle {
@@ -174,5 +172,7 @@
 }
 
 .leaflet-container {
-  cursor: url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41, auto;
+  cursor:
+    url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41,
+    auto;
 }
