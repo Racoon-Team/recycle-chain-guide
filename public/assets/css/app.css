@@ -2395,7 +2395,7 @@ a.light-color {
 }
 
 .menu-style1 > ul > li > a {
-  padding: 30px 0;
+  padding: 30px 5px;
 }
 
 .menu-left {
@@ -7970,16 +7970,8 @@ textarea::placeholder {
     display: none;
   }
 }
-@media (max-width: 1199px) {
-  .breadcrumb-wrapper {
-    padding: 180px 0 100px;
-  }
-}
-@media (max-width: 767px) {
-  .breadcrumb-wrapper {
-    padding: 120px 0 80px;
-  }
-}
+
+
 .breadcrumb-content {
   position: relative;
   max-width: 850px;
