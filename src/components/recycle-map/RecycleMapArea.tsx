@@ -37,6 +37,15 @@ const materialOptions = [
   'materialsOptions.cans',
 ];
 
+const tipoIcons: Record<string, string> = {
+  'Papel y Cartón': '📄',
+  'Plástico PET': '🧴',
+  'Plástico Duro': '🧊',
+  'Tetra Pak': '🥫',
+  Vidrio: '🍾',
+  Latas: '🥤',
+};
+
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
@@ -58,6 +67,7 @@ export const RecycleMapArea = () => {
   const handleCardClick = (id: string, lat: number, lng: number) => {
     setSelectedPoint({ id, lat, lng });
   };
+  const [loading, setLoading] = useState(true);
   const MapFlyTo = ({ id, lat, lng }: { id: string; lat: number; lng: number }) => {
     const map = useMap();
 
@@ -100,6 +110,7 @@ export const RecycleMapArea = () => {
         }
       });
       setPoints(pointsData);
+      setLoading(false);
     };
 
     loadPoints();
@@ -226,7 +237,14 @@ export const RecycleMapArea = () => {
                 )}
                 <strong>{point.street}</strong>
                 <br />
-                {t('type')}: {point.tipo}
+                {t('type')}:
+                <ul style={{ listStyle: 'none', paddingLeft: 0, marginBottom: 0 }}>
+                  {point.tipo.split(', ').map((tipo) => (
+                    <li key={tipo}>
+                      {tipoIcons[tipo] || '🔹'} {tipo}
+                    </li>
+                  ))}
+                </ul>
                 <br />
                 {t('registeredBy')}: {point.registerBy}
                 <br />
@@ -257,9 +275,17 @@ export const RecycleMapArea = () => {
       </div>
       <div className="placeListArea">
         <h4>{t('recyclingPlaces')}</h4>
-
-        {points.length === 0 && <p>{t('noPlacesRegistered')}</p>}
-
+        <div>
+          {loading ? (
+            <div className="d-flex justify-content-center align-items-center p-4">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          ) : points.length === 0 ? (
+            <p>{t('noPlacesRegistered')}</p>
+          ) : null}
+        </div>
         {points.map((point, index) => (
           <div
             key={point.id}
@@ -269,9 +295,16 @@ export const RecycleMapArea = () => {
               {index + 1}. {point.name}
             </div>
             <div className="card-body">
-              <h5 className="card-title">
-                {t('type')}: {point.tipo}
-              </h5>
+              <div className="card-title">
+                {t('type')}:
+                <ul style={{ listStyle: 'none', paddingLeft: 0, marginBottom: 0 }}>
+                  {point.tipo.split(', ').map((tipo) => (
+                    <li key={tipo}>
+                      {tipoIcons[tipo] || '🔹'} {tipo}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <p className="card-text">
                 {t('registeredBy')}: {point.registerBy}
               </p>
