@@ -19,7 +19,8 @@ L.Icon.Default.mergeOptions({
 
 type RecyclePoint = {
   id: string;
-  name: string;
+  placeName: string;
+  street: string;
   tipo: string;
   registerBy: string;
   url: string;
@@ -39,7 +40,8 @@ export const RecycleMapArea = () => {
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
 
   const [formData, setFormData] = useState({
-    name: '',
+    placeName: '',
+    street: '',
     tipo: [] as string[],
     url: '',
   });
@@ -60,7 +62,8 @@ export const RecycleMapArea = () => {
         if (data.lat && data.lng) {
           pointsData.push({
             id: doc.id,
-            name: data.name || 'Sin nombre',
+            placeName: data.placeName || '',
+            street: data.name || 'Sin nombre',
             tipo: data.tipo || 'Desconocido',
             registerBy: data.registerBy || 'Anónimo',
             url: data.url || '',
@@ -98,8 +101,8 @@ export const RecycleMapArea = () => {
         setNewPointPos({ lat, lng });
         setShowForm(true);
 
-        const { name, address } = await reverseGeocode(lat, lng);
-        setFormData((prev) => ({ ...prev, name }));
+        const { address } = await reverseGeocode(lat, lng);
+        setFormData((prev) => ({ ...prev, street: address }));
         setFullAddress(address);
       },
     });
@@ -137,7 +140,8 @@ export const RecycleMapArea = () => {
     const displayName = user?.displayName || 'Anónimo';
 
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
-      name: formData.name,
+      placeName: formData.placeName,
+      street: formData.street,
       tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
@@ -147,7 +151,8 @@ export const RecycleMapArea = () => {
 
     const newPoint: RecyclePoint = {
       id: docRef.id,
-      name: formData.name,
+      placeName: formData.placeName,
+      street: formData.street,
       tipo: formData.tipo.join(', '),
       url: formData.url,
       lat: newPointPos.lat,
@@ -157,7 +162,7 @@ export const RecycleMapArea = () => {
 
     setPoints([...points, newPoint]);
     setShowForm(false);
-    setFormData({ name: '', tipo: [], url: '' });
+    setFormData({ placeName: '', street: '', tipo: [], url: '' });
     setNewPointPos(null);
 
     Swal.fire({
@@ -179,7 +184,13 @@ export const RecycleMapArea = () => {
           {points.map((point) => (
             <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
               <Popup>
-                <strong>{point.name}</strong>
+                {point.placeName && (
+                  <>
+                    <strong>{point.placeName}</strong>
+                    <br />
+                  </>
+                )}
+                <strong>{point.street}</strong>
                 <br />
                 {t('type')}: {point.tipo}
                 <br />
@@ -218,8 +229,20 @@ export const RecycleMapArea = () => {
               <label className="formLabel">{t('placeName')}:</label>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
+                name="placeName"
+                value={formData.placeName}
+                onChange={handleInputChange}
+                required
+                className="formInput"
+              />
+            </div>
+
+            <div className="formGroup">
+              <label className="formLabel">{t('streetName')}:</label>
+              <input
+                type="text"
+                name="street"
+                value={formData.street}
                 onChange={handleInputChange}
                 required
                 className="formInput"

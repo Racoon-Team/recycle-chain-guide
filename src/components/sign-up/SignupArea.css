@@ -12,8 +12,8 @@
   font-size: 20px !important;
 }
 
-input[type="password"],
-input[type="text"] {
+input[type='password'],
+input[type='text'] {
   padding-right: 2.5rem;
 }
 
