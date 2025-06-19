@@ -65,6 +65,7 @@
 
 
   "addPlace": "Add recycling place",
+  "placeName": "Place name",
   "streetName": "street name",
   "materialType": "Material Type",
   "optionalUrl": "URL (optional)",

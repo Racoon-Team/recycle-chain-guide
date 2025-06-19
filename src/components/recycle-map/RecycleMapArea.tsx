@@ -19,6 +19,7 @@ L.Icon.Default.mergeOptions({
 
 type RecyclePoint = {
   id: string;
+  placeName: string;
   street: string;
   tipo: string;
   registerBy: string;
@@ -39,6 +40,7 @@ export const RecycleMapArea = () => {
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
 
   const [formData, setFormData] = useState({
+    placeName: '',
     street: '',
     tipo: [] as string[],
     url: '',
@@ -60,6 +62,7 @@ export const RecycleMapArea = () => {
         if (data.lat && data.lng) {
           pointsData.push({
             id: doc.id,
+            placeName: data.placeName || '',
             street: data.name || 'Sin nombre',
             tipo: data.tipo || 'Desconocido',
             registerBy: data.registerBy || 'Anónimo',
@@ -137,6 +140,7 @@ export const RecycleMapArea = () => {
     const displayName = user?.displayName || 'Anónimo';
 
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
+      placeName: formData.placeName,
       street: formData.street,
       tipo: formData.tipo.join(', '),
       url: formData.url,
@@ -147,6 +151,7 @@ export const RecycleMapArea = () => {
 
     const newPoint: RecyclePoint = {
       id: docRef.id,
+      placeName: formData.placeName,
       street: formData.street,
       tipo: formData.tipo.join(', '),
       url: formData.url,
@@ -157,7 +162,7 @@ export const RecycleMapArea = () => {
 
     setPoints([...points, newPoint]);
     setShowForm(false);
-    setFormData({ street: '', tipo: [], url: '' });
+    setFormData({ placeName: '', street: '', tipo: [], url: '' });
     setNewPointPos(null);
 
     Swal.fire({
@@ -179,6 +184,12 @@ export const RecycleMapArea = () => {
           {points.map((point) => (
             <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
               <Popup>
+                {point.placeName && (
+                  <>
+                    <strong>{point.placeName}</strong>
+                    <br />
+                  </>
+                )}
                 <strong>{point.street}</strong>
                 <br />
                 {t('type')}: {point.tipo}
@@ -214,6 +225,18 @@ export const RecycleMapArea = () => {
         <div className="formContainer">
           <h3 className="formTitle">{t('addPlace')}</h3>
           <form onSubmit={handleSubmit}>
+            <div className="formGroup">
+              <label className="formLabel">{t('placeName')}:</label>
+              <input
+                type="text"
+                name="placeName"
+                value={formData.placeName}
+                onChange={handleInputChange}
+                required
+                className="formInput"
+              />
+            </div>
+
             <div className="formGroup">
               <label className="formLabel">{t('streetName')}:</label>
               <input
