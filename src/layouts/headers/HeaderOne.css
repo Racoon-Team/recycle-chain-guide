@@ -1,0 +1,10 @@
+.displayNameText {
+  color: #000 !important;
+  transition: color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .displayNameText {
+    color: #fff !important;
+  }
+}
