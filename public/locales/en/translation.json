@@ -68,7 +68,7 @@
 
   "addPlace": "Add recycling place",
   "placeName": "Place name",
-  "streetName": "street name",
+  "streetName": "Street name",
   "materialType": "Material Type",
   "optionalUrl": "URL (optional)",
   "save": "Save",
@@ -76,6 +76,15 @@
   "type": "Type",
   "registeredBy": "Registered by",
   "moreInfo": "More Info",
+
+  "materialsOptions": {
+    "paper": "Paper & cardboard",
+    "plasticPet": "PET Plastic",
+    "hardPlastic": "Hard Plastic",
+    "tetrapak": "Tetra Pak",
+    "glass": "Glass",
+    "cans": "Cans"
+  },
 
   "main": {
     "title": "Welcome to the Main Page",
@@ -135,7 +144,13 @@
     "cancelChangePassword": "Cancel Password Change",
     "saveChanges": "Save Changes",
     "generalChanges": "General changes"
+  },
+
+  "menu": {
+    "howToRecycle": "How to recycle",
+    "recycleMap": "Recycling points",
+    "contact": "Contact",
+    "demo": "Demo"
   }
 
-  
 }

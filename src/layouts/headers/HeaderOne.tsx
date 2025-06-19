@@ -60,7 +60,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                     {menu_data.map((item, i) => (
                       <li key={i} className={`${item.has_dropdown ? 'menu-item-has-children' : ''}`}>
                         <Link to={item.link} className={`${style_2 ? 'light-color' : ''}`}>
-                          {item.title}
+                          {t(item.title)}
                         </Link>
                         {item.has_dropdown && (
                           <ul className="sub-menu">
@@ -112,7 +112,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                             width="40"
                             height="40"
                           />
-                          <span style={{ color: '#142863', fontWeight: 'bold' }}>{displayName}</span>
+                          {displayName}
                         </button>
 
                         {dropdownOpen && (
