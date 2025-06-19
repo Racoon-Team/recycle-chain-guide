@@ -28,7 +28,14 @@ type RecyclePoint = {
   lng: number;
 };
 
-const materialOptions = ['Papel y Cartón', 'Plástico PET', 'Plástico Duro', 'Tetra Pak', 'Vidrio', 'Latas'];
+const materialOptions = [
+  'materialsOptions.paper',
+  'materialsOptions.plasticPet',
+  'materialsOptions.hardPlastic',
+  'materialsOptions.tetrapak',
+  'materialsOptions.glass',
+  'materialsOptions.cans',
+];
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
@@ -272,7 +279,7 @@ export const RecycleMapArea = () => {
                           }
                         }}
                       />
-                      {material}
+                      {t(material)}
                     </label>
                   );
                 })}

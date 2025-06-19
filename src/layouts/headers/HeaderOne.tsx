@@ -1,3 +1,4 @@
+import LanguageSelector from '@components/language-selector/LanguageSelector';
 import { signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -59,7 +60,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                     {menu_data.map((item, i) => (
                       <li key={i} className={`${item.has_dropdown ? 'menu-item-has-children' : ''}`}>
                         <Link to={item.link} className={`${style_2 ? 'light-color' : ''}`}>
-                          {item.title}
+                          {t(item.title)}
                         </Link>
                         {item.has_dropdown && (
                           <ul className="sub-menu">
@@ -92,6 +93,9 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
               <div className="lonyo-header-info-wraper2">
                 <div className={`lonyo-header-info-content ${style_2 ? 'content2' : ''}`}>
                   <ul className="d-flex align-items-center gap-3 m-0 list-unstyled">
+                    <li>
+                      <LanguageSelector />
+                    </li>
                     {status !== 'authenticated' ? (
                       <li>
                         <Link to="/sign-in">{t('login.login')}</Link>

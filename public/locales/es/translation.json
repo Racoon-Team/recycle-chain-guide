@@ -79,6 +79,15 @@
   "registeredBy": "Registrado por",
   "moreInfo": "Más información",
 
+  "materialsOptions": {
+    "paper": "Papel y Cartón",
+    "plasticPet": "Plástico PET",
+    "hardPlastic": "Plástico Duro",
+    "tetrapak": "Tetra Pak",
+    "glass": "Vidrio",
+    "cans": "Latas"
+  },
+
   "main": {
     "title": "Welcome to the Main Page",
     "or": "o"
@@ -137,8 +146,19 @@
     "cancelChangePassword": "Cancelar cambio de contraseña",
     "saveChanges": "Guardar cambios",
     "generalChanges": "Cambios generales"
-  }
+  },
 
-  
+  "menu": {
+    "howToRecycle": "Cómo reciclar",
+    "recycleMap": "Puntos de reciclaje",
+    "contact": "Contacto",
+    "demo": "Demo"
+
+  },
+
+  "languages": {
+    "es": "Español",
+    "en": "Inglés"
+  }
 
 }

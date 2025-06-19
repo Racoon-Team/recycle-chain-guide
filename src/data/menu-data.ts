@@ -2,26 +2,25 @@
 const menu_data = [
   {
     id: 1,
-    title: 'How to recycle',
+    title: 'menu.howToRecycle',
     link: '/how-to-recycle',
     has_dropdown: false,
   },
-
   {
     id: 2,
-    title: 'Recycle map',
+    title: 'menu.recycleMap',
     link: '/recycle-map',
     has_dropdown: false,
   },
   {
     id: 3,
-    title: 'Contact',
+    title: 'menu.contact',
     link: '/contact-us',
     has_dropdown: false,
   },
   {
     id: 4,
-    title: 'Demo',
+    title: 'menu.demo',
     link: '#',
     has_dropdown: true,
     sub_menus: [
