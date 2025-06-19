@@ -111,7 +111,7 @@ const SignUpArea = () => {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      placeholder="Full name"
+                      placeholder={t('signup.fullName')}
                     />
                     {errors.firstName && <small className="text-danger">{errors.firstName}</small>}
                   </div>
@@ -127,7 +127,7 @@ const SignUpArea = () => {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      placeholder="Last name"
+                      placeholder={t('signup.lastName')}
                     />
                     {errors.lastName && <small className="text-danger">{errors.lastName}</small>}
                   </div>
@@ -143,7 +143,7 @@ const SignUpArea = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Your email address"
+                  placeholder={t('signup.email')}
                 />
                 {errors.email && <small className="text-danger">{errors.email}</small>}
               </div>
@@ -158,7 +158,7 @@ const SignUpArea = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="Min 6 characters"
+                    placeholder={t('signup.password')}
                   />
                   <div
                     onClick={togglePasswordVisibility}
@@ -178,7 +178,7 @@ const SignUpArea = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    placeholder="Min 6 characters"
+                    placeholder={t('signup.repeatPassword')}
                   />
                   <div
                     onClick={toggleConfirmPasswordVisibility}
