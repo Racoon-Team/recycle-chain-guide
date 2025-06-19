@@ -69,7 +69,7 @@
 
   
   "addPlace": "Agregar lugar de reciclaje",
-  "placeName": "Nombre del Lugar",
+  "streetName": "Nombre de la calle",
   "materialType": "Tipo de material",
   "optionalUrl": "URL (opcional)",
   "save": "Guardar",

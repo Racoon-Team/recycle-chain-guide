@@ -172,7 +172,5 @@
 }
 
 .leaflet-container {
-  cursor:
-    url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41,
-    auto;
+  cursor: default;
 }
