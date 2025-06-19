@@ -43,7 +43,7 @@
     "tetra": {
       
       "title": "Tetra Pak",
-      "description": "You can recycle carton containers like those for milk, juices, wine, known as Tetra Pak. It is important to rinse them and take them to appropriate collection points for recycling.",
+      "description": "You can recycle carton containers like those for milk, juices, wine, known as Tetra Pak. It is important to rinse them and take them to appropriate collection points.",
       "rememberText": "They must be rinsed, dry, dismantled, and flattened.",
       "noRecycleText": "Laminated cartons or paper cups for hot drinks."
     },
