@@ -1,10 +1,11 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import type { RootState } from 'store/store';
 import { FirebaseAuth } from '../../firebase/config';
+import { login } from '../../store/auth/authSlice';
 import './SignupArea.css';
 
 const SignUpArea = () => {
@@ -54,16 +55,36 @@ const SignUpArea = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     if (validate()) {
       try {
         const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
-        console.log('User registered:', userCredential.user);
-        navigate('/sign-in');
-      } catch (error: any) {
-        console.error('Registration error:', error.message);
 
+        const fullName = `${formData.firstName} ${formData.lastName}`;
+
+        await updateProfile(userCredential.user, { displayName: fullName });
+
+        await FirebaseAuth.currentUser?.reload();
+
+        const currentUser = FirebaseAuth.currentUser;
+        if (currentUser) {
+          dispatch(
+            login({
+              uid: currentUser.uid,
+              email: currentUser.email,
+              displayName: currentUser.displayName,
+              photoURL: currentUser.photoURL,
+            })
+          );
+        }
+
+        navigate('/home-2');
+      } catch (error: any) {
+        console.error('Error al registrar:', error.message);
         setErrors({ ...errors, email: error.message });
       }
     }
