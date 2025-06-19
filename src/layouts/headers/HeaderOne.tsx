@@ -1,3 +1,4 @@
+import LanguageSelector from '@components/language-selector/LanguageSelector';
 import { signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -92,6 +93,9 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
               <div className="lonyo-header-info-wraper2">
                 <div className={`lonyo-header-info-content ${style_2 ? 'content2' : ''}`}>
                   <ul className="d-flex align-items-center gap-3 m-0 list-unstyled">
+                    <li>
+                      <LanguageSelector />
+                    </li>
                     {status !== 'authenticated' ? (
                       <li>
                         <Link to="/sign-in">{t('login.login')}</Link>
@@ -108,7 +112,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                             width="40"
                             height="40"
                           />
-                          {displayName}
+                          <span style={{ color: '#142863', fontWeight: 'bold' }}>{displayName}</span>
                         </button>
 
                         {dropdownOpen && (
