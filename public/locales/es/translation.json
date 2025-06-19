@@ -154,6 +154,11 @@
     "contact": "Contacto",
     "demo": "Demo"
 
+  },
+
+  "languages": {
+    "es": "Español",
+    "en": "Inglés"
   }
 
 }

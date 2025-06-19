@@ -151,6 +151,10 @@
     "recycleMap": "Recycling points",
     "contact": "Contact",
     "demo": "Demo"
+  },
+  "languages": {
+    "es": "Spanish",
+    "en": "English"
   }
 
 }
