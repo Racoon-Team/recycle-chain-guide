@@ -10,6 +10,13 @@ import '../../components/recycle-map/RecycleMapArea.css';
 import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
 
+import latas from '../../components/recycle-map/img/lata.png';
+import papelCarton from '../../components/recycle-map/img/papel.png';
+import plasticoDuro from '../../components/recycle-map/img/plasticoDuro.png';
+import plasticoPet from '../../components/recycle-map/img/plasticoPet.png';
+import tetraPack from '../../components/recycle-map/img/tetraPack.png';
+import vidrio from '../../components/recycle-map/img/vidrio.png';
+
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -38,12 +45,12 @@ const materialOptions = [
 ];
 
 const tipoIcons: Record<string, string> = {
-  'Papel y Cartón': '📄',
-  'Plástico PET': '🧴',
-  'Plástico Duro': '🧊',
-  'Tetra Pak': '🥫',
-  Vidrio: '🍾',
-  Latas: '🥤',
+  'Papel y Cartón': papelCarton,
+  'Plástico PET': plasticoPet,
+  'Plástico Duro': plasticoDuro,
+  'Tetra Pak': tetraPack,
+  Vidrio: vidrio,
+  Latas: latas,
 };
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
@@ -238,21 +245,12 @@ export const RecycleMapArea = () => {
                 <strong>{point.street}</strong>
                 <br />
                 {t('type')}:
-                <ul style={{ listStyle: 'none', paddingLeft: 0, marginBottom: 0 }}>
-                  {point.tipo.split(', ').map((tipo) => (
-                    <li key={tipo}>
-                      {tipoIcons[tipo] || '🔹'} {tipo}
-                    </li>
-                  ))}
-                </ul>
-                <br />
-                {t('registeredBy')}: {point.registerBy}
-                <br />
-                {point.url && (
-                  <a href={point.url} target="_blank" rel="noopener noreferrer">
-                    {t('moreInfo')}
-                  </a>
-                )}
+                <div className="recycle-card-icons">
+                  {point.tipo.split(', ').map((tipo) => {
+                    const iconPath = tipoIcons[tipo];
+                    return iconPath && <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
+                  })}
+                </div>
               </Popup>
             </Marker>
           ))}
@@ -274,7 +272,7 @@ export const RecycleMapArea = () => {
         </MapContainer>
       </div>
       <div className="placeListArea">
-        <h4>{t('recyclingPlaces')}</h4>
+        <h4>{t('recycling.recyclingPlaces')}</h4>
         <div>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center p-4">
@@ -283,36 +281,27 @@ export const RecycleMapArea = () => {
               </div>
             </div>
           ) : points.length === 0 ? (
-            <p>{t('noPlacesRegistered')}</p>
+            <p>{t('recycling.noPlacesRegistered')}</p>
           ) : null}
         </div>
         {points.map((point, index) => (
           <div
             key={point.id}
-            className="card mb-3 clickable-card "
+            className="card mb-3 clickable-card"
             onClick={() => handleCardClick(point.id, point.lat, point.lng)}>
-            <div className="card-header">
+            <div className="recycle-card-header">
               {index + 1}. {point.name}
             </div>
             <div className="card-body">
               <div className="card-title">
                 {t('type')}:
-                <ul style={{ listStyle: 'none', paddingLeft: 0, marginBottom: 0 }}>
-                  {point.tipo.split(', ').map((tipo) => (
-                    <li key={tipo}>
-                      {tipoIcons[tipo] || '🔹'} {tipo}
-                    </li>
-                  ))}
-                </ul>
+                <div className="recycle-card-icons">
+                  {point.tipo.split(', ').map((tipo) => {
+                    const iconPath = tipoIcons[tipo];
+                    return <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
+                  })}
+                </div>
               </div>
-              <p className="card-text">
-                {t('registeredBy')}: {point.registerBy}
-              </p>
-              {point.url && (
-                <a href={point.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  {t('moreInfo')}
-                </a>
-              )}
             </div>
           </div>
         ))}

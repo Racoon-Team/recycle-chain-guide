@@ -174,6 +174,12 @@
 .leaflet-container {
   cursor: default;
 }
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
 .placeListArea {
   width: 30%;
   max-height: 82vh;
@@ -183,12 +189,13 @@
 }
 .clickable-card {
   cursor: pointer;
-  border: 2px solid #007bff; /* borde más grueso y azul */
+  border: 2px solid #007bff; 
   border-radius: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   background-color: white;
+  padding: 1rem;
 }
 
 .clickable-card:hover {
@@ -203,4 +210,36 @@
   padding: 1rem;
   margin: 0;
   border-bottom: 1px solid #ccc;
+}
+.tipo-material-container {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+.tipo-material-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+}
+.tipo-material-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+.recycle-card-header {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ccc;
+  border-radius: 8px 8px 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+.recycle-icon {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.2s ease;
 }
