@@ -3,13 +3,21 @@
   height: 82vh;
   width: 100%;
 }
+.placeListArea {
+  width: 390px;
+  height: 100%;         
+  overflow-y: auto;
+  border-left: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
 
 .mapArea {
   flex: 1;
+  height: 100%;
 }
 
 .mapContainer {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -173,19 +181,44 @@
 
 .leaflet-container {
   cursor: default;
+  height: 100%;
+  width: 100%;
+  cursor:
+    url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41,
+    auto;
+
 }
 .spinner-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  justify-content: center; 
+  align-items: center;     
+  height: 55vh;           
 }
-.placeListArea {
-  width: 30%;
-  max-height: 82vh;
-  overflow-y: auto;
-  border-left: 1px solid #ddd;
-  background-color: #f9f9f9;
+
+@media (max-width: 768px) {
+  .containerPrimary {
+    flex-direction: column;
+  }
+ .mapArea {
+    order: 1;
+    width: 100%;
+    height: 300px; 
+  }
+
+  .mapContainer {
+    height: 100%;
+  }
+
+  .leaflet-container {
+    height: 300px !important; 
+    width: 100%;
+  }
+
+  .placeListArea {
+    order: 2;
+    width: 100%;
+    max-height: none;
+  }
 }
 .clickable-card {
   cursor: pointer;
@@ -215,6 +248,7 @@
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
+  overflow: hidden;
 }
 .tipo-material-item {
   display: flex;
@@ -242,4 +276,20 @@
   width: 36px;
   height: 36px;
   transition: transform 0.2s ease;
+  
+}
+
+.recycle-card-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 55vh;          
 }

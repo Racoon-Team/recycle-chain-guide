@@ -275,13 +275,17 @@ export const RecycleMapArea = () => {
         <h4>{t('recycling.recyclingPlaces')}</h4>
         <div>
           {loading ? (
-            <div className="d-flex justify-content-center align-items-center p-4">
-              <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+            <div className="spinner-container">
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               </div>
             </div>
           ) : points.length === 0 ? (
-            <p>{t('recycling.noPlacesRegistered')}</p>
+            <div className="centered-container">
+              <p>{t('recycling.noPlacesRegistered')}</p>
+            </div>
           ) : null}
         </div>
         {points.map((point, index) => (
@@ -294,7 +298,6 @@ export const RecycleMapArea = () => {
             </div>
             <div className="card-body">
               <div className="card-title">
-                {t('type')}:
                 <div className="recycle-card-icons">
                   {point.tipo.split(', ').map((tipo) => {
                     const iconPath = tipoIcons[tipo];
