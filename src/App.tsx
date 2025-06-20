@@ -1,7 +1,7 @@
 import HowToRecycle from '@components/how-to-recycle';
 import RecycleMap from '@components/recycle-map';
 
-import UserSettings from '@components/setting/UserSettings';
+import UserSetting from '@components/setting';
 import { useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUs from './components/about-us';
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
 
   { path: '/how-to-recycle', element: <HowToRecycle /> },
   { path: '/recycle-map', element: <RecycleMap /> },
-  { path: '/userSetting', element: <UserSettings /> },
+  { path: '/userSetting', element: <UserSetting /> },
   { path: '*', element: <NotFound /> },
 ]);
 
