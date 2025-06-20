@@ -35,6 +35,26 @@ const UserSettings = () => {
     confirmPassword: '',
   });
 
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      const [firstName, lastName = ''] = user.displayName?.split(' ') ?? ['', ''];
+      setFormData((prev) => ({
+        ...prev,
+        firstName,
+        lastName,
+        email: user.email || '',
+      }));
+      setIsAuthenticatedUser(true);
+
+      const isGoogle = user.providerData.some((p) => p.providerId === 'google.com');
+      setIsGoogleUser(isGoogle);
+    }
+  }, []);
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -127,7 +147,7 @@ const UserSettings = () => {
             status: 'authenticated',
           })
         );
-        navigate('/home-2');
+        navigate('/');
       } else {
         const userCredential = await createUserWithEmailAndPassword(FirebaseAuth, formData.email, formData.password);
         const newUser = userCredential.user;
@@ -142,7 +162,7 @@ const UserSettings = () => {
           lastName: formData.lastName,
           email: formData.email,
         });
-        navigate('/home-2');
+        navigate('/');
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -248,67 +268,78 @@ const UserSettings = () => {
 
               {activeTab === 'password' && (
                 <>
-                  {isAuthenticatedUser && (
-                    <div className="lonyo-main-field">
-                      <p>{t('userSettings.currentPassword')}</p>
-                      <div className="position-relative">
-                        <input
-                          id="current-password-field"
-                          className="light-bg form-control"
-                          type={actualPasswordVisible ? 'text' : 'password'}
-                          name="currentPassword"
-                          value={formData.currentPassword}
-                          onChange={handleChange}
-                          placeholder="Current password"
-                        />
-                        <div
-                          onClick={toggleActualPasswordVisibility}
-                          className={`fa fa-fw field-icon toggle-password ${actualPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                  {isGoogleUser ? (
+                    <div className="alert alert-info">
+                      <h6>
+                        Has iniciado sesión con Google. Para cambiar tu contraseña , hazlo desde tu:{' '}
+                        <a href="https://myaccount.google.com/">"Cuenta de Google"</a>
+                      </h6>
+                    </div>
+                  ) : (
+                    <>
+                      {isAuthenticatedUser && (
+                        <div className="lonyo-main-field">
+                          <p>{t('userSettings.currentPassword')}</p>
+                          <div className="position-relative">
+                            <input
+                              id="current-password-field"
+                              className="light-bg form-control"
+                              type={actualPasswordVisible ? 'text' : 'password'}
+                              name="currentPassword"
+                              value={formData.currentPassword}
+                              onChange={handleChange}
+                              placeholder="Current password"
+                            />
+                            <div
+                              onClick={toggleActualPasswordVisibility}
+                              className={`fa fa-fw field-icon toggle-password ${actualPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                          </div>
+                          {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
+                        </div>
+                      )}
+                      <br />
+
+                      <div className="lonyo-main-field">
+                        <p>{t('userSettings.newPassword')}</p>
+                        <div className="position-relative">
+                          <input
+                            id="password-field"
+                            className="light-bg form-control"
+                            type={passwordVisible ? 'text' : 'password'}
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Min 6 characters"
+                          />
+                          <div
+                            onClick={togglePasswordVisibility}
+                            className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                        </div>
+                        {errors.password && <small className="text-danger">{errors.password}</small>}
                       </div>
-                      {errors.currentPassword && <small className="text-danger">{errors.currentPassword}</small>}
-                    </div>
+                      <br />
+
+                      <div className="lonyo-main-field">
+                        <p>{t('userSettings.confirmNewPassword')}</p>
+                        <div className="position-relative">
+                          <input
+                            id="confirm-password-field"
+                            className="light-bg form-control"
+                            type={confirmPasswordVisible ? 'text' : 'password'}
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            placeholder="Min 6 characters"
+                          />
+                          <div
+                            onClick={toggleConfirmPasswordVisibility}
+                            className={`fa fa-fw field-icon toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
+                        </div>
+                        {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
+                      </div>
+                      <br />
+                    </>
                   )}
-                  <br />
-
-                  <div className="lonyo-main-field">
-                    <p>{t('userSettings.newPassword')}</p>
-                    <div className="position-relative">
-                      <input
-                        id="password-field"
-                        className="light-bg form-control"
-                        type={passwordVisible ? 'text' : 'password'}
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Min 6 characters"
-                      />
-                      <div
-                        onClick={togglePasswordVisibility}
-                        className={`fa fa-fw field-icon toggle-password ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
-                    </div>
-                    {errors.password && <small className="text-danger">{errors.password}</small>}
-                  </div>
-                  <br />
-
-                  <div className="lonyo-main-field">
-                    <p>{t('userSettings.confirmNewPassword')}</p>
-                    <div className="position-relative">
-                      <input
-                        id="confirm-password-field"
-                        className="light-bg form-control"
-                        type={confirmPasswordVisible ? 'text' : 'password'}
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        placeholder="Min 6 characters"
-                      />
-                      <div
-                        onClick={toggleConfirmPasswordVisibility}
-                        className={`fa fa-fw field-icon toggle-password ${confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></div>
-                    </div>
-                    {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}
-                  </div>
-                  <br />
                 </>
               )}
 
