@@ -318,7 +318,9 @@
   z-index: 2000;
 }
 
+
 .icon-with-label-modal {
+
   display: flex;
   flex-direction: column;
   align-items: center;
