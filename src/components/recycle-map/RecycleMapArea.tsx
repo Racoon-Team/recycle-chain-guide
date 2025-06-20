@@ -2,13 +2,20 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import Swal from 'sweetalert2';
 import '../../components/recycle-map/RecycleMapArea.css';
 import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
+
+import latas from '../../components/recycle-map/img/lata.png';
+import papelCarton from '../../components/recycle-map/img/papel.png';
+import plasticoDuro from '../../components/recycle-map/img/plasticoDuro.png';
+import plasticoPet from '../../components/recycle-map/img/plasticoPet.png';
+import tetraPack from '../../components/recycle-map/img/tetraPack.png';
+import vidrio from '../../components/recycle-map/img/vidrio.png';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -37,15 +44,24 @@ const materialOptions = [
   'materialsOptions.cans',
 ];
 
+const tipoIcons: Record<string, string> = {
+  'Papel y Cartón': papelCarton,
+  'Plástico PET': plasticoPet,
+  'Plástico Duro': plasticoDuro,
+  'Tetra Pak': tetraPack,
+  Vidrio: vidrio,
+  Latas: latas,
+};
+
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
-
+  const [selectedPoint, setSelectedPoint] = useState<{ id: string; lat: number; lng: number } | null>(null);
   const [points, setPoints] = useState<RecyclePoint[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
-
+  const markerRefs = useRef<Record<string, L.Marker>>({});
   const [formData, setFormData] = useState({
     placeName: '',
     street: '',
@@ -54,6 +70,27 @@ export const RecycleMapArea = () => {
   });
 
   const [, setIsAuthenticated] = useState(false);
+
+  const handleCardClick = (id: string, lat: number, lng: number) => {
+    setSelectedPoint({ id, lat, lng });
+  };
+  const [loading, setLoading] = useState(true);
+  const MapFlyTo = ({ id, lat, lng }: { id: string; lat: number; lng: number }) => {
+    const map = useMap();
+
+    useEffect(() => {
+      map.flyTo([lat, lng], 17, { animate: true });
+
+      const marker = markerRefs.current[id];
+      if (marker) {
+        setTimeout(() => {
+          marker.openPopup();
+        }, 500);
+      }
+    }, [id, lat, lng, map]);
+
+    return null;
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -80,6 +117,7 @@ export const RecycleMapArea = () => {
         }
       });
       setPoints(pointsData);
+      setLoading(false);
     };
 
     loadPoints();
@@ -183,13 +221,20 @@ export const RecycleMapArea = () => {
   return (
     <div className="containerPrimary">
       <div className="mapArea">
-        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} className="mapContainer">
+        <MapContainer center={center} zoom={10.5} scrollWheelZoom={false} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {points.map((point) => (
-            <Marker key={point.id} position={{ lat: point.lat, lng: point.lng }}>
+            <Marker
+              key={point.id}
+              position={{ lat: point.lat, lng: point.lng }}
+              ref={(ref) => {
+                if (ref) {
+                  markerRefs.current[point.id] = ref;
+                }
+              }}>
               <Popup>
                 {point.placeName && (
                   <>
@@ -199,15 +244,13 @@ export const RecycleMapArea = () => {
                 )}
                 <strong>{point.street}</strong>
                 <br />
-                {t('type')}: {point.tipo}
-                <br />
-                {t('registeredBy')}: {point.registerBy}
-                <br />
-                {point.url && (
-                  <a href={point.url} target="_blank" rel="noopener noreferrer">
-                    {t('moreInfo')}
-                  </a>
-                )}
+                {t('type')}:
+                <div className="recycle-card-icons">
+                  {point.tipo.split(', ').map((tipo) => {
+                    const iconPath = tipoIcons[tipo];
+                    return iconPath && <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
+                  })}
+                </div>
               </Popup>
             </Marker>
           ))}
@@ -225,7 +268,46 @@ export const RecycleMapArea = () => {
             />
           )}
           <MapEvents />
+          {selectedPoint && <MapFlyTo id={selectedPoint.id} lat={selectedPoint.lat} lng={selectedPoint.lng} />}
         </MapContainer>
+      </div>
+      <div className="placeListArea">
+        <h4>{t('recycling.recyclingPlaces')}</h4>
+        <div>
+          {loading ? (
+            <div className="spinner-container">
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+          ) : points.length === 0 ? (
+            <div className="centered-container">
+              <p>{t('recycling.noPlacesRegistered')}</p>
+            </div>
+          ) : null}
+        </div>
+        {points.map((point, index) => (
+          <div
+            key={point.id}
+            className="card mb-3 clickable-card"
+            onClick={() => handleCardClick(point.id, point.lat, point.lng)}>
+            <div className="recycle-card-header">
+              {index + 1}. {point.name}
+            </div>
+            <div className="card-body">
+              <div className="card-title">
+                <div className="recycle-card-icons">
+                  {point.tipo.split(', ').map((tipo) => {
+                    const iconPath = tipoIcons[tipo];
+                    return <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {showForm && newPointPos && (

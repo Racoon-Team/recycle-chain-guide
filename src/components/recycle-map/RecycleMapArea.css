@@ -3,13 +3,21 @@
   height: 82vh;
   width: 100%;
 }
+.placeListArea {
+  width: 390px;
+  height: 100%;         
+  overflow-y: auto;
+  border-left: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
 
 .mapArea {
   flex: 1;
+  height: 100%;
 }
 
 .mapContainer {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -173,4 +181,115 @@
 
 .leaflet-container {
   cursor: default;
+  height: 100%;
+  width: 100%;
+  cursor:
+    url('https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png') 12 41,
+    auto;
+
+}
+.spinner-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 55vh;           
+}
+
+@media (max-width: 768px) {
+  .containerPrimary {
+    flex-direction: column;
+  }
+ .mapArea {
+    order: 1;
+    width: 100%;
+    height: 300px; 
+  }
+
+  .mapContainer {
+    height: 100%;
+  }
+
+  .leaflet-container {
+    height: 300px !important; 
+    width: 100%;
+  }
+
+  .placeListArea {
+    order: 2;
+    width: 100%;
+    max-height: none;
+  }
+}
+.clickable-card {
+  cursor: pointer;
+  border: 2px solid #007bff; 
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: white;
+  padding: 1rem;
+}
+
+.clickable-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.placeListArea h4 {
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9; 
+  z-index: 5;
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+.tipo-material-container {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.tipo-material-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+}
+.tipo-material-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+.recycle-card-header {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ccc;
+  border-radius: 8px 8px 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+.recycle-icon {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.2s ease;
+  
+}
+
+.recycle-card-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 55vh;          
 }

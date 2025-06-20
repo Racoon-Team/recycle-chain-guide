@@ -146,6 +146,7 @@
     "generalChanges": "General changes"
   },
 
+
   "menu": {
     "howToRecycle": "How to recycle",
     "recycleMap": "Recycling points",
@@ -155,6 +156,14 @@
   "languages": {
     "es": "Spanish",
     "en": "English"
+
+  },
+
+  "recycling":{
+    "recyclingPlaces": "Recycling Places",
+    "noPlacesRegistered":"No places registered"
+    
   }
 
 }
+
