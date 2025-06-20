@@ -271,8 +271,8 @@ const UserSettings = () => {
                   {isGoogleUser ? (
                     <div className="alert alert-info">
                       <h6>
-                        Has iniciado sesión con Google. Para cambiar tu contraseña , hazlo desde tu:{' '}
-                        <a href="https://myaccount.google.com/">"Cuenta de Google"</a>
+                        {t('userSettings.googleWarning')}{' '}
+                        <a href="https://myaccount.google.com/">"{t('userSettings.googleLink')}"</a>
                       </h6>
                     </div>
                   ) : (

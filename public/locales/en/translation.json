@@ -143,8 +143,11 @@
     "changePassword": "I want to change my password",
     "cancelChangePassword": "Cancel Password Change",
     "saveChanges": "Save Changes",
-    "generalChanges": "General changes"
+    "generalChanges": "General changes",
+    "googleWarning": "You are signed in with Google. To change your password, do it from your:",
+    "googleLink": "Google account"
   },
+  
 
 
   "menu": {

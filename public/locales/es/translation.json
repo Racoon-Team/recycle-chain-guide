@@ -146,7 +146,9 @@
     "changePassword": "Quiero cambiar mi contraseña",
     "cancelChangePassword": "Cancelar cambio de contraseña",
     "saveChanges": "Guardar cambios",
-    "generalChanges": "Cambios generales"
+    "generalChanges": "Cambios generales",
+    "googleWarning": "Has iniciado sesión con Google. Para cambiar tu contraseña, hazlo desde tu:",
+    "googleLink": "Cuenta de Google"
   },
 
   "menu": {
