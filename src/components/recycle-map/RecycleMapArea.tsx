@@ -97,6 +97,9 @@ export const RecycleMapArea = () => {
     return null;
   };
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredPoints, setFilteredPoints] = useState<RecyclePoint[]>([]);
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -123,12 +126,23 @@ export const RecycleMapArea = () => {
       });
       setPoints(pointsData);
       setLoading(false);
+      setFilteredPoints(pointsData);
     };
 
     loadPoints();
 
     return () => unsubscribe();
   }, []);
+  useEffect(() => {
+    const lower = searchTerm.toLowerCase();
+    const filtered = points.filter(
+      (point) =>
+        point.placeName.toLowerCase().includes(lower) ||
+        point.street.toLowerCase().includes(lower) ||
+        point.tipo.toLowerCase().includes(lower)
+    );
+    setFilteredPoints(filtered);
+  }, [searchTerm, points]);
 
   const [fullAddress, setFullAddress] = useState('');
 
@@ -427,7 +441,7 @@ export const RecycleMapArea = () => {
               <input className="formInput" type="url" name="url" value={formData.url} onChange={handleInputChange} />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className="buttonGroup">
               <button type="submit" className="btnSave">
                 {t('save')}
               </button>

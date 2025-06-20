@@ -67,7 +67,7 @@
 }
 
 .row {
-  align-items: stretch; 
+  align-items: stretch;
 }
 
 .alert {
@@ -76,4 +76,3 @@
   flex-direction: column;
   justify-content: start;
 }
-
