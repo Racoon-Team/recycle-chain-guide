@@ -17,7 +17,7 @@ import '../../components/setting/UserSettings.css';
 import { FirebaseAuth, FirebaseDB } from '../../firebase/config';
 import { login } from '../../store/auth/authSlice';
 
-const UserSettings = () => {
+const UserSettingsArea = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -354,4 +354,4 @@ const UserSettings = () => {
   );
 };
 
-export default UserSettings;
+export default UserSettingsArea;
