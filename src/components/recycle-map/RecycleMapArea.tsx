@@ -28,7 +28,7 @@ type RecyclePoint = {
   id: string;
   placeName: string;
   street: string;
-  tipo: string;
+  tipo: string | string[];
   registerBy: string;
   url: string;
   lat: number;
@@ -107,7 +107,7 @@ export const RecycleMapArea = () => {
           pointsData.push({
             id: doc.id,
             placeName: data.placeName || '',
-            street: data.name || 'Sin nombre',
+            street: data.name || 'Sin nombre de calle',
             tipo: data.tipo || 'Desconocido',
             registerBy: data.registerBy || 'Anónimo',
             url: data.url || '',
@@ -187,7 +187,7 @@ export const RecycleMapArea = () => {
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
       placeName: formData.placeName,
       street: formData.street,
-      tipo: formData.tipo.join(', '),
+      tipo: formData.tipo,
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -198,7 +198,7 @@ export const RecycleMapArea = () => {
       id: docRef.id,
       placeName: formData.placeName,
       street: formData.street,
-      tipo: formData.tipo.join(', '),
+      tipo: formData.tipo,
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -244,16 +244,25 @@ export const RecycleMapArea = () => {
                 )}
                 <strong>{point.street}</strong>
                 <br />
-                {t('type')}:
+                {t('type')}: {Array.isArray(point.tipo) ? point.tipo.map((key) => t(key)).join(', ') : t(point.tipo)}
                 <div className="recycle-card-icons">
                   {point.tipo.split(', ').map((tipo) => {
                     const iconPath = tipoIcons[tipo];
                     return iconPath && <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
                   })}
                 </div>
+                <br />
+                {t('registeredBy')}: {point.registerBy}
+                <br />
+                {point.url && (
+                  <a href={point.url} target="_blank" rel="noopener noreferrer">
+                    {t('moreInfo')}
+                  </a>
+                )}
               </Popup>
             </Marker>
           ))}
+
           {newPointPos && (
             <Marker
               position={newPointPos}
@@ -294,7 +303,7 @@ export const RecycleMapArea = () => {
             className="card mb-3 clickable-card"
             onClick={() => handleCardClick(point.id, point.lat, point.lng)}>
             <div className="recycle-card-header">
-              {index + 1}. {point.name}
+              {index + 1}. {point.placeName}
             </div>
             <div className="card-body">
               <div className="card-title">
