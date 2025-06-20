@@ -10,6 +10,7 @@ import '../../components/sign-in/SingninArea.css';
 import menu_data from '../../data/menu-data';
 import { FirebaseAuth } from '../../firebase/config';
 import useSticky from '../../hooks/use-sticky';
+import '../../layouts/headers/HeaderOne.css';
 import { logout } from '../../store/auth/authSlice';
 
 const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
@@ -103,7 +104,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                     ) : (
                       <li className="position-relative">
                         <button
-                          className="btn d-flex align-items-center text-white border-0 bg-transparent"
+                          className="btn d-flex align-items-center border-0 bg-transparent"
                           onClick={() => setDropdownOpen((prev) => !prev)}>
                           <img
                             src={photoURL || '/static/images/avatar/2.jpg'}
@@ -112,7 +113,9 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                             width="40"
                             height="40"
                           />
-                          {displayName}
+                          <span className={`displayNameText ${style_2 ? 'text-light' : 'text-dark'}`}>
+                            {displayName}
+                          </span>
                         </button>
 
                         {dropdownOpen && (
