@@ -262,28 +262,33 @@ export const RecycleMapArea = () => {
           <div className="custom-popup-backdrop" onClick={() => setSelectedPoint2(null)}>
             <div className="custom-popup" onClick={(e) => e.stopPropagation()}>
               {selectedPoint2.placeName && <h5>{selectedPoint2.placeName}</h5>}
-              <p>
-                <strong></strong> {selectedPoint2.street}
-              </p>
+
               <div className="recycle-card-icons">
                 {(typeof selectedPoint2.tipo === 'string'
                   ? selectedPoint2.tipo.split(',').map((t) => t.trim())
                   : selectedPoint2.tipo
-                ).map((tipo) => {
-                  const iconPath = tipoIcons[tipo];
+                ).map((tipoKey) => {
+                  const tipoTraducido = t(tipoKey);
+                  const iconPath = tipoIcons[tipoTraducido];
+
                   return iconPath ? (
-                    <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />
+                    <img key={tipoKey} src={iconPath} alt={tipoTraducido} className="recycle-icon" />
                   ) : (
-                    <span key={tipo}>{tipo}</span>
+                    <span key={tipoKey}>{tipoTraducido}</span>
                   );
                 })}
               </div>
+
               <p>
                 <strong>{t('type')}:</strong>{' '}
                 {Array.isArray(selectedPoint2.tipo)
-                  ? selectedPoint2.tipo.map((key) => t(key)).join(',')
+                  ? selectedPoint2.tipo.map((key) => t(key)).join(', ')
                   : t(selectedPoint2.tipo)}
               </p>
+              <p className="street-text">
+                <strong></strong> {selectedPoint2.street}
+              </p>
+              <br />
               <p>
                 <strong>{t('registeredBy')}:</strong> {selectedPoint2.registerBy}
               </p>
@@ -325,10 +330,10 @@ export const RecycleMapArea = () => {
               <div className="card-title">
                 <div className="recycle-card-icons">
                   {(typeof recyclePoint.tipo === 'string'
-                    ? recyclePoint.tipo.split(',').map((t) => t.trim())
+                    ? recyclePoint.tipo.split(', ').map((t) => t.trim())
                     : recyclePoint.tipo
                   ).map((tipoKey) => {
-                    const tipoTraducido = t(tipoKey); // ejemplo: "materialsOptions.paper" → "Papel y Cartón"
+                    const tipoTraducido = t(tipoKey);
                     const iconPath = tipoIcons[tipoTraducido];
 
                     return iconPath ? (
