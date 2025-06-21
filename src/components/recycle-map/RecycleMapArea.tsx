@@ -55,6 +55,20 @@ const tipoIcons: Record<string, string> = {
 };
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
+const AdjusMapToResults = ({ points }: { points: RecyclePoint[] }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (points.length === 1) {
+      const point = points[0];
+      map.setView([point.lat, point.lng], 17);
+    } else if (points.length > 1) {
+      const bounds = L.latLngBounds(points.map((p) => [p.lat, p.lng]));
+      map.fitBounds(bounds, { padding: [50, 50] });
+    }
+  }, [points, map]);
+  return null;
+};
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
