@@ -263,6 +263,10 @@ const UserSettingsArea = () => {
                     {errors.email && <small className="text-danger">{errors.email}</small>}
                   </div>
                   <br />
+                  <button className="lonyo-default-btn extra-btn d-block" type="submit">
+                    {t('userSettings.saveChanges')}
+                  </button>
+                  <br />
                 </>
               )}
 
@@ -342,10 +346,6 @@ const UserSettingsArea = () => {
                   )}
                 </>
               )}
-
-              <button className="lonyo-default-btn extra-btn d-block" type="submit">
-                {t('userSettings.saveChanges')}
-              </button>
             </form>
           </div>
         </div>
