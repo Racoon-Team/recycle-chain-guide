@@ -69,11 +69,13 @@
   "addPlace": "Add recycling place",
   "placeName": "Place name",
   "streetName": "Street name",
+  "address":"Address:",
   "materialType": "Material Type",
   "optionalUrl": "URL (optional)",
   "save": "Save",
   "cancel": "Cancel",
   "type": "Type",
+  "availableType":"Type of recycling available:",
   "registeredBy": "Registered by",
   "moreInfo": "More Info",
 

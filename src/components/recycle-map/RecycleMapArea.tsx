@@ -84,7 +84,7 @@ export const RecycleMapArea = () => {
     const map = useMap();
 
     useEffect(() => {
-      map.flyTo([lat, lng], 17, { animate: true });
+      map.flyTo([lat, lng], 18, { animate: true });
 
       const marker = markerRefs.current[id];
       if (marker) {
@@ -150,6 +150,7 @@ export const RecycleMapArea = () => {
         const { lat, lng } = e.latlng;
         setNewPointPos({ lat, lng });
         setShowForm(true);
+        setSelectedPoint(null);
 
         const { address } = await reverseGeocode(lat, lng);
         setFormData((prev) => ({ ...prev, street: address }));
@@ -226,7 +227,7 @@ export const RecycleMapArea = () => {
   return (
     <div className="containerPrimary">
       <div className="mapArea">
-        <MapContainer center={center} zoom={15.5} scrollWheelZoom={false} className="mapContainer">
+        <MapContainer center={center} zoom={15.5} scrollWheelZoom={true} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -272,9 +273,9 @@ export const RecycleMapArea = () => {
                   const tipoTraducido = t(tipoKey);
 
                   return (
-                    <div key={tipoKey} className="icon-with-label">
+                    <div key={tipoKey} className="icon-with-label-modal">
                       {iconPath ? (
-                        <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
+                        <img src={iconPath} alt={tipoTraducido} className="recycle-icon-modal" />
                       ) : (
                         <span className="recycle-icon-placeholder">{tipoTraducido}</span>
                       )}
@@ -283,20 +284,19 @@ export const RecycleMapArea = () => {
                   );
                 })}
               </div>
+              <br />
 
-              <p>
-                <strong>{t('type')}:</strong>{' '}
+              <p className="type-text-modal">
+                <strong>{t('availableType')}</strong> <br />
                 {Array.isArray(selectedPoint2.tipo)
                   ? selectedPoint2.tipo.map((key) => t(key)).join(', ')
                   : t(selectedPoint2.tipo)}
               </p>
-              <p className="street-text">
-                <strong></strong> {selectedPoint2.street}
+              <p className="street-text-modal">
+                <strong>{t('address')}</strong> <br /> {selectedPoint2.street}
               </p>
               <br />
-              <p>
-                <strong>{t('registeredBy')}:</strong> {selectedPoint2.registerBy}
-              </p>
+
               {selectedPoint2.url && (
                 <a href={selectedPoint2.url} target="_blank" rel="noopener noreferrer">
                   {t('moreInfo')}
@@ -355,6 +355,9 @@ export const RecycleMapArea = () => {
                   })}
                 </div>
               </div>
+              <p className="street-text">
+                <strong>{t('address')}</strong> {recyclePoint.street.split(',').slice(0, 3).join(',')}
+              </p>
             </div>
           </div>
         ))}

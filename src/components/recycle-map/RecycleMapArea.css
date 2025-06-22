@@ -4,7 +4,7 @@
   width: 100%;
 }
 .placeListArea {
-  width: 390px;
+  width: 480px;
   height: 100%;         
   overflow-y: auto;
   border-left: 1px solid #ddd;
@@ -224,12 +224,9 @@
   margin-bottom: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-color: white;
+  background-color: rgb(179, 1, 1);
   padding: 1rem;
 }
-
-
-
 
 /* stilos de la lista */
 .placeListArea h4 {
@@ -246,16 +243,20 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(139, 18, 18, 0.15);
 }
+
 .recycle-card-header {
-  background-color: #e3f2fd;
+  background-color: #98b5fe ;
   color: #142863;
   font-weight: 600;
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 1rem;
   border-bottom: 1px solid #ccc;
   border-radius: 8px 8px 0 0;
   font-size: 1rem;
   letter-spacing: 0.3px;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  margin-top: -16px;
+  margin-right: -17px;
+  margin-left: -17px;
 }
 
 .recycle-card-icons {
@@ -286,13 +287,18 @@
   margin-top: 4px;
 }
 
-
-
 .centered-container {
   display: flex;
   justify-content: center; 
   align-items: center;     
   height: 55vh;          
+}
+
+.street-text {
+  font-size: 0.95rem;       
+  color: #5f6368;            
+  margin: 4px 0px;
+  font-weight: 400;
 }
 
 
@@ -310,6 +316,19 @@
   z-index: 2000;
 }
 
+.icon-with-label-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80px;
+  text-align: center;
+}
+.recycle-icon-modal {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
 .custom-popup {
   background: white;
   padding: 1.5rem;
@@ -321,10 +340,17 @@
   padding: 0;
 }
 
-.street-text {
-  font-size: 0.95rem;       
+.type-text-modal {
+  font-size: 1rem;       
   color: #5f6368;            
-  margin: 4px 0;
+  margin: 4px 50px;
+  font-weight: 400;
+}
+
+.street-text-modal {
+  font-size: 1rem;       
+  color: #5f6368;            
+  margin: 4px 50px;
   font-weight: 400;
 }
 
