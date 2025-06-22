@@ -219,8 +219,7 @@
   }
 }
 .clickable-card {
-  cursor: pointer;
-  border: 2px solid #007bff; 
+  cursor: pointer ;
   border-radius: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -229,39 +228,27 @@
   padding: 1rem;
 }
 
-.clickable-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+
+
+
+/* stilos de la lista */
 .placeListArea h4 {
   position: sticky;
   top: 0;
-  background-color: #f9f9f9; 
+  background-color: #142863; 
+  color: white;
   z-index: 5;
   padding: 1rem;
   margin: 0;
   border-bottom: 1px solid #ccc;
 }
-.tipo-material-container {
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.tipo-material-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-size: 16px;
-}
-.tipo-material-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 0.5rem;
+.clickable-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 18, 18, 0.15);
 }
 .recycle-card-header {
   background-color: #e3f2fd;
-  color: #0d47a1;
+  color: #142863;
   font-weight: 600;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #ccc;
@@ -269,12 +256,6 @@
   font-size: 1rem;
   letter-spacing: 0.3px;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-}
-.recycle-icon {
-  width: 36px;
-  height: 36px;
-  transition: transform 0.2s ease;
-  
 }
 
 .recycle-card-icons {
@@ -284,6 +265,28 @@
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+
+.icon-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80px;
+  text-align: center;
+}
+
+.recycle-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.icon-label {
+  font-size: 0.75rem;
+  color: #333;
+  margin-top: 4px;
+}
+
+
 
 .centered-container {
   display: flex;
@@ -315,6 +318,7 @@
   max-width: 90%;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
   font-family: 'Segoe UI', sans-serif;
+  padding: 0;
 }
 
 .street-text {
@@ -323,3 +327,16 @@
   margin: 4px 0;
   font-weight: 400;
 }
+
+.place-name-header {
+  background-color: #142863;    
+  color: white;                 
+  padding: 8px 12px;
+  border-radius: 6px 6px 0 0;   
+  margin-bottom: 8px;
+  font-size: 2rem;
+  margin: 0;
+}
+
+
+

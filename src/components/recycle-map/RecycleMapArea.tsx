@@ -11,12 +11,12 @@ import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
 
 import 'leaflet/dist/leaflet.css';
-import latas from '../../../public/assets/img/lata.png';
-import papelCarton from '../../../public/assets/img/papel.png';
-import plasticoDuro from '../../../public/assets/img/plasticoDuro.png';
-import plasticoPet from '../../../public/assets/img/plasticoPet.png';
-import tetraPack from '../../../public/assets/img/tetraPack.png';
-import vidrio from '../../../public/assets/img/vidrio.png';
+// import latas from '../../../public/assets/img/lata.png';
+// import papelCarton from '../../../public/assets/img/papel.png';
+// import plasticoDuro from '../../../public/assets/img/plasticoDuro.png';
+// import plasticoPet from '../../../public/assets/img/plasticoPet.png';
+// import tetraPack from '../../../public/assets/img/tetraPack.png';
+// import vidrio from '../../../public/assets/img/vidrio.png';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -46,12 +46,12 @@ const materialOptions = [
 ];
 
 const tipoIcons: Record<string, string> = {
-  'Papel y Cartón': papelCarton,
-  'Plástico PET': plasticoPet,
-  'Plástico Duro': plasticoDuro,
-  'Tetra Pak': tetraPack,
-  Vidrio: vidrio,
-  Latas: latas,
+  'materialsOptions.paper': '/assets/img/papel.png',
+  'materialsOptions.plasticPet': '/assets/img/plasticoPet.png',
+  'materialsOptions.hardPlastic': '/assets/img/plasticoDuro.png',
+  'materialsOptions.tetrapak': '/assets/img/tetraPack.png',
+  'materialsOptions.glass': '/assets/img/vidrio.png',
+  'materialsOptions.cans': '/assets/img/lata.png',
 };
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
@@ -261,20 +261,25 @@ export const RecycleMapArea = () => {
         {selectedPoint2 && (
           <div className="custom-popup-backdrop" onClick={() => setSelectedPoint2(null)}>
             <div className="custom-popup" onClick={(e) => e.stopPropagation()}>
-              {selectedPoint2.placeName && <h5>{selectedPoint2.placeName}</h5>}
+              <h5 className="place-name-header">{selectedPoint2.placeName}</h5>
 
               <div className="recycle-card-icons">
                 {(typeof selectedPoint2.tipo === 'string'
                   ? selectedPoint2.tipo.split(',').map((t) => t.trim())
                   : selectedPoint2.tipo
                 ).map((tipoKey) => {
+                  const iconPath = tipoIcons[tipoKey];
                   const tipoTraducido = t(tipoKey);
-                  const iconPath = tipoIcons[tipoTraducido];
 
-                  return iconPath ? (
-                    <img key={tipoKey} src={iconPath} alt={tipoTraducido} className="recycle-icon" />
-                  ) : (
-                    <span key={tipoKey}>{tipoTraducido}</span>
+                  return (
+                    <div key={tipoKey} className="icon-with-label">
+                      {iconPath ? (
+                        <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
+                      ) : (
+                        <span className="recycle-icon-placeholder">{tipoTraducido}</span>
+                      )}
+                      <span className="icon-label">{tipoTraducido}</span>
+                    </div>
                   );
                 })}
               </div>
@@ -326,20 +331,26 @@ export const RecycleMapArea = () => {
             <div className="recycle-card-header">
               {index + 1}. {recyclePoint.placeName}
             </div>
+
             <div className="card-body">
               <div className="card-title">
                 <div className="recycle-card-icons">
                   {(typeof recyclePoint.tipo === 'string'
-                    ? recyclePoint.tipo.split(', ').map((t) => t.trim())
+                    ? recyclePoint.tipo.split(',').map((t) => t.trim())
                     : recyclePoint.tipo
                   ).map((tipoKey) => {
+                    const iconPath = tipoIcons[tipoKey];
                     const tipoTraducido = t(tipoKey);
-                    const iconPath = tipoIcons[tipoTraducido];
 
-                    return iconPath ? (
-                      <img key={tipoKey} src={iconPath} alt={tipoTraducido} className="recycle-icon" />
-                    ) : (
-                      <span key={tipoKey}>{tipoTraducido}</span>
+                    return (
+                      <div key={tipoKey} className="icon-with-label">
+                        {iconPath ? (
+                          <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
+                        ) : (
+                          <span className="recycle-icon-placeholder">{tipoTraducido}</span>
+                        )}
+                        <span className="icon-label">{tipoTraducido}</span>
+                      </div>
                     );
                   })}
                 </div>
