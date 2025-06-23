@@ -171,6 +171,10 @@
     "recyclingPlaces": "Lugares de reciclaje",
     "noPlacesRegistered":"No hay lugares registrados"
    
+  },
+  "search":{
+    "filter":"Filtrar por tipo de material:",
+    "search":"Buscar por nombre"
   }
 
 }

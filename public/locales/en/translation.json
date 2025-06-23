@@ -168,6 +168,10 @@
     "recyclingPlaces": "Recycling Places",
     "noPlacesRegistered":"No places registered"
     
+  },
+   "search":{
+    "filter":"Filter by material type:",
+     "search":"Search by name"
   }
 
 }

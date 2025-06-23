@@ -11,12 +11,6 @@ import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
 
 import 'leaflet/dist/leaflet.css';
-// import latas from '../../../public/assets/img/lata.png';
-// import papelCarton from '../../../public/assets/img/papel.png';
-// import plasticoDuro from '../../../public/assets/img/plasticoDuro.png';
-// import plasticoPet from '../../../public/assets/img/plasticoPet.png';
-// import tetraPack from '../../../public/assets/img/tetraPack.png';
-// import vidrio from '../../../public/assets/img/vidrio.png';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -55,23 +49,11 @@ const tipoIcons: Record<string, string> = {
 };
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
-const AdjusMapToResults = ({ points }: { points: RecyclePoint[] }) => {
-  const map = useMap();
-
-  useEffect(() => {
-    if (points.length === 1) {
-      const point = points[0];
-      map.setView([point.lat, point.lng], 17);
-    } else if (points.length > 1) {
-      const bounds = L.latLngBounds(points.map((p) => [p.lat, p.lng]));
-      map.fitBounds(bounds, { padding: [50, 50] });
-    }
-  }, [points, map]);
-  return null;
-};
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [selectedPoint, setSelectedPoint] = useState<{ id: string; lat: number; lng: number } | null>(null);
   const [selectedPoint2, setSelectedPoint2] = useState<RecyclePoint | null>(null);
@@ -111,9 +93,6 @@ export const RecycleMapArea = () => {
     return null;
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredPoints, setFilteredPoints] = useState<RecyclePoint[]>([]);
-
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -140,23 +119,12 @@ export const RecycleMapArea = () => {
       });
       setPoints(pointsData);
       setLoading(false);
-      setFilteredPoints(pointsData);
     };
 
     loadPoints();
 
     return () => unsubscribe();
   }, []);
-  useEffect(() => {
-    const lower = searchTerm.toLowerCase();
-    const filtered = points.filter(
-      (point) =>
-        point.placeName.toLowerCase().includes(lower) ||
-        point.street.toLowerCase().includes(lower) ||
-        point.tipo.toLowerCase().includes(lower)
-    );
-    setFilteredPoints(filtered);
-  }, [searchTerm, points]);
 
   const [fullAddress, setFullAddress] = useState('');
 
@@ -252,16 +220,50 @@ export const RecycleMapArea = () => {
     });
   };
 
+  const filteredPoints = selectedFilters.length
+    ? points.filter((point) => {
+        const tipos = Array.isArray(point.tipo) ? point.tipo : point.tipo.split(',').map((t) => t.trim());
+        return selectedFilters.some((filter) => tipos.includes(filter));
+      })
+    : points;
+
   return (
     <div className="containerPrimary">
       <div className="mapArea">
+        <div className="filter-container">
+          <input
+            type="text"
+            placeholder={t('search.search')}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+
+          <label htmlFor="materialFilter">{t('search.filter')}</label>
+          <select
+            id="materialFilter"
+            multiple
+            value={selectedFilters}
+            onChange={(e) => {
+              const selected = Array.from(e.target.selectedOptions, (opt) => opt.value);
+              setSelectedFilters(selected);
+            }}
+            className="form-multiselect">
+            {materialOptions.map((material) => (
+              <option key={material} value={material}>
+                {t(material)}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <MapContainer center={center} zoom={15.5} scrollWheelZoom={true} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {points.map((point) => (
+          {filteredPoints.map((point) => (
             <Marker
               key={point.id}
               position={{ lat: point.lat, lng: point.lng }}
@@ -351,44 +353,55 @@ export const RecycleMapArea = () => {
             </div>
           ) : null}
         </div>
-        {points.map((recyclePoint, index) => (
-          <div
-            key={recyclePoint.id}
-            className="card mb-3 clickable-card"
-            onClick={() => handleCardClick(recyclePoint.id, recyclePoint.lat, recyclePoint.lng)}>
-            <div className="recycle-card-header">
-              {index + 1}. {recyclePoint.placeName}
-            </div>
+        {points
+          .filter((point) => {
+            const matchSearch = point.placeName.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchFilter =
+              selectedFilters.length === 0 ||
+              (Array.isArray(point.tipo)
+                ? point.tipo.some((tipo) => selectedFilters.includes(tipo))
+                : selectedFilters.includes(point.tipo));
 
-            <div className="card-body">
-              <div className="card-title">
-                <div className="recycle-card-icons">
-                  {(typeof recyclePoint.tipo === 'string'
-                    ? recyclePoint.tipo.split(',').map((t) => t.trim())
-                    : recyclePoint.tipo
-                  ).map((tipoKey) => {
-                    const iconPath = tipoIcons[tipoKey];
-                    const tipoTraducido = t(tipoKey);
-
-                    return (
-                      <div key={tipoKey} className="icon-with-label">
-                        {iconPath ? (
-                          <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
-                        ) : (
-                          <span className="recycle-icon-placeholder">{tipoTraducido}</span>
-                        )}
-                        <span className="icon-label">{tipoTraducido}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+            return matchSearch && matchFilter;
+          })
+          .map((recyclePoint, index) => (
+            <div
+              key={recyclePoint.id}
+              className="card mb-3 clickable-card"
+              onClick={() => handleCardClick(recyclePoint.id, recyclePoint.lat, recyclePoint.lng)}>
+              <div className="recycle-card-header">
+                {index + 1}. {recyclePoint.placeName}
               </div>
-              <p className="street-text">
-                <strong>{t('address')}</strong> {recyclePoint.street.split(',').slice(0, 3).join(',')}
-              </p>
+
+              <div className="card-body">
+                <div className="card-title">
+                  <div className="recycle-card-icons">
+                    {(typeof recyclePoint.tipo === 'string'
+                      ? recyclePoint.tipo.split(',').map((t) => t.trim())
+                      : recyclePoint.tipo
+                    ).map((tipoKey) => {
+                      const iconPath = tipoIcons[tipoKey];
+                      const tipoTraducido = t(tipoKey);
+
+                      return (
+                        <div key={tipoKey} className="icon-with-label">
+                          {iconPath ? (
+                            <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
+                          ) : (
+                            <span className="recycle-icon-placeholder">{tipoTraducido}</span>
+                          )}
+                          <span className="icon-label">{tipoTraducido}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <p className="street-text">
+                  <strong>{t('address')}</strong> {recyclePoint.street.split(',').slice(0, 3).join(',')}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {showForm && newPointPos && (
@@ -455,7 +468,7 @@ export const RecycleMapArea = () => {
               <input className="formInput" type="url" name="url" value={formData.url} onChange={handleInputChange} />
             </div>
 
-            <div className="buttonGroup">
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <button type="submit" className="btnSave">
                 {t('save')}
               </button>

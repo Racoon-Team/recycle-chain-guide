@@ -12,7 +12,6 @@
 }
 
 .mapArea {
-  position: relative;
   flex: 1;
   height: 100%;
 }
@@ -295,7 +294,6 @@
   height: 55vh;          
 }
 
-
 .street-text {
   font-size: 0.95rem;       
   color: #5f6368;            
@@ -318,16 +316,13 @@
   z-index: 2000;
 }
 
-
 .icon-with-label-modal {
-
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 80px;
   text-align: center;
 }
-
 .recycle-icon-modal {
   width: 100px;
   height: 100px;
@@ -372,4 +367,73 @@
 
 
 
+.filter-container {
+  position: fixed;
+  top: 200px;
+  right: 0px;
+  z-index: 1000;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  max-width: 220px;
+  width: 90%;
+}
 
+.filter-container label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.form-multiselect {
+  width: 100%;
+  max-height: 100px;
+  font-size: 0.95rem;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+
+@media (min-width: 912px) {
+  .filter-container {
+    top: 210px;
+    right: 500px;
+    max-width: 270px;
+  }
+}
+@media (min-width: 1024px) {
+  .filter-container {
+    top: 210px;
+    right: 500px;
+    max-width: 270px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .filter-container {
+   top: 210px;
+    right: 500px;
+    max-width: 270px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .filter-container {
+    top: 210px;
+    right: 500px;
+    max-width: 270px;
+  }
+}
+
+.search-input {
+  width: 100% !important;
+  padding: 6px 8px !important;
+  margin-bottom: 8px !important;
+  font-size: 0.9rem !important;
+  border: 1px solid #ccc !important;
+  border-radius: 6px!important;
+}
