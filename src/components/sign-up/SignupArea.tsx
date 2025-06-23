@@ -95,7 +95,6 @@ const SignUpArea = () => {
       <div className="container">
         <div className="lonyo-account-title">
           <h1>{t('signup.title')}</h1>
-          <p>{t('signup.description')}</p>
         </div>
         <div className="lonyo-account-box" data-aos="fade-up" data-aos-duration="700">
           <div className="lonyo-contact-box2">
