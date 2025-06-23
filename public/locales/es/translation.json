@@ -127,7 +127,6 @@
 
   "signup":{
     "title":"Regístrate",
-    "description": "¡Adéntrate en el futuro con Lonyo y lleva tus finanzas al siguiente nivel!",
     "fullName":"Nombre completo",
     "lastName":"Apellido",
     "email":"Correo electrónico",

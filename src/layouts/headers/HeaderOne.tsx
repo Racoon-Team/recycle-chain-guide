@@ -107,7 +107,7 @@ const HeaderOne = ({ style_2, style_3, toggle_color }: any) => {
                           className="btn d-flex align-items-center border-0 bg-transparent"
                           onClick={() => setDropdownOpen((prev) => !prev)}>
                           <img
-                            src={photoURL || '/static/images/avatar/2.jpg'}
+                            src={photoURL || '/assets/images/avatar/avatar.png'}
                             alt={displayName ?? 'User'}
                             className="rounded-circle me-2"
                             width="40"

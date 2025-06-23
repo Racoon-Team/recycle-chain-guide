@@ -124,7 +124,6 @@
   },
   "signup":{
     "title":"Sign Up",
-    "description": "Step into the future with Lonyo and take your financial game to the next level!",
     "fullName":"Full name",
     "lastName":"Last name",
     "email":"Email address",
