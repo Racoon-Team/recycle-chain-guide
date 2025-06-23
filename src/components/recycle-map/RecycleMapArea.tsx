@@ -4,18 +4,19 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import Swal from 'sweetalert2';
 import '../../components/recycle-map/RecycleMapArea.css';
 import { FirebaseDB } from '../../firebase/config';
 import { reverseGeocode } from './reverseGeocode';
 
-import latas from '../../components/recycle-map/img/lata.png';
-import papelCarton from '../../components/recycle-map/img/papel.png';
-import plasticoDuro from '../../components/recycle-map/img/plasticoDuro.png';
-import plasticoPet from '../../components/recycle-map/img/plasticoPet.png';
-import tetraPack from '../../components/recycle-map/img/tetraPack.png';
-import vidrio from '../../components/recycle-map/img/vidrio.png';
+import 'leaflet/dist/leaflet.css';
+// import latas from '../../../public/assets/img/lata.png';
+// import papelCarton from '../../../public/assets/img/papel.png';
+// import plasticoDuro from '../../../public/assets/img/plasticoDuro.png';
+// import plasticoPet from '../../../public/assets/img/plasticoPet.png';
+// import tetraPack from '../../../public/assets/img/tetraPack.png';
+// import vidrio from '../../../public/assets/img/vidrio.png';
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -28,7 +29,7 @@ type RecyclePoint = {
   id: string;
   placeName: string;
   street: string;
-  tipo: string;
+  tipo: string | string[];
   registerBy: string;
   url: string;
   lat: number;
@@ -45,23 +46,27 @@ const materialOptions = [
 ];
 
 const tipoIcons: Record<string, string> = {
-  'Papel y Cartón': papelCarton,
-  'Plástico PET': plasticoPet,
-  'Plástico Duro': plasticoDuro,
-  'Tetra Pak': tetraPack,
-  Vidrio: vidrio,
-  Latas: latas,
+  'materialsOptions.paper': '/assets/img/papel.png',
+  'materialsOptions.plasticPet': '/assets/img/plasticoPet.png',
+  'materialsOptions.hardPlastic': '/assets/img/plasticoDuro.png',
+  'materialsOptions.tetrapak': '/assets/img/tetraPack.png',
+  'materialsOptions.glass': '/assets/img/vidrio.png',
+  'materialsOptions.cans': '/assets/img/lata.png',
 };
 
 const center = { lat: -17.37899629294373, lng: -66.16085892881684 };
 
 export const RecycleMapArea = () => {
   const { t } = useTranslation();
+
   const [selectedPoint, setSelectedPoint] = useState<{ id: string; lat: number; lng: number } | null>(null);
+  const [selectedPoint2, setSelectedPoint2] = useState<RecyclePoint | null>(null);
+
   const [points, setPoints] = useState<RecyclePoint[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [newPointPos, setNewPointPos] = useState<{ lat: number; lng: number } | null>(null);
   const markerRefs = useRef<Record<string, L.Marker>>({});
+
   const [formData, setFormData] = useState({
     placeName: '',
     street: '',
@@ -79,7 +84,7 @@ export const RecycleMapArea = () => {
     const map = useMap();
 
     useEffect(() => {
-      map.flyTo([lat, lng], 17, { animate: true });
+      map.flyTo([lat, lng], 18, { animate: true });
 
       const marker = markerRefs.current[id];
       if (marker) {
@@ -107,7 +112,7 @@ export const RecycleMapArea = () => {
           pointsData.push({
             id: doc.id,
             placeName: data.placeName || '',
-            street: data.name || 'Sin nombre',
+            street: data.street || 'Sin nombre de calle',
             tipo: data.tipo || 'Desconocido',
             registerBy: data.registerBy || 'Anónimo',
             url: data.url || '',
@@ -129,7 +134,7 @@ export const RecycleMapArea = () => {
 
   const MapEvents = () => {
     useMapEvents({
-      contextmenu: async (e) => {
+      click: async (e) => {
         const auth = getAuth();
         const user = auth.currentUser;
         if (!user) {
@@ -145,6 +150,7 @@ export const RecycleMapArea = () => {
         const { lat, lng } = e.latlng;
         setNewPointPos({ lat, lng });
         setShowForm(true);
+        setSelectedPoint(null);
 
         const { address } = await reverseGeocode(lat, lng);
         setFormData((prev) => ({ ...prev, street: address }));
@@ -187,7 +193,7 @@ export const RecycleMapArea = () => {
     const docRef = await addDoc(collection(FirebaseDB, 'recyclingPoints'), {
       placeName: formData.placeName,
       street: formData.street,
-      tipo: formData.tipo.join(', '),
+      tipo: formData.tipo,
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -198,7 +204,7 @@ export const RecycleMapArea = () => {
       id: docRef.id,
       placeName: formData.placeName,
       street: formData.street,
-      tipo: formData.tipo.join(', '),
+      tipo: formData.tipo,
       url: formData.url,
       lat: newPointPos.lat,
       lng: newPointPos.lng,
@@ -221,39 +227,20 @@ export const RecycleMapArea = () => {
   return (
     <div className="containerPrimary">
       <div className="mapArea">
-        <MapContainer center={center} zoom={10.5} scrollWheelZoom={false} className="mapContainer">
+        <MapContainer center={center} zoom={15.5} scrollWheelZoom={true} className="mapContainer">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+
           {points.map((point) => (
             <Marker
               key={point.id}
               position={{ lat: point.lat, lng: point.lng }}
-              ref={(ref) => {
-                if (ref) {
-                  markerRefs.current[point.id] = ref;
-                }
-              }}>
-              <Popup>
-                {point.placeName && (
-                  <>
-                    <strong>{point.placeName}</strong>
-                    <br />
-                  </>
-                )}
-                <strong>{point.street}</strong>
-                <br />
-                {t('type')}:
-                <div className="recycle-card-icons">
-                  {point.tipo.split(', ').map((tipo) => {
-                    const iconPath = tipoIcons[tipo];
-                    return iconPath && <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
-                  })}
-                </div>
-              </Popup>
-            </Marker>
+              eventHandlers={{ click: () => setSelectedPoint2(point) }}
+            />
           ))}
+
           {newPointPos && (
             <Marker
               position={newPointPos}
@@ -267,9 +254,57 @@ export const RecycleMapArea = () => {
               })}
             />
           )}
+
           <MapEvents />
           {selectedPoint && <MapFlyTo id={selectedPoint.id} lat={selectedPoint.lat} lng={selectedPoint.lng} />}
         </MapContainer>
+
+        {selectedPoint2 && (
+          <div className="custom-popup-backdrop" onClick={() => setSelectedPoint2(null)}>
+            <div className="custom-popup" onClick={(e) => e.stopPropagation()}>
+              <h5 className="place-name-header">{selectedPoint2.placeName}</h5>
+
+              <div className="recycle-card-icons">
+                {(typeof selectedPoint2.tipo === 'string'
+                  ? selectedPoint2.tipo.split(',').map((t) => t.trim())
+                  : selectedPoint2.tipo
+                ).map((tipoKey) => {
+                  const iconPath = tipoIcons[tipoKey];
+                  const tipoTraducido = t(tipoKey);
+
+                  return (
+                    <div key={tipoKey} className="icon-with-label-modal">
+                      {iconPath ? (
+                        <img src={iconPath} alt={tipoTraducido} className="recycle-icon-modal" />
+                      ) : (
+                        <span className="recycle-icon-placeholder">{tipoTraducido}</span>
+                      )}
+                      <span className="icon-label">{tipoTraducido}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <br />
+
+              <p className="type-text-modal">
+                <strong>{t('availableType')}</strong> <br />
+                {Array.isArray(selectedPoint2.tipo)
+                  ? selectedPoint2.tipo.map((key) => t(key)).join(', ')
+                  : t(selectedPoint2.tipo)}
+              </p>
+              <p className="street-text-modal">
+                <strong>{t('address')}</strong> <br /> {selectedPoint2.street}
+              </p>
+              <br />
+
+              {selectedPoint2.url && (
+                <a href={selectedPoint2.url} target="_blank" rel="noopener noreferrer">
+                  {t('moreInfo')}
+                </a>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div className="placeListArea">
         <h4>{t('recycling.recyclingPlaces')}</h4>
@@ -288,23 +323,41 @@ export const RecycleMapArea = () => {
             </div>
           ) : null}
         </div>
-        {points.map((point, index) => (
+        {points.map((recyclePoint, index) => (
           <div
-            key={point.id}
+            key={recyclePoint.id}
             className="card mb-3 clickable-card"
-            onClick={() => handleCardClick(point.id, point.lat, point.lng)}>
+            onClick={() => handleCardClick(recyclePoint.id, recyclePoint.lat, recyclePoint.lng)}>
             <div className="recycle-card-header">
-              {index + 1}. {point.name}
+              {index + 1}. {recyclePoint.placeName}
             </div>
+
             <div className="card-body">
               <div className="card-title">
                 <div className="recycle-card-icons">
-                  {point.tipo.split(', ').map((tipo) => {
-                    const iconPath = tipoIcons[tipo];
-                    return <img key={tipo} src={iconPath} alt={tipo} className="recycle-icon" />;
+                  {(typeof recyclePoint.tipo === 'string'
+                    ? recyclePoint.tipo.split(',').map((t) => t.trim())
+                    : recyclePoint.tipo
+                  ).map((tipoKey) => {
+                    const iconPath = tipoIcons[tipoKey];
+                    const tipoTraducido = t(tipoKey);
+
+                    return (
+                      <div key={tipoKey} className="icon-with-label">
+                        {iconPath ? (
+                          <img src={iconPath} alt={tipoTraducido} className="recycle-icon" />
+                        ) : (
+                          <span className="recycle-icon-placeholder">{tipoTraducido}</span>
+                        )}
+                        <span className="icon-label">{tipoTraducido}</span>
+                      </div>
+                    );
                   })}
                 </div>
               </div>
+              <p className="street-text">
+                <strong>{t('address')}</strong> {recyclePoint.street.split(',').slice(0, 3).join(',')}
+              </p>
             </div>
           </div>
         ))}

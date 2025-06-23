@@ -128,6 +128,9 @@ const UserSettingsArea = () => {
           displayName: `${formData.firstName} ${formData.lastName}`,
         });
 
+        await user.reload();
+        const updatedUser = getAuth().currentUser;
+
         if (formData.email !== user.email) {
           await updateEmail(user, formData.email);
         }
@@ -141,9 +144,10 @@ const UserSettingsArea = () => {
 
         dispatch(
           login({
-            uid: user.uid,
+            uid: updatedUser?.uid || user.uid,
             email: formData.email,
             displayName: `${formData.firstName} ${formData.lastName}`,
+            photoURL: updatedUser?.photoURL || user.photoURL,
             status: 'authenticated',
           })
         );
@@ -263,6 +267,10 @@ const UserSettingsArea = () => {
                     {errors.email && <small className="text-danger">{errors.email}</small>}
                   </div>
                   <br />
+                  <button className="lonyo-default-btn extra-btn d-block" type="submit">
+                    {t('userSettings.saveChanges')}
+                  </button>
+                  <br />
                 </>
               )}
 
@@ -342,10 +350,6 @@ const UserSettingsArea = () => {
                   )}
                 </>
               )}
-
-              <button className="lonyo-default-btn extra-btn d-block" type="submit">
-                {t('userSettings.saveChanges')}
-              </button>
             </form>
           </div>
         </div>
